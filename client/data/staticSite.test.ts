@@ -72,7 +72,7 @@ describe('static site scope', () => {
     expect(productFamilies.length).toBeGreaterThanOrEqual(2)
     expect(retailProducts).toHaveLength(5)
     expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/"(?:price|salePrice|stock|checkout|cart)"/i)
-    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/\b(?:PIR|Rockwool|PCCC)\b|bông khoáng|chống cháy/i)
+    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/\b(?:PIR|Rockwool|PCCC)\b|bông khoáng/i)
   })
 
   it('publishes the confirmed retail panel, accessory and Inox 304 door specifications', () => {
@@ -104,22 +104,35 @@ describe('static site scope', () => {
     ])
     expect(retailProducts.find(product => product.slug === 'panel-eps')?.specifications).toContainEqual({
       label: 'Độ dày',
-      value: '50–200 mm; mức sản xuất cụ thể được xác nhận theo đơn hàng',
+      value: '50 / 75 / 100 / 125 / 150 / 175 / 200 mm; quy cách thực tế xác nhận theo đơn hàng',
     })
+    const panel = retailProducts.find(product => product.slug === 'panel-eps')
+    expect(panel?.detailSections.map(section => section.id)).toEqual([
+      'cau-tao-panel',
+      'quy-cach-panel',
+      'chon-do-day-ty-trong',
+      'be-mat-va-hoan-thien',
+      'ung-dung-panel',
+      'thi-cong-va-phu-kien',
+      'van-chuyen-bao-quan',
+      'gioi-han-va-bao-tri',
+    ])
+    expect(JSON.stringify(panel)).toMatch(/sandwich ba lớp.*50.*75.*100.*125.*150.*175.*200.*14.*16.*18.*20.*23.*25/is)
+    expect(JSON.stringify(panel)).toMatch(/Tôn mạ màu.*Inox 304.*ngàm âm–dương.*Nẹp U.*V trong.*V ngoài/is)
+
     const coldRoomDoor = retailProducts.find(product => product.slug === 'cua-kho-lanh')
     expect(coldRoomDoor?.specifications).toContainEqual({ label: 'Bề mặt cửa', value: 'Inox 304' })
     expect(coldRoomDoor?.detailSections.map(section => section.id)).toEqual([
       'cau-tao-bo-cua',
+      'kich-thuoc-va-cach-do-o-cho',
       'cua-ban-le',
       'cua-truot',
       'song-gai-inox',
       'song-gai-eps',
       'lam-kin-suoi-va-an-toan',
     ])
-    expect(coldRoomDoor?.detailSections.every(section => (section.paragraphs?.length ?? 0) >= 2)).toBe(true)
-    expect(coldRoomDoor?.detailSections.every(section => (section.specifications?.length ?? 0) >= 4)).toBe(true)
     expect(coldRoomDoor?.selectionChecklist).toHaveLength(12)
-    expect(coldRoomDoor?.frequentlyAskedQuestions).toHaveLength(5)
+    expect(coldRoomDoor?.frequentlyAskedQuestions).toHaveLength(6)
 
     const coldRoomDoorCopy = JSON.stringify(coldRoomDoor)
     expect(coldRoomDoorCopy).toMatch(/Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s)
@@ -131,9 +144,26 @@ describe('static site scope', () => {
       'nep-u-panel',
       'nep-v-panel',
       'treo-tran-panel',
-      'van-va-ong-cach-nhiet',
+      'van-can-bang-ap',
+      'ong-cach-nhiet',
     ])
-    expect(JSON.stringify(retailProducts)).not.toMatch(/Tabi|Coolmax|CM-\d+|900°C|1000°C/i)
+    expect(JSON.stringify(retailProducts.find(product => product.slug === 'phu-kien-cua'))).toMatch(/Bản lề.*ray.*Gioăng.*Điện trở sưởi.*Tay khóa.*Màn PVC/is)
+    expect(JSON.stringify(retailProducts.find(product => product.slug === 'vat-tu-cach-nhiet'))).toMatch(/Inox 304.*Xốp EPS.*PU foam.*Tôn mạ màu/is)
+
+    for (const product of retailProducts) {
+      expect(product.specifications.length, `${product.slug} top-level specifications`).toBeGreaterThanOrEqual(4)
+      expect(product.selectionGuide.length, `${product.slug} selection guide`).toBeGreaterThanOrEqual(3)
+      expect(product.detailSections.length, `${product.slug} detail sections`).toBeGreaterThanOrEqual(4)
+      expect(product.selectionChecklist.length, `${product.slug} selection checklist`).toBeGreaterThanOrEqual(8)
+      expect(product.frequentlyAskedQuestions.length, `${product.slug} FAQ`).toBeGreaterThanOrEqual(4)
+      for (const section of product.detailSections) {
+        expect(section.paragraphs.length, `${product.slug}/${section.id} paragraphs`).toBeGreaterThanOrEqual(2)
+        expect(section.specifications.length, `${product.slug}/${section.id} specifications`).toBeGreaterThanOrEqual(4)
+        expect(section.points.length, `${product.slug}/${section.id} comparison points`).toBeGreaterThanOrEqual(3)
+      }
+    }
+
+    expect(JSON.stringify(retailProducts)).not.toMatch(/1471421817120_1148|tamcachnhiettabi|Tabi|Coolmax|CM-\d+|Atimon|Antimon|900\s*°C|1000\s*°C|-70.*60\s*°C/i)
   })
 
   it('provides consistent direct contact actions that work without a backend', () => {
@@ -238,7 +268,7 @@ describe('site content validation', () => {
     expect(() => parseSiteContent(unknownField)).toThrow(/root\.admin: unknown field/)
   })
 
-  it('validates nested product specifications and FAQ identifiers', () => {
+  it('validates nested product specifications, selection guides and FAQ identifiers', () => {
     const duplicateDetailSpecification = structuredClone(siteContentJson) as unknown as {
       retailProducts: Array<{
         detailSections: Array<{ specifications?: Array<{ label: string }> }>
@@ -259,6 +289,15 @@ describe('site content validation', () => {
     faq[1]!.question = faq[0]!.question
     expect(() => parseSiteContent(duplicateFaqQuestion)).toThrow(
       /retailProducts\[1\]\.frequentlyAskedQuestions\[\]\.question: values must be unique/,
+    )
+
+    const duplicateSelectionTitle = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ selectionGuide: Array<{ title: string }> }>
+    }
+    const selectionGuide = duplicateSelectionTitle.retailProducts[0]!.selectionGuide
+    selectionGuide[1]!.title = selectionGuide[0]!.title
+    expect(() => parseSiteContent(duplicateSelectionTitle)).toThrow(
+      /retailProducts\[0\]\.selectionGuide\[\]\.title: values must be unique/,
     )
   })
 })

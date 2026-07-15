@@ -26,7 +26,7 @@ const removedRoutes = [
 ]
 const forbiddenNavigationPattern = /^\/(?:shop|cart|checkout|payment|account|auth|admin)(?:\/|$)/
 const runtimeRequestPattern = /^\/(?:api(?:\/|$)|content(?:-live)?(?:\/|$)|uploads-live(?:\/|$))/
-const unsupportedProductPattern = /\b(?:PU|PIR|Rockwool)\b|bông khoáng/i
+const unsupportedProductPattern = /\b(?:PIR|Rockwool)\b|bông khoáng/i
 
 const contentTypes = {
   '.avif': 'image/avif',
@@ -340,6 +340,10 @@ try {
   const panelProductText = await page.locator('article').first().innerText()
   assert.match(panelProductText, /50–200 mm/, 'Panel EPS detail must expose the supplied thickness range')
   assert.match(panelProductText, /14–16 kg\/m³.*18–20 kg\/m³.*23–25 kg\/m³/s, 'Panel EPS detail must expose every supplied density range')
+  assert.match(panelProductText, /Cấu tạo sandwich ba lớp.*Bảng quy cách cần đối chiếu.*Chọn độ dày và tỷ trọng.*Bề mặt và hoàn thiện/s, 'Panel EPS detail must explain construction, specifications and selection')
+  assert.match(panelProductText, /Thi công và phụ kiện đồng bộ.*Vận chuyển và bảo quản.*Giới hạn sử dụng và bảo trì/s, 'Panel EPS detail must cover installation, handling and limitations')
+  assert.match(panelProductText, /Panel EPS có phải panel chống cháy không\?/i, 'Panel EPS detail must answer the fire-safety limitation clearly')
+  assert.ok(await page.locator('[data-product-selection-guide]').count() >= 4, 'Panel EPS detail must expose a quick selection guide')
   assert.equal(
     await page.locator('link[rel="canonical"]').getAttribute('href'),
     `${productionUrl}/products/panel-eps/`,
@@ -359,9 +363,10 @@ try {
   assert.equal(await page.locator('#cua-truot').count(), 1, 'cold-room door detail must expose one sliding-door section')
   assert.equal(await page.locator('#song-gai-inox').count(), 1, 'cold-room door detail must expose one Inox double-latch section')
   assert.equal(await page.locator('#song-gai-eps').count(), 1, 'cold-room door detail must expose one EPS double-latch section')
-  assert.equal(await page.locator('#hoi-dap details').count(), 5, 'cold-room door detail must expose five practical FAQ entries')
+  assert.equal(await page.locator('#kich-thuoc-va-cach-do-o-cho').count(), 1, 'cold-room door detail must explain measurements and opening sizes')
+  assert.equal(await page.locator('#hoi-dap details').count(), 6, 'cold-room door detail must expose six practical FAQ entries')
   const doorNavigationHrefs = await page.locator('nav[aria-label="Đi nhanh trong trang sản phẩm"] a').evaluateAll(links => links.map(link => link.getAttribute('href')))
-  for (const anchor of ['#cau-tao-bo-cua', '#cua-ban-le', '#cua-truot', '#song-gai-inox', '#song-gai-eps', '#lam-kin-suoi-va-an-toan', '#chuan-bi', '#hoi-dap']) {
+  for (const anchor of ['#chon-nhanh', '#cau-tao-bo-cua', '#kich-thuoc-va-cach-do-o-cho', '#cua-ban-le', '#cua-truot', '#song-gai-inox', '#song-gai-eps', '#lam-kin-suoi-va-an-toan', '#chuan-bi', '#hoi-dap']) {
     assert.ok(doorNavigationHrefs.includes(anchor), `cold-room door in-page navigation must include ${anchor}`)
   }
   assert.doesNotMatch(inoxDoorText, /1471421817120_1148|tamcachnhiettabi|Tabi|Coolmax|Atimon|-70.*60\s*°C/i, 'cold-room door content must not copy competitor identifiers or unsupported claims')
@@ -370,19 +375,32 @@ try {
   assert.equal(coldRoomAccessoryResponse?.status(), 200, 'cold-room accessory catalog must render successfully')
   const coldRoomAccessoryText = await page.locator('article').first().innerText()
   assert.match(coldRoomAccessoryText, /Nẹp U.*V trong.*V ngoài/s, 'cold-room accessory catalog must retain the confirmed U/V profiles')
-  assert.match(coldRoomAccessoryText, /Thanh T.*bulong dù.*Van cân bằng áp/s, 'cold-room accessory catalog must explain the referenced technical groups')
+  assert.match(coldRoomAccessoryText, /Thanh T.*bulong dù.*Van cân bằng áp.*Ống cách nhiệt/s, 'cold-room accessory catalog must explain the referenced technical groups')
+  assert.match(coldRoomAccessoryText, /khả năng cung cấp/i, 'cold-room accessory catalog must distinguish items that still need availability confirmation')
 
   const doorAccessoryResponse = await page.goto(`${webUrl}/products/phu-kien-cua`, { waitUntil: 'networkidle' })
   assert.equal(doorAccessoryResponse?.status(), 200, 'door accessory catalog must render successfully')
-  assert.match(await page.locator('article').first().innerText(), /Bản lề.*Gioăng.*điện trở sưởi.*Tay khóa.*Màn PVC/s, 'door accessory catalog must explain the main functional groups')
+  assert.match(await page.locator('article').first().innerText(), /Bản lề.*Ray, bánh xe.*Gioăng.*Điện trở sưởi.*Tay khóa.*Màn PVC/s, 'door accessory catalog must explain the main functional groups')
 
   const insulationMaterialResponse = await page.goto(`${webUrl}/products/vat-tu-cach-nhiet`, { waitUntil: 'networkidle' })
   assert.equal(insulationMaterialResponse?.status(), 200, 'insulation material catalog must render successfully')
-  assert.match(await page.locator('article').first().innerText(), /Inox 304.*Xốp EPS.*Tôn mạ màu/s, 'material catalog must expose the supported material groups')
+  assert.match(await page.locator('article').first().innerText(), /Inox 304.*Xốp EPS.*PU foam.*Tôn mạ màu/s, 'material catalog must explain every referenced material group')
 
   for (const href of productDetailHrefs) {
-    const response = await page.request.get(`${webUrl}${href}`)
-    assert.equal(response.status(), 200, `${href} product detail route must render successfully`)
+    const response = await page.goto(`${webUrl}${href}`, { waitUntil: 'networkidle' })
+    assert.equal(response?.status(), 200, `${href} product detail route must render successfully`)
+    assert.equal(await page.locator('article h1').count(), 1, `${href} must expose exactly one product h1`)
+    assert.ok(await page.locator('[data-product-specification]').count() >= 4, `${href} must expose at least four top specifications`)
+    assert.ok(await page.locator('[data-product-selection-guide]').count() >= 3, `${href} must expose at least three quick-selection items`)
+    assert.ok(await page.locator('[data-product-detail-section]').count() >= 4, `${href} must expose at least four detailed sections`)
+    assert.ok(await page.locator('[data-product-checklist-item]').count() >= 8, `${href} must expose at least eight preparation items`)
+    assert.ok(await page.locator('[data-product-faq]').count() >= 4, `${href} must expose at least four FAQ entries`)
+
+    const inPageAnchors = await page.locator('nav[aria-label="Đi nhanh trong trang sản phẩm"] a').evaluateAll(links => links.map(link => link.getAttribute('href') || ''))
+    for (const anchor of inPageAnchors) {
+      assert.match(anchor, /^#[a-z0-9-]+$/, `${href} in-page navigation must use a local id anchor`)
+      assert.equal(await page.locator(anchor).count(), 1, `${href} in-page anchor ${anchor} must target exactly one section`)
+    }
   }
 
   await page.goto(`${webUrl}/contact`, { waitUntil: 'networkidle' })
@@ -650,7 +668,7 @@ try {
     { width: 320, height: 800, label: 'minimum mobile' },
     { width: 768, height: 1024, label: 'tablet' },
   ]) {
-    for (const route of ['/', '/products', '/products/cua-kho-lanh']) {
+    for (const route of ['/', '/products', '/products/panel-eps', '/products/cua-kho-lanh']) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height })
       await page.goto(`${webUrl}${route === '/' ? '' : route}`, { waitUntil: 'networkidle' })
       const responsiveMetrics = await page.evaluate(() => ({
@@ -794,6 +812,12 @@ try {
   const noScriptDoorText = await noScriptPage.locator('article').first().innerText()
   assert.match(noScriptDoorText, /Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s, 'all cold-room door configurations must remain readable without JavaScript')
   assert.match(noScriptDoorText, /Nên chọn cửa bản lề hay cửa trượt\?/i, 'cold-room door FAQ must remain readable without JavaScript')
+
+  const noScriptPanelResponse = await noScriptPage.goto(`${webUrl}/products/panel-eps`, { waitUntil: 'load' })
+  assert.equal(noScriptPanelResponse?.status(), 200, 'Panel EPS detail must render without JavaScript')
+  const noScriptPanelText = await noScriptPage.locator('article').first().innerText()
+  assert.match(noScriptPanelText, /Cấu tạo sandwich ba lớp.*Chọn độ dày và tỷ trọng.*Thi công và phụ kiện đồng bộ/s, 'Panel EPS technical guidance must remain readable without JavaScript')
+  assert.match(noScriptPanelText, /Panel EPS có phải panel chống cháy không\?/i, 'Panel EPS safety FAQ must remain readable without JavaScript')
 
   const noScriptContactResponse = await noScriptPage.goto(`${webUrl}/contact`, { waitUntil: 'load' })
   assert.equal(noScriptContactResponse?.status(), 200, 'contact page must render without JavaScript')

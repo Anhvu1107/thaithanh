@@ -41,14 +41,20 @@ export interface ProductDetailSection {
   id: string
   title: string
   summary: string
-  paragraphs?: string[]
-  specifications?: ProductSpecification[]
+  paragraphs: string[]
+  specifications: ProductSpecification[]
   points: string[]
 }
 
 export interface ProductFrequentlyAskedQuestion {
   question: string
   answer: string
+}
+
+export interface ProductSelectionGuideItem {
+  title: string
+  summary: string
+  check: string
 }
 
 export interface RetailProduct extends ResponsiveImage {
@@ -61,7 +67,8 @@ export interface RetailProduct extends ResponsiveImage {
   specifications: ProductSpecification[]
   detailSections: ProductDetailSection[]
   selectionChecklist: string[]
-  frequentlyAskedQuestions?: ProductFrequentlyAskedQuestion[]
+  selectionGuide: ProductSelectionGuideItem[]
+  frequentlyAskedQuestions: ProductFrequentlyAskedQuestion[]
 }
 
 export interface StaticSolution {

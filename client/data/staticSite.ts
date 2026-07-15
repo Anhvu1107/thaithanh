@@ -5,6 +5,7 @@ import type {
   ProductDetailSection,
   ProductFrequentlyAskedQuestion,
   ProductFamily,
+  ProductSelectionGuideItem,
   ResponsiveImage,
   ProductSpecification,
   PrimaryNavigationRoute,
@@ -267,20 +268,16 @@ const parseProductFamily = (value: unknown, path: string): ProductFamily => {
 
 const parseProductDetailSection = (value: unknown, path: string): ProductDetailSection => {
   const section = expectRecord(value, path)
-  expectExactKeys(section, path, ['id', 'title', 'summary', 'points'], ['paragraphs', 'specifications'])
-  const specifications = section.specifications === undefined
-    ? undefined
-    : expectArray(section.specifications, `${path}.specifications`).map((item, index) =>
-        parseProductSpecification(item, `${path}.specifications[${index}]`),
-      )
-  if (specifications) assertUnique(specifications.map(item => item.label), `${path}.specifications[].label`)
+  expectExactKeys(section, path, ['id', 'title', 'summary', 'paragraphs', 'specifications', 'points'])
+  const specifications = expectArray(section.specifications, `${path}.specifications`).map((item, index) =>
+    parseProductSpecification(item, `${path}.specifications[${index}]`),
+  )
+  assertUnique(specifications.map(item => item.label), `${path}.specifications[].label`)
   return {
     id: expectIdentifier(section.id, `${path}.id`),
     title: expectString(section.title, `${path}.title`),
     summary: expectString(section.summary, `${path}.summary`),
-    paragraphs: section.paragraphs === undefined
-      ? undefined
-      : expectStringArray(section.paragraphs, `${path}.paragraphs`),
+    paragraphs: expectStringArray(section.paragraphs, `${path}.paragraphs`),
     specifications,
     points: expectStringArray(section.points, `${path}.points`),
   }
@@ -292,6 +289,16 @@ const parseProductFrequentlyAskedQuestion = (value: unknown, path: string): Prod
   return {
     question: expectString(item.question, `${path}.question`),
     answer: expectString(item.answer, `${path}.answer`),
+  }
+}
+
+const parseProductSelectionGuideItem = (value: unknown, path: string): ProductSelectionGuideItem => {
+  const item = expectRecord(value, path)
+  expectExactKeys(item, path, ['title', 'summary', 'check'])
+  return {
+    title: expectString(item.title, `${path}.title`),
+    summary: expectString(item.summary, `${path}.summary`),
+    check: expectString(item.check, `${path}.check`),
   }
 }
 
@@ -311,7 +318,9 @@ const parseRetailProduct = (value: unknown, path: string): RetailProduct => {
     'specifications',
     'detailSections',
     'selectionChecklist',
-  ], ['imageSrcset', 'frequentlyAskedQuestions'])
+    'selectionGuide',
+    'frequentlyAskedQuestions',
+  ], ['imageSrcset'])
   const specifications = expectArray(product.specifications, `${path}.specifications`).map((item, index) =>
     parseProductSpecification(item, `${path}.specifications[${index}]`),
   )
@@ -320,14 +329,14 @@ const parseRetailProduct = (value: unknown, path: string): RetailProduct => {
     parseProductDetailSection(item, `${path}.detailSections[${index}]`),
   )
   assertUnique(detailSections.map(item => item.id), `${path}.detailSections[].id`)
-  const frequentlyAskedQuestions = product.frequentlyAskedQuestions === undefined
-    ? undefined
-    : expectArray(product.frequentlyAskedQuestions, `${path}.frequentlyAskedQuestions`).map((item, index) =>
-        parseProductFrequentlyAskedQuestion(item, `${path}.frequentlyAskedQuestions[${index}]`),
-      )
-  if (frequentlyAskedQuestions) {
-    assertUnique(frequentlyAskedQuestions.map(item => item.question), `${path}.frequentlyAskedQuestions[].question`)
-  }
+  const selectionGuide = expectArray(product.selectionGuide, `${path}.selectionGuide`).map((item, index) =>
+    parseProductSelectionGuideItem(item, `${path}.selectionGuide[${index}]`),
+  )
+  assertUnique(selectionGuide.map(item => item.title), `${path}.selectionGuide[].title`)
+  const frequentlyAskedQuestions = expectArray(product.frequentlyAskedQuestions, `${path}.frequentlyAskedQuestions`).map((item, index) =>
+    parseProductFrequentlyAskedQuestion(item, `${path}.frequentlyAskedQuestions[${index}]`),
+  )
+  assertUnique(frequentlyAskedQuestions.map(item => item.question), `${path}.frequentlyAskedQuestions[].question`)
   return {
     slug: expectIdentifier(product.slug, `${path}.slug`),
     familyId: expectIdentifier(product.familyId, `${path}.familyId`),
@@ -339,6 +348,7 @@ const parseRetailProduct = (value: unknown, path: string): RetailProduct => {
     specifications,
     detailSections,
     selectionChecklist: expectStringArray(product.selectionChecklist, `${path}.selectionChecklist`),
+    selectionGuide,
     frequentlyAskedQuestions,
   }
 }

@@ -107,6 +107,7 @@ usePageSeo({
 
           <nav aria-label="Đi nhanh trong trang sản phẩm" class="mt-5 flex gap-2 overflow-x-auto rounded-full border border-[#d2c8bd] bg-white/50 p-1.5 backdrop-blur-sm">
             <a href="#thong-so" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông số</a>
+            <a href="#chon-nhanh" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Chọn nhanh</a>
             <a
               v-for="section in product.detailSections"
               :key="`nav-${section.id}`"
@@ -116,7 +117,7 @@ usePageSeo({
               {{ section.title }}
             </a>
             <a href="#chuan-bi" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông tin cần gửi</a>
-            <a v-if="product.frequentlyAskedQuestions?.length" href="#hoi-dap" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Hỏi đáp</a>
+            <a href="#hoi-dap" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Hỏi đáp</a>
           </nav>
         </div>
       </section>
@@ -148,6 +149,7 @@ usePageSeo({
               <div
                 v-for="specification in product.specifications"
                 :key="specification.label"
+                data-product-specification
                 class="min-w-0 rounded-[1.25rem] border border-[#ddd4ca] bg-white p-5 sm:p-6"
                 :class="specification.value.length > 72 ? 'sm:col-span-2' : ''"
               >
@@ -162,17 +164,55 @@ usePageSeo({
         </div>
       </section>
 
+      <section id="chon-nhanh" class="scroll-mt-24 border-b border-[#d8cfc4] bg-[#eee8e0]">
+        <div class="container-site py-14 lg:py-20">
+          <div data-reveal class="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Chọn nhanh theo nhu cầu</p>
+              <h2 class="mt-4 text-3xl font-semibold leading-tight tracking-[-0.025em] text-[#20211f] sm:text-5xl">
+                Khoanh đúng nhóm trước khi chốt quy cách.
+              </h2>
+            </div>
+            <p class="max-w-2xl text-base leading-8 text-[#625d56] lg:justify-self-end">
+              Các gợi ý dưới đây giúp sàng lọc ban đầu. Cấu hình cuối cùng vẫn cần đối chiếu kích thước, môi trường sử dụng và điều kiện lắp đặt thực tế.
+            </p>
+          </div>
+
+          <ol class="mt-9 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <li
+              v-for="(item, index) in product.selectionGuide"
+              :key="item.title"
+              data-product-selection-guide
+              data-reveal
+              :data-reveal-delay="Math.min(index * 60, 180)"
+              class="flex min-h-full flex-col rounded-[1.5rem] border border-[#d2c8bd] bg-white/80 p-6 sm:p-7"
+            >
+              <div class="flex items-center justify-between gap-4">
+                <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
+                <span class="h-px w-10 bg-[#c8b7aa]" aria-hidden="true" />
+              </div>
+              <h3 class="mt-6 text-xl font-semibold leading-tight text-[#292926]">{{ item.title }}</h3>
+              <p class="mt-4 flex-1 text-sm leading-7 text-[#625d56]">{{ item.summary }}</p>
+              <div class="mt-6 border-t border-[#d8cfc4] pt-4">
+                <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Cần xác nhận</p>
+                <p class="mt-2 text-sm font-semibold leading-6 text-[#373632]">{{ item.check }}</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
       <section id="cau-hinh" class="scroll-mt-24 border-b border-[#d8cfc4] bg-white">
         <div class="container-site py-14 lg:py-22">
           <div data-reveal class="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
             <div>
-              <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Cấu hình và thành phần</p>
+              <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Thông tin kỹ thuật</p>
               <h2 class="mt-4 text-3xl font-semibold leading-tight tracking-[-0.025em] text-[#20211f] sm:text-5xl">
-                Từ cấu tạo chung đến từng kiểu cửa.
+                Cấu tạo, quy cách và cách lựa chọn.
               </h2>
             </div>
             <p class="max-w-2xl text-base leading-8 text-[#625d56] lg:justify-self-end">
-              Mỗi loại cửa có cơ cấu, phụ kiện và điều kiện mặt bằng khác nhau. Nội dung dưới đây giúp chọn sơ bộ; thông số phụ thuộc sản xuất sẽ được chốt lại trong báo giá hoặc bản duyệt.
+              Mỗi nhóm sản phẩm có vật liệu, kích thước và điều kiện sử dụng khác nhau. Nội dung dưới đây giúp đối chiếu trước khi chốt báo giá hoặc bản duyệt kỹ thuật.
             </p>
           </div>
 
@@ -181,12 +221,12 @@ usePageSeo({
               v-for="(section, index) in product.detailSections"
               :id="section.id"
               :key="section.id"
+              data-product-detail-section
               data-reveal
               :data-reveal-delay="Math.min(index * 60, 180)"
-              class="scroll-mt-28 rounded-[1.5rem] border border-[#ded7cf] bg-[#f7f3ed] p-6 sm:p-8"
-              :class="(section.paragraphs?.length || section.specifications?.length) ? 'lg:col-span-2 lg:p-10' : ''"
+              class="scroll-mt-28 rounded-[1.5rem] border border-[#ded7cf] bg-[#f7f3ed] p-6 sm:p-8 lg:col-span-2 lg:p-10"
             >
-              <div :class="(section.paragraphs?.length || section.specifications?.length) ? 'grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:gap-12' : ''">
+              <div class="grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:gap-12">
                 <div>
                   <div class="flex items-center justify-between gap-4">
                     <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
@@ -194,7 +234,7 @@ usePageSeo({
                   </div>
                   <h3 class="mt-6 text-2xl font-semibold tracking-[-0.025em] text-[#292926] sm:text-3xl lg:text-4xl">{{ section.title }}</h3>
                   <p class="mt-4 text-base font-medium leading-8 text-[#555049]">{{ section.summary }}</p>
-                  <div v-if="section.paragraphs?.length" class="mt-5 space-y-4">
+                  <div class="mt-5 space-y-4">
                     <p v-for="paragraph in section.paragraphs" :key="paragraph" class="text-sm leading-7 text-[#625d56]">
                       {{ paragraph }}
                     </p>
@@ -202,7 +242,7 @@ usePageSeo({
                 </div>
 
                 <div>
-                  <dl v-if="section.specifications?.length" class="grid gap-px overflow-hidden rounded-[1.25rem] border border-[#d5cbc0] bg-[#d5cbc0] sm:grid-cols-2">
+                  <dl class="grid gap-px overflow-hidden rounded-[1.25rem] border border-[#d5cbc0] bg-[#d5cbc0] sm:grid-cols-2">
                     <div
                       v-for="specification in section.specifications"
                       :key="specification.label"
@@ -213,7 +253,7 @@ usePageSeo({
                     </div>
                   </dl>
 
-                  <div class="mt-6" :class="section.specifications?.length ? '' : 'border-t border-[#d8cfc4] pt-5'">
+                  <div class="mt-6">
                     <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Điểm cần đối chiếu</p>
                     <ul class="mt-3 grid gap-x-6 gap-y-3 sm:grid-cols-2">
                       <li v-for="point in section.points" :key="point" class="flex gap-3 text-sm leading-7 text-[#45423d]">
@@ -241,6 +281,7 @@ usePageSeo({
             <li
               v-for="(item, index) in product.selectionChecklist"
               :key="item"
+              data-product-checklist-item
               data-reveal
               :data-reveal-delay="Math.min(index * 55, 180)"
               class="flex min-h-28 gap-4 rounded-[1.25rem] border border-[#d2c8bd] bg-white/[0.72] p-5 sm:p-6"
@@ -252,15 +293,15 @@ usePageSeo({
         </div>
       </section>
 
-      <section v-if="product.frequentlyAskedQuestions?.length" id="hoi-dap" class="scroll-mt-24 border-b border-[#d8cfc4] bg-[#fbf9f5]">
+      <section id="hoi-dap" class="scroll-mt-24 border-b border-[#d8cfc4] bg-[#fbf9f5]">
         <div class="container-site grid gap-10 py-14 lg:grid-cols-[0.66fr_1.34fr] lg:gap-18 lg:py-20">
           <div data-reveal>
             <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Hỏi đáp nhanh</p>
             <h2 class="mt-4 text-3xl font-semibold leading-tight tracking-[-0.025em] text-[#20211f] sm:text-4xl">
-              Những câu hỏi thường gặp trước khi đặt cửa.
+              Những câu hỏi thường gặp trước khi đặt sản phẩm.
             </h2>
             <p class="mt-5 max-w-xl text-sm leading-7 text-[#625d56]">
-              Nếu công trình có nhiệt độ, chênh áp hoặc yêu cầu vệ sinh riêng, hãy gửi thêm bản vẽ và thông số vận hành để được kiểm tra đúng cấu hình.
+              Nếu công trình có yêu cầu vận hành riêng, hãy gửi bản vẽ, kích thước và thông số liên quan để được kiểm tra đúng cấu hình.
             </p>
           </div>
 
@@ -268,6 +309,7 @@ usePageSeo({
             <details
               v-for="(item, index) in product.frequentlyAskedQuestions"
               :key="item.question"
+              data-product-faq
               :open="index === 0"
               class="group py-1"
             >
