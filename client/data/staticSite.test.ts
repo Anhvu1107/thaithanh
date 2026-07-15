@@ -72,7 +72,7 @@ describe('static site scope', () => {
     expect(productFamilies.length).toBeGreaterThanOrEqual(2)
     expect(retailProducts).toHaveLength(5)
     expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/"(?:price|salePrice|stock|checkout|cart)"/i)
-    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/\b(?:PU|PIR|Rockwool|PCCC)\b|bông khoáng|chống cháy/i)
+    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/\b(?:PIR|Rockwool|PCCC)\b|bông khoáng|chống cháy/i)
   })
 
   it('publishes the confirmed retail panel, accessory and Inox 304 door specifications', () => {
@@ -108,8 +108,23 @@ describe('static site scope', () => {
     })
     const coldRoomDoor = retailProducts.find(product => product.slug === 'cua-kho-lanh')
     expect(coldRoomDoor?.specifications).toContainEqual({ label: 'Bề mặt cửa', value: 'Inox 304' })
-    expect(coldRoomDoor?.detailSections.map(section => section.id)).toContain('cua-ban-le')
-    expect(coldRoomDoor?.detailSections.map(section => section.id)).toContain('cua-truot')
+    expect(coldRoomDoor?.detailSections.map(section => section.id)).toEqual([
+      'cau-tao-bo-cua',
+      'cua-ban-le',
+      'cua-truot',
+      'song-gai-inox',
+      'song-gai-eps',
+      'lam-kin-suoi-va-an-toan',
+    ])
+    expect(coldRoomDoor?.detailSections.every(section => (section.paragraphs?.length ?? 0) >= 2)).toBe(true)
+    expect(coldRoomDoor?.detailSections.every(section => (section.specifications?.length ?? 0) >= 4)).toBe(true)
+    expect(coldRoomDoor?.selectionChecklist).toHaveLength(12)
+    expect(coldRoomDoor?.frequentlyAskedQuestions).toHaveLength(5)
+
+    const coldRoomDoorCopy = JSON.stringify(coldRoomDoor)
+    expect(coldRoomDoorCopy).toMatch(/Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s)
+    expect(coldRoomDoorCopy).toMatch(/lõi PU.*ray.*bánh xe.*gioăng.*điện trở sưởi.*mở an toàn/is)
+    expect(coldRoomDoorCopy).not.toMatch(/1471421817120_1148|tamcachnhiettabi|Tabi|Coolmax|Atimon|-70.*60\s*°C/i)
 
     const accessoryCatalog = retailProducts.find(product => product.slug === 'phu-kien-kho-lanh')
     expect(accessoryCatalog?.detailSections.map(section => section.id)).toEqual([
@@ -221,5 +236,29 @@ describe('site content validation', () => {
     const unknownField = structuredClone(siteContentJson) as typeof siteContentJson & { admin?: boolean }
     unknownField.admin = true
     expect(() => parseSiteContent(unknownField)).toThrow(/root\.admin: unknown field/)
+  })
+
+  it('validates nested product specifications and FAQ identifiers', () => {
+    const duplicateDetailSpecification = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{
+        detailSections: Array<{ specifications?: Array<{ label: string }> }>
+        frequentlyAskedQuestions?: Array<{ question: string }>
+      }>
+    }
+    const door = duplicateDetailSpecification.retailProducts[1]!
+    const detailSpecifications = door.detailSections[0]!.specifications!
+    detailSpecifications[1]!.label = detailSpecifications[0]!.label
+    expect(() => parseSiteContent(duplicateDetailSpecification)).toThrow(
+      /retailProducts\[1\]\.detailSections\[0\]\.specifications\[\]\.label: values must be unique/,
+    )
+
+    const duplicateFaqQuestion = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ frequentlyAskedQuestions?: Array<{ question: string }> }>
+    }
+    const faq = duplicateFaqQuestion.retailProducts[1]!.frequentlyAskedQuestions!
+    faq[1]!.question = faq[0]!.question
+    expect(() => parseSiteContent(duplicateFaqQuestion)).toThrow(
+      /retailProducts\[1\]\.frequentlyAskedQuestions\[\]\.question: values must be unique/,
+    )
   })
 })

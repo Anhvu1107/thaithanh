@@ -190,13 +190,13 @@
       "slug": "cua-kho-lanh",
       "familyId": "doors-accessories",
       "name": "Cửa kho lạnh Inox 304",
-      "eyebrow": "Bản lề · cửa trượt · cấu hình theo ô chờ",
+      "eyebrow": "Bản lề · cửa trượt · song gài Inox · song gài EPS",
       "image": "/images/insulation/cold-door-editorial.jpg",
       "imageSrcset": "/images/insulation/cold-door-editorial.jpg 1254w",
       "imageWidth": 1254,
       "imageHeight": 1254,
       "imageAlt": "Cửa kho lạnh Inox 304 trong hệ panel cách nhiệt",
-      "summary": "Cửa kho lạnh Inox 304 được chọn theo kiểu mở, kích thước ô chờ, độ dày vách và nhiệt độ vận hành; nhận gia công theo công trình.",
+      "summary": "Cửa kho lạnh Inox 304 được gia công theo ô chờ, độ dày vách và nhiệt độ vận hành. Thái Thành cung cấp cửa bản lề, cửa trượt, song gài Inox và song gài EPS với cấu hình phụ kiện theo từng công trình.",
       "applications": [
         "Kho lạnh",
         "Kho đông",
@@ -211,7 +211,15 @@
         },
         {
           "label": "Kiểu mở",
-          "value": "Cửa bản lề, cửa trượt và cấu hình song gài theo yêu cầu"
+          "value": "Cửa bản lề, cửa lùa/cửa trượt, cửa song gài Inox và cửa song gài EPS"
+        },
+        {
+          "label": "Lõi cách nhiệt",
+          "value": "PU hoặc EPS tùy loại cửa, mức nhiệt và yêu cầu vận hành; chiều dày và tỷ trọng được chốt trong bản duyệt"
+        },
+        {
+          "label": "Khung và làm kín",
+          "value": "Khung Inox 304, gioăng quanh cánh và điện trở sưởi khi cấu hình nhiệt độ yêu cầu"
         },
         {
           "label": "Kích thước thường dùng",
@@ -224,51 +232,271 @@
       ],
       "detailSections": [
         {
-          "id": "cua-ban-le",
-          "title": "Cửa bản lề",
-          "summary": "Phù hợp lối đi người hoặc ô cửa có tần suất đóng mở vừa phải, ưu tiên thao tác trực tiếp và gọn hệ ray.",
+          "id": "cau-tao-bo-cua",
+          "title": "Cấu tạo một bộ cửa kho lạnh",
+          "summary": "Khả năng giữ nhiệt đến từ sự đồng bộ giữa cánh, lõi, khung bao, gioăng và cơ cấu đóng mở; không chỉ từ riêng lớp Inox bên ngoài.",
+          "paragraphs": [
+            "Bề mặt Inox 304 tạo lớp hoàn thiện bền và thuận tiện vệ sinh. Phía trong cánh là lõi cách nhiệt được chọn theo mức nhiệt, kích thước cánh và tần suất sử dụng; khung bao phải đồng bộ với độ dày vách panel tại công trình.",
+            "Khi đóng cửa, gioăng cần ép đều lên bề mặt khung để hạn chế trao đổi nhiệt. Với môi trường có nguy cơ đọng sương hoặc đóng băng ở mép cửa, điện trở sưởi khung được xem xét như một phần của cấu hình điện thay vì mặc định lắp cho mọi cửa."
+          ],
+          "specifications": [
+            {
+              "label": "Cánh cửa",
+              "value": "Bề mặt Inox 304; kích thước sản xuất tính từ ô chờ và khe hở kỹ thuật"
+            },
+            {
+              "label": "Lõi cánh",
+              "value": "PU hoặc EPS; chiều dày và tỷ trọng xác nhận theo từng cấu hình"
+            },
+            {
+              "label": "Khung bao",
+              "value": "Inox 304; kích thước và chiều dày theo tải cánh, vách lắp và bản duyệt"
+            },
+            {
+              "label": "Làm kín",
+              "value": "Gioăng bao quanh cánh, độ ép được cân chỉnh khi lắp đặt"
+            }
+          ],
           "points": [
-            "Chốt hướng mở trái hoặc phải theo mặt bằng",
-            "Đối chiếu khung bao với độ dày panel",
-            "Gioăng, khóa và chốt mở phía trong được xác nhận theo cấu hình"
+            "Phụ kiện chịu tải được chọn theo trọng lượng và kích thước cánh",
+            "Cửa có người đi vào kho cần phương án mở an toàn từ phía trong",
+            "Độ kín phải được kiểm tra đồng thời tại cánh, góc gioăng, ngưỡng và khung",
+            "Quy cách cuối cùng được thể hiện trong báo giá hoặc bản duyệt kỹ thuật"
+          ]
+        },
+        {
+          "id": "cua-ban-le",
+          "title": "Cửa kho lạnh bản lề",
+          "summary": "Cánh quay quanh trục bản lề, phù hợp lối đi người, xe đẩy nhỏ và các ô cửa thông dụng có đủ khoảng quay cánh.",
+          "paragraphs": [
+            "Cửa bản lề có cơ cấu đóng mở trực tiếp và không cần hệ ray dọc vách. Trước khi sản xuất phải chốt chiều mở trái hoặc phải, bán kính quay, vị trí vật cản và hướng thoát của người sử dụng.",
+            "Cấu hình tham khảo sử dụng cánh Inox 304, lõi PU dày khoảng 100–125 mm và khung Inox 304. Tỷ trọng lõi, chiều dày khung và bộ phụ kiện được xác nhận lại theo kích thước cánh và mức nhiệt thực tế."
+          ],
+          "specifications": [
+            {
+              "label": "Kiểu vận hành",
+              "value": "Mở quay một cánh; chốt hướng mở trái hoặc phải trên bản duyệt"
+            },
+            {
+              "label": "Cánh và lõi",
+              "value": "Bề mặt Inox 304; lõi PU dày tham khảo 100–125 mm, tỷ trọng theo cấu hình được duyệt"
+            },
+            {
+              "label": "Khung bao",
+              "value": "Inox 304; chiều dày tham khảo 1,0–1,2 mm và phải đối chiếu với tải cánh"
+            },
+            {
+              "label": "Gioăng",
+              "value": "Gioăng ống đơn hoặc loại tương đương chạy quanh chu vi cánh"
+            },
+            {
+              "label": "Phụ kiện",
+              "value": "Bản lề, tay khóa, khóa cửa, chốt mở phía trong và điện trở sưởi khi cần"
+            },
+            {
+              "label": "Ứng dụng",
+              "value": "Kho mát, kho lạnh, kho đông, khu chế biến và phòng lưu trữ"
+            }
+          ],
+          "points": [
+            "Cơ cấu gọn, dễ thao tác và thuận tiện kiểm tra bản lề, khóa, gioăng",
+            "Cần chừa trọn vùng quay cánh; không phù hợp nơi có thiết bị cản ngay trước cửa",
+            "Độ ép gioăng và độ phẳng khung ảnh hưởng trực tiếp đến độ kín khi đóng",
+            "Chốt an toàn phía trong nên dễ nhận biết khi khu vực thiếu sáng"
           ]
         },
         {
           "id": "cua-truot",
-          "title": "Cửa trượt",
-          "summary": "Dùng khi cần giải phóng vùng quay cánh; hệ ray và khoảng trượt phải được kiểm tra trước khi gia công.",
+          "title": "Cửa lùa, cửa trượt kho lạnh",
+          "summary": "Cánh di chuyển dọc mặt vách, giải phóng vùng quay phía trước và phù hợp lối xuất nhập hàng có xe đẩy hoặc ô cửa lớn.",
+          "paragraphs": [
+            "Hệ trượt cần đủ chiều dài vách để cánh rời hoàn toàn khỏi ô mở. Vị trí ray phải có khả năng tiếp nhận tải, không vướng đường ống, tủ điện hoặc thiết bị trong toàn bộ hành trình.",
+            "Cánh có thể dùng lõi PU hoặc EPS tùy điều kiện nhiệt. Hệ ray, bánh xe, tai treo, dẫn hướng và chặn hành trình phải được chọn đồng bộ để cánh chạy ổn định và ép gioăng đúng vị trí khi đóng."
+          ],
+          "specifications": [
+            {
+              "label": "Kiểu vận hành",
+              "value": "Trượt ngang sang trái hoặc phải; chiều trượt chốt theo mặt bằng"
+            },
+            {
+              "label": "Cánh và lõi",
+              "value": "Bề mặt Inox 304; lõi PU hoặc EPS theo nhiệt độ và kích thước cánh"
+            },
+            {
+              "label": "Hệ treo",
+              "value": "Ray/thanh treo hợp kim nhôm xử lý bề mặt, bánh xe và tai treo theo tải cánh"
+            },
+            {
+              "label": "Dẫn hướng",
+              "value": "Thanh hoặc chốt dẫn hướng dưới, chặn đầu–cuối và cơ cấu giữ hành trình"
+            },
+            {
+              "label": "Phụ kiện thao tác",
+              "value": "Tay nắm trong/ngoài, tay gạt, chốt khóa và cơ cấu mở an toàn theo cấu hình"
+            },
+            {
+              "label": "Làm kín",
+              "value": "Gioăng quanh cánh; điện trở sưởi khung khi thiết kế nhiệt yêu cầu"
+            }
+          ],
           "points": [
-            "Kiểm tra khoảng trống dọc theo vách để cánh trượt",
-            "Xác nhận ray, bánh xe, dẫn hướng và chặn hành trình",
-            "Chọn tay kéo, khóa và giải pháp an toàn theo vận hành"
+            "Không chiếm bán kính quay ở phía trước ô cửa",
+            "Phù hợp luồng hàng có xe đẩy và khu vực đóng mở thường xuyên",
+            "Cần kiểm tra khoảng trượt, tải vách, cao độ ray và vật cản trước khi gia công",
+            "Ray, bánh xe, dẫn hướng và chặn hành trình cần được vệ sinh, cân chỉnh định kỳ"
           ]
         },
         {
-          "id": "cua-song-gai",
-          "title": "Cửa song gài",
-          "summary": "Cấu hình được xem xét cho ô cửa cần lực ép kín lớn hơn hoặc điều kiện vận hành chuyên biệt.",
+          "id": "song-gai-inox",
+          "title": "Cửa song gài Inox",
+          "summary": "Tay song gài có móc ở hai đầu tạo lực ép tại nhiều điểm, dùng cho ô cửa cần độ ép kín cao hơn khóa một điểm và điều kiện vận hành chuyên biệt.",
+          "paragraphs": [
+            "Cánh bề mặt Inox 304 kết hợp lõi PU và khung Inox 304. Khi gài đúng hành trình, hai đầu móc giúp phân bố lực ép cánh lên khung; gioăng, bản lề và vị trí móc phải được căn chỉnh đồng bộ.",
+            "Cấu hình này thường được xem xét cho hầm đông gió, tủ đông lắc hoặc kho âm sâu. Việc lựa chọn vẫn phải dựa trên nhiệt độ, áp suất, kích thước ô cửa và phương án mở an toàn từ phía trong."
+          ],
+          "specifications": [
+            {
+              "label": "Cơ cấu đóng",
+              "value": "Tay song Inox với móc gài hai đầu tạo lực ép cánh lên khung"
+            },
+            {
+              "label": "Cánh và lõi",
+              "value": "Bề mặt Inox 304; lõi PU, tỷ trọng tham khảo khoảng 45–50 kg/m³ và xác nhận theo báo giá"
+            },
+            {
+              "label": "Khung bao",
+              "value": "Inox 304 chấn tạo cứng; chiều dày tham khảo 1,0–1,2 mm"
+            },
+            {
+              "label": "Làm kín",
+              "value": "Gioăng quanh cánh; độ ép được cân chỉnh tại các điểm gài"
+            },
+            {
+              "label": "Sưởi khung",
+              "value": "Bổ sung khi mức nhiệt và độ ẩm có nguy cơ đóng băng mép cửa"
+            },
+            {
+              "label": "Ứng dụng tham khảo",
+              "value": "Buồng lạnh chuyên dụng, hầm đông và kho nhiệt độ âm sau khi duyệt cấu hình"
+            }
+          ],
           "points": [
-            "Chọn cấu hình sau khi biết nhiệt độ và tần suất mở cửa",
-            "Kích thước, lõi cánh và cơ cấu gài phải thể hiện trong bản duyệt",
-            "Không dùng một cấu hình chung cho mọi mức nhiệt"
+            "Lực ép tại hai đầu hỗ trợ cánh tiếp xúc đều với khung khi được căn chỉnh đúng",
+            "Cần hướng dẫn thao tác gài/mở và kiểm tra cơ cấu an toàn trước khi vận hành",
+            "Không dùng một cấu hình mặc định cho mọi kho âm sâu",
+            "Nhiệt độ thiết kế, gioăng, sưởi và lõi phải cùng xuất hiện trong bản duyệt"
           ]
         },
         {
-          "id": "do-kin-va-an-toan",
-          "title": "Độ kín và an toàn",
-          "summary": "Hiệu quả của cửa phụ thuộc đồng thời vào cánh, khung, gioăng và phụ kiện chứ không chỉ vật liệu bề mặt.",
+          "id": "song-gai-eps",
+          "title": "Cửa song gài EPS",
+          "summary": "Phương án cánh lõi EPS kết hợp cơ cấu gài, phù hợp bài toán kinh tế ở kho nhiệt độ dương hoặc ứng dụng có tải nhiệt phù hợp.",
+          "paragraphs": [
+            "Cánh EPS được hoàn thiện bề mặt Inox 304, viền bằng nẹp U và làm kín quanh cánh bằng gioăng phù hợp. Bản lề, tay khóa và song gài bằng Inox được chọn theo kích thước và tải cánh.",
+            "Ngưỡng nhiệt độ sử dụng không được suy ra chỉ từ tên vật liệu. Với kho mát khoảng +10°C trở lên, Thái Thành vẫn cần kiểm tra chiều dày lõi, tần suất mở và yêu cầu giữ nhiệt trước khi xác nhận."
+          ],
+          "specifications": [
+            {
+              "label": "Cánh cửa",
+              "value": "Lõi EPS, bề mặt Inox 304; chiều dày theo cấu hình được duyệt"
+            },
+            {
+              "label": "Viền cánh",
+              "value": "Nẹp U Inox hoặc cấu tạo viền tương đương theo quy cách gia công"
+            },
+            {
+              "label": "Gioăng",
+              "value": "Gioăng chữ T hoặc loại phù hợp với cấu tạo cánh và khung"
+            },
+            {
+              "label": "Phụ kiện",
+              "value": "Bản lề, tay khóa, song gài và chi tiết liên kết bằng Inox theo cấu hình"
+            },
+            {
+              "label": "Phạm vi nhiệt",
+              "value": "Ưu tiên kho nhiệt độ dương; mốc khoảng +10°C chỉ dùng để sàng lọc ban đầu và phải xác nhận kỹ thuật"
+            },
+            {
+              "label": "Ứng dụng",
+              "value": "Kho mát, phòng bảo quản nhiệt độ dương và ô cửa kỹ thuật phù hợp tải nhiệt"
+            }
+          ],
           "points": [
-            "Kiểm tra gioăng quanh cánh và độ ép kín khi đóng",
-            "Xem xét sưởi khung cho môi trường nhiệt độ âm theo thiết kế",
-            "Ưu tiên cơ cấu mở an toàn từ phía trong kho"
+            "Chi phí đầu tư thường thấp hơn cấu hình lõi PU chuyên dụng",
+            "Cánh tương đối nhẹ, thuận tiện cho một số ô cửa quy mô vừa",
+            "Không dùng thay thế cửa âm sâu khi chưa có xác nhận thiết kế",
+            "Cần chốt loại EPS, chiều dày, gioăng và mức nhiệt trong báo giá"
+          ]
+        },
+        {
+          "id": "lam-kin-suoi-va-an-toan",
+          "title": "Làm kín, sưởi khung và an toàn vận hành",
+          "summary": "Ba hạng mục này quyết định cửa có vận hành ổn định sau lắp đặt hay không và cần được chọn theo điều kiện thật của kho.",
+          "paragraphs": [
+            "Gioăng phải tiếp xúc liên tục quanh chu vi cánh. Nếu xuất hiện đọng sương, đóng tuyết, khe sáng hoặc cửa khó đóng, cần kiểm tra độ phẳng khung, lực ép và tình trạng gioăng trước khi kết luận do lõi cách nhiệt.",
+            "Điện trở sưởi chỉ được bố trí khi có nguy cơ đóng băng tại mép cửa; công suất, nguồn điện và khả năng thay thế phải được thể hiện trong cấu hình. Cửa có người đi vào cần cơ cấu mở từ trong, dễ nhận biết trong điều kiện ánh sáng yếu."
+          ],
+          "specifications": [
+            {
+              "label": "Kiểm tra độ kín",
+              "value": "Góc gioăng, ngưỡng cửa, khe tiếp xúc và lực ép trên toàn bộ chu vi"
+            },
+            {
+              "label": "Sưởi khung",
+              "value": "Chọn theo nhiệt độ, độ ẩm và nguy cơ đóng băng; không mặc định cho mọi cửa"
+            },
+            {
+              "label": "Mở an toàn",
+              "value": "Tay/chốt mở phía trong, dễ nhận biết và thử hoạt động trước khi bàn giao"
+            },
+            {
+              "label": "Bảo trì",
+              "value": "Vệ sinh ray, kiểm tra bản lề, khóa, gioăng, chặn và cân chỉnh định kỳ"
+            }
+          ],
+          "points": [
+            "Không chèn vật cứng làm biến dạng gioăng khi giữ cửa mở",
+            "Không tự tăng lực ép khóa khi khung hoặc cánh đang lệch",
+            "Kiểm tra dây sưởi và nguồn điện bởi người có chuyên môn",
+            "Ghi lại model phụ kiện để thuận tiện thay thế về sau"
           ]
         }
       ],
       "selectionChecklist": [
-        "Kích thước ô chờ rộng × cao và độ dày panel",
-        "Nhiệt độ vận hành, tần suất mở và loại hàng di chuyển",
-        "Kiểu cửa, chiều mở hoặc khoảng trượt khả dụng",
-        "Số lượng, vị trí công trình và phụ kiện cần kèm theo"
+        "Kích thước ô chờ rộng × cao và kích thước thông thủy mong muốn",
+        "Độ dày panel hoặc cấu tạo vách hiện hữu tại vị trí lắp",
+        "Nhiệt độ vận hành thấp nhất, cao nhất và độ ẩm dự kiến",
+        "Kho mát, kho lạnh, kho đông, phòng sạch hay khu chế biến",
+        "Người, xe đẩy hoặc loại hàng cần di chuyển qua cửa",
+        "Tần suất đóng mở trong một ca làm việc",
+        "Cửa bản lề, cửa trượt, song gài Inox hay song gài EPS",
+        "Hướng mở trái/phải hoặc chiều trượt và khoảng vách khả dụng",
+        "Yêu cầu về lõi, chiều dày cánh, gioăng và khung Inox",
+        "Điện trở sưởi, khóa, chốt mở an toàn và phụ kiện cần kèm",
+        "Số lượng, địa điểm giao/lắp và tiến độ cần hàng",
+        "Công trình mới hay thay thế cửa cũ; gửi ảnh hiện trạng nếu có"
+      ],
+      "frequentlyAskedQuestions": [
+        {
+          "question": "Nên chọn cửa bản lề hay cửa trượt?",
+          "answer": "Cửa bản lề phù hợp ô cửa vừa, thao tác trực tiếp và có đủ vùng quay cánh. Cửa trượt phù hợp khi cần giải phóng vùng quay hoặc có xe hàng, nhưng phải đủ khoảng vách bên hông để cánh trượt hết hành trình."
+        },
+        {
+          "question": "Cửa kho lạnh nào cũng cần điện trở sưởi khung?",
+          "answer": "Không. Sưởi khung được chọn theo nhiệt độ, độ ẩm và nguy cơ đóng băng tại mép cửa; công suất và nguồn điện phải được xác nhận theo cấu hình thực tế."
+        },
+        {
+          "question": "Cửa Inox 304 có đặt theo kích thước riêng được không?",
+          "answer": "Có. Thái Thành nhận gia công theo ô chờ. Khách hàng cần cung cấp rộng × cao, độ dày vách, kiểu mở, nhiệt độ và hướng vận hành để lập quy cách duyệt."
+        },
+        {
+          "question": "Lõi PU và EPS khác nhau như thế nào?",
+          "answer": "PU và EPS có đặc tính truyền nhiệt, khối lượng và chi phí khác nhau. Việc chọn lõi không dựa riêng vào giá mà phải đối chiếu mức nhiệt, kích thước cánh, tần suất mở và yêu cầu vận hành."
+        },
+        {
+          "question": "Các kích thước niêm yết là kích thước cánh hay ô chờ?",
+          "answer": "Danh sách kích thước dùng để tham khảo khả năng cung cấp. Kích thước sản xuất cuối cùng được xác nhận lại từ ô chờ và bản duyệt kỹ thuật để tính khung, khe hở và kích thước thông thủy."
+        }
       ]
     },
     {

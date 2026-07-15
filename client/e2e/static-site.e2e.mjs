@@ -351,9 +351,20 @@ try {
   assert.match(await page.locator('article h1').innerText(), /Cửa kho lạnh Inox 304/i, 'cold-room door detail must expose its product name as the h1')
   const inoxDoorText = await page.locator('article').first().innerText()
   assert.match(inoxDoorText, /Inox 304/i, 'cold-room door detail must expose its confirmed surface material')
-  assert.match(inoxDoorText, /Cửa bản lề.*Cửa trượt/s, 'cold-room door detail must explain the two common opening configurations')
+  assert.match(inoxDoorText, /Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s, 'cold-room door detail must explain all four door configurations')
+  assert.match(inoxDoorText, /lõi PU.*ray.*bánh xe.*gioăng.*điện trở sưởi.*mở an toàn/is, 'cold-room door detail must cover the main construction, hardware and safety topics')
   assert.ok(inoxDoorText.includes('600 × 600 × 100 mm'), 'cold-room door detail must expose the first supplied size')
   assert.ok(inoxDoorText.includes('1200 × 1800 mm'), 'cold-room door detail must expose the last supplied size')
+  assert.equal(await page.locator('#cua-ban-le').count(), 1, 'cold-room door detail must expose one hinged-door section')
+  assert.equal(await page.locator('#cua-truot').count(), 1, 'cold-room door detail must expose one sliding-door section')
+  assert.equal(await page.locator('#song-gai-inox').count(), 1, 'cold-room door detail must expose one Inox double-latch section')
+  assert.equal(await page.locator('#song-gai-eps').count(), 1, 'cold-room door detail must expose one EPS double-latch section')
+  assert.equal(await page.locator('#hoi-dap details').count(), 5, 'cold-room door detail must expose five practical FAQ entries')
+  const doorNavigationHrefs = await page.locator('nav[aria-label="Đi nhanh trong trang sản phẩm"] a').evaluateAll(links => links.map(link => link.getAttribute('href')))
+  for (const anchor of ['#cau-tao-bo-cua', '#cua-ban-le', '#cua-truot', '#song-gai-inox', '#song-gai-eps', '#lam-kin-suoi-va-an-toan', '#chuan-bi', '#hoi-dap']) {
+    assert.ok(doorNavigationHrefs.includes(anchor), `cold-room door in-page navigation must include ${anchor}`)
+  }
+  assert.doesNotMatch(inoxDoorText, /1471421817120_1148|tamcachnhiettabi|Tabi|Coolmax|Atimon|-70.*60\s*°C/i, 'cold-room door content must not copy competitor identifiers or unsupported claims')
 
   const coldRoomAccessoryResponse = await page.goto(`${webUrl}/products/phu-kien-kho-lanh`, { waitUntil: 'networkidle' })
   assert.equal(coldRoomAccessoryResponse?.status(), 200, 'cold-room accessory catalog must render successfully')
@@ -639,7 +650,7 @@ try {
     { width: 320, height: 800, label: 'minimum mobile' },
     { width: 768, height: 1024, label: 'tablet' },
   ]) {
-    for (const route of ['/', '/products']) {
+    for (const route of ['/', '/products', '/products/cua-kho-lanh']) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height })
       await page.goto(`${webUrl}${route === '/' ? '' : route}`, { waitUntil: 'networkidle' })
       const responsiveMetrics = await page.evaluate(() => ({
@@ -777,6 +788,12 @@ try {
   await noScriptPage.locator('h1').waitFor({ state: 'visible' })
   await noScriptPage.locator('#retail-products').waitFor({ state: 'visible' })
   assert.match(await noScriptPage.locator('#retail-products').innerText(), /Panel EPS, cửa kho lạnh, phụ kiện và vật tư cách nhiệt/i, 'retail content must remain readable without JavaScript')
+
+  const noScriptDoorResponse = await noScriptPage.goto(`${webUrl}/products/cua-kho-lanh`, { waitUntil: 'load' })
+  assert.equal(noScriptDoorResponse?.status(), 200, 'cold-room door detail must render without JavaScript')
+  const noScriptDoorText = await noScriptPage.locator('article').first().innerText()
+  assert.match(noScriptDoorText, /Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s, 'all cold-room door configurations must remain readable without JavaScript')
+  assert.match(noScriptDoorText, /Nên chọn cửa bản lề hay cửa trượt\?/i, 'cold-room door FAQ must remain readable without JavaScript')
 
   const noScriptContactResponse = await noScriptPage.goto(`${webUrl}/contact`, { waitUntil: 'load' })
   assert.equal(noScriptContactResponse?.status(), 200, 'contact page must render without JavaScript')
