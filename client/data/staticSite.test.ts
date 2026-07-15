@@ -11,6 +11,7 @@ import {
   productFamilies,
   publicNavigation,
   referenceApplications,
+  retailProducts,
   solutions,
   staticRoutes,
 } from './staticSite'
@@ -43,9 +44,12 @@ describe('static site scope', () => {
     expect(publicNavigation.every(item => !forbiddenCommercePath.test(item.href))).toBe(true)
 
     const postRoutes = posts.map(post => `/posts/${post.slug}`)
+    const productRoutes = retailProducts.map(product => `/products/${product.slug}`)
     const staticRouteSet = new Set<string>(staticRoutes)
     expectUnique(postRoutes)
+    expectUnique(productRoutes)
     expect(postRoutes.some(route => staticRouteSet.has(route))).toBe(false)
+    expect(productRoutes.some(route => staticRouteSet.has(route))).toBe(false)
   })
 
   it('uses unique, stable identifiers for every content collection', () => {
@@ -58,13 +62,17 @@ describe('static site scope', () => {
 
     expectUnique(posts.map(post => post.slug))
     expect(posts.every(post => identifierPattern.test(post.slug))).toBe(true)
+    expectUnique(retailProducts.map(product => product.slug))
+    expect(retailProducts.every(product => identifierPattern.test(product.slug))).toBe(true)
+    expect(retailProducts.every(product => productFamilies.some(family => family.id === product.familyId))).toBe(true)
     expect(posts.every(post => /^\d{4}-\d{2}-\d{2}$/.test(post.date))).toBe(true)
   })
 
   it('presents product families as consultation content without commerce fields', () => {
     expect(productFamilies.length).toBeGreaterThanOrEqual(2)
-    expect(JSON.stringify(productFamilies)).not.toMatch(/"(?:price|salePrice|stock|checkout|cart)"/i)
-    expect(JSON.stringify(productFamilies)).not.toMatch(/\b(?:PU|PIR|Rockwool|PCCC)\b|bông khoáng|chống cháy/i)
+    expect(retailProducts).toHaveLength(5)
+    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/"(?:price|salePrice|stock|checkout|cart)"/i)
+    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/\b(?:PU|PIR|Rockwool|PCCC)\b|bông khoáng|chống cháy/i)
   })
 
   it('publishes the confirmed retail panel, accessory and Inox 304 door specifications', () => {
@@ -76,11 +84,41 @@ describe('static site scope', () => {
       label: 'Tỷ trọng',
       value: '14–16 kg/m³; 18–20 kg/m³; 23–25 kg/m³ (tùy loại panel)',
     })
-    expect(doorsAndAccessories?.applications).toEqual(['Cửa Inox 304', 'Nẹp U', 'V trong', 'V ngoài'])
+    expect(doorsAndAccessories?.applications).toEqual([
+      'Cửa kho lạnh Inox 304',
+      'Phụ kiện panel',
+      'Phụ kiện cửa',
+      'Vật tư cách nhiệt',
+    ])
     expect(doorsAndAccessories?.specifications).toContainEqual({
       label: 'Kích thước cửa',
-      value: '600 × 600 × 100 mm; 700 × 700 mm; 800 × 800 mm; 700 × 1700 mm; 800 × 1800 mm; 900 × 1800 mm; 1000 × 1800 mm; 1100 × 1800 mm; 1200 × 1800 mm',
+      value: '600 × 600 × 100 mm (rộng × cao × dày); các kích thước rộng × cao: 700 × 700, 800 × 800, 700 × 1700, 800 × 1800, 900 × 1800, 1000 × 1800, 1100 × 1800, 1200 × 1800 mm; độ dày xác nhận theo cấu hình',
     })
+
+    expect(retailProducts.map(product => product.slug)).toEqual([
+      'panel-eps',
+      'cua-kho-lanh',
+      'phu-kien-kho-lanh',
+      'phu-kien-cua',
+      'vat-tu-cach-nhiet',
+    ])
+    expect(retailProducts.find(product => product.slug === 'panel-eps')?.specifications).toContainEqual({
+      label: 'Độ dày',
+      value: '50–200 mm; mức sản xuất cụ thể được xác nhận theo đơn hàng',
+    })
+    const coldRoomDoor = retailProducts.find(product => product.slug === 'cua-kho-lanh')
+    expect(coldRoomDoor?.specifications).toContainEqual({ label: 'Bề mặt cửa', value: 'Inox 304' })
+    expect(coldRoomDoor?.detailSections.map(section => section.id)).toContain('cua-ban-le')
+    expect(coldRoomDoor?.detailSections.map(section => section.id)).toContain('cua-truot')
+
+    const accessoryCatalog = retailProducts.find(product => product.slug === 'phu-kien-kho-lanh')
+    expect(accessoryCatalog?.detailSections.map(section => section.id)).toEqual([
+      'nep-u-panel',
+      'nep-v-panel',
+      'treo-tran-panel',
+      'van-va-ong-cach-nhiet',
+    ])
+    expect(JSON.stringify(retailProducts)).not.toMatch(/Tabi|Coolmax|CM-\d+|900°C|1000°C/i)
   })
 
   it('provides consistent direct contact actions that work without a backend', () => {
@@ -101,6 +139,7 @@ describe('static site scope', () => {
       : []
     const imageReferences = [
       ...productFamilies.flatMap(item => [item.image, ...srcsetImages(item.imageSrcset)]),
+      ...retailProducts.flatMap(item => [item.image, ...srcsetImages(item.imageSrcset)]),
       ...posts.flatMap(item => [item.image, ...srcsetImages(item.imageSrcset)]),
     ]
 
@@ -112,7 +151,7 @@ describe('static site scope', () => {
       if (exists) expect(fs.statSync(absolutePath).isFile()).toBe(true)
     }
 
-    for (const item of [...productFamilies, ...posts]) {
+    for (const item of [...productFamilies, ...retailProducts, ...posts]) {
       expect(item.imageWidth).toBeGreaterThan(0)
       expect(item.imageHeight).toBeGreaterThan(0)
       expect(item.imageAlt.trim().length).toBeGreaterThan(0)
@@ -141,6 +180,14 @@ describe('site content validation', () => {
     clonedPost.id = 'another-post-id'
     duplicateSlug.posts.push(clonedPost)
     expect(() => parseSiteContent(duplicateSlug)).toThrow(/posts\[\]\.slug: values must be unique/)
+
+    const duplicateProductSlug = structuredClone(siteContentJson)
+    duplicateProductSlug.retailProducts[1].slug = duplicateProductSlug.retailProducts[0].slug
+    expect(() => parseSiteContent(duplicateProductSlug)).toThrow(/retailProducts\[\]\.slug: values must be unique/)
+
+    const missingProductFamily = structuredClone(siteContentJson)
+    missingProductFamily.retailProducts[0].familyId = 'missing-family'
+    expect(() => parseSiteContent(missingProductFamily)).toThrow(/retailProducts\.panel-eps\.familyId: must reference an existing product family/)
 
     const impossibleDate = structuredClone(siteContentJson)
     impossibleDate.posts[0].date = '2026-02-30'

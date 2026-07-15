@@ -2,12 +2,14 @@ import siteContentJson from './site-content.json'
 import type {
   CompanyContact,
   ContentPost,
+  ProductDetailSection,
   ProductFamily,
   ResponsiveImage,
   ProductSpecification,
   PrimaryNavigationRoute,
   PublicNavigationItem,
   ReferenceApplication,
+  RetailProduct,
   SiteContent,
   StaticRoute,
   StaticSolution,
@@ -262,6 +264,56 @@ const parseProductFamily = (value: unknown, path: string): ProductFamily => {
   }
 }
 
+const parseProductDetailSection = (value: unknown, path: string): ProductDetailSection => {
+  const section = expectRecord(value, path)
+  expectExactKeys(section, path, ['id', 'title', 'summary', 'points'])
+  return {
+    id: expectIdentifier(section.id, `${path}.id`),
+    title: expectString(section.title, `${path}.title`),
+    summary: expectString(section.summary, `${path}.summary`),
+    points: expectStringArray(section.points, `${path}.points`),
+  }
+}
+
+const parseRetailProduct = (value: unknown, path: string): RetailProduct => {
+  const product = expectRecord(value, path)
+  expectExactKeys(product, path, [
+    'slug',
+    'familyId',
+    'name',
+    'eyebrow',
+    'image',
+    'imageWidth',
+    'imageHeight',
+    'imageAlt',
+    'summary',
+    'applications',
+    'specifications',
+    'detailSections',
+    'selectionChecklist',
+  ], ['imageSrcset'])
+  const specifications = expectArray(product.specifications, `${path}.specifications`).map((item, index) =>
+    parseProductSpecification(item, `${path}.specifications[${index}]`),
+  )
+  assertUnique(specifications.map(item => item.label), `${path}.specifications[].label`)
+  const detailSections = expectArray(product.detailSections, `${path}.detailSections`).map((item, index) =>
+    parseProductDetailSection(item, `${path}.detailSections[${index}]`),
+  )
+  assertUnique(detailSections.map(item => item.id), `${path}.detailSections[].id`)
+  return {
+    slug: expectIdentifier(product.slug, `${path}.slug`),
+    familyId: expectIdentifier(product.familyId, `${path}.familyId`),
+    name: expectString(product.name, `${path}.name`),
+    eyebrow: expectString(product.eyebrow, `${path}.eyebrow`),
+    ...parseResponsiveImage(product, path),
+    summary: expectString(product.summary, `${path}.summary`),
+    applications: expectStringArray(product.applications, `${path}.applications`),
+    specifications,
+    detailSections,
+    selectionChecklist: expectStringArray(product.selectionChecklist, `${path}.selectionChecklist`),
+  }
+}
+
 const parseSolution = (value: unknown, path: string): StaticSolution => {
   const solution = expectRecord(value, path)
   expectExactKeys(solution, path, ['id', 'index', 'name', 'temperature', 'summary', 'recommendedSystem', 'checklist'])
@@ -326,6 +378,7 @@ export const parseSiteContent = (value: unknown): SiteContent => {
     'publicNavigation',
     'companyContact',
     'productFamilies',
+    'retailProducts',
     'solutions',
     'referenceApplications',
     'posts',
@@ -338,6 +391,9 @@ export const parseSiteContent = (value: unknown): SiteContent => {
   const productFamilies = expectArray(content.productFamilies, 'productFamilies').map((item, index) =>
     parseProductFamily(item, `productFamilies[${index}]`),
   )
+  const retailProducts = expectArray(content.retailProducts, 'retailProducts').map((item, index) =>
+    parseRetailProduct(item, `retailProducts[${index}]`),
+  )
   const solutions = expectArray(content.solutions, 'solutions').map((item, index) =>
     parseSolution(item, `solutions[${index}]`),
   )
@@ -349,6 +405,7 @@ export const parseSiteContent = (value: unknown): SiteContent => {
   assertUnique(staticRoutes, 'staticRoutes')
   assertUnique(publicNavigation.map(item => item.href), 'publicNavigation[].href')
   assertUnique(productFamilies.map(item => item.id), 'productFamilies[].id')
+  assertUnique(retailProducts.map(item => item.slug), 'retailProducts[].slug')
   assertUnique(solutions.map(item => item.id), 'solutions[].id')
   assertUnique(solutions.map(item => item.index), 'solutions[].index')
   assertUnique(referenceApplications.map(item => item.id), 'referenceApplications[].id')
@@ -360,12 +417,19 @@ export const parseSiteContent = (value: unknown): SiteContent => {
   if (!expectedNavigationRoutes.every(route => navigationHrefs.has(route))) {
     invalid('publicNavigation[].href', 'must include every canonical navigation route exactly once')
   }
+  const productFamilyIds = new Set(productFamilies.map(item => item.id))
+  for (const product of retailProducts) {
+    if (!productFamilyIds.has(product.familyId)) {
+      invalid(`retailProducts.${product.slug}.familyId`, `must reference an existing product family`)
+    }
+  }
   if (!posts.some(post => post.published)) invalid('posts[].published', 'at least one post must be published')
 
   return {
     publicNavigation,
     companyContact: parseCompanyContact(content.companyContact, 'companyContact'),
     productFamilies,
+    retailProducts,
     solutions,
     referenceApplications,
     posts,
@@ -378,6 +442,7 @@ export const defaultSiteContent = parseSiteContent(siteContentJson)
 export const publicNavigation = defaultSiteContent.publicNavigation
 export const companyContact = defaultSiteContent.companyContact
 export const productFamilies = defaultSiteContent.productFamilies
+export const retailProducts = defaultSiteContent.retailProducts
 export const solutions = defaultSiteContent.solutions
 export const referenceApplications = defaultSiteContent.referenceApplications
 export const posts = defaultSiteContent.posts

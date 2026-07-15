@@ -19,6 +19,7 @@ export default defineEventHandler((event) => {
   const staticPaths = ['/', ...siteContent.publicNavigation.map(item => item.href), '/privacy']
   const entries: SitemapEntry[] = [
     ...staticPaths.map(path => ({ path })),
+    ...siteContent.retailProducts.map(product => ({ path: `/products/${product.slug}` })),
     ...siteContent.posts
       .filter(post => post.published)
       .map(post => ({

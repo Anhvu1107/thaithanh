@@ -72,19 +72,19 @@
     },
     {
       "id": "doors-accessories",
-      "name": "Cửa Inox 304 và phụ kiện U/V",
-      "eyebrow": "Có bán lẻ theo quy cách",
+      "name": "Cửa kho lạnh, phụ kiện và vật tư",
+      "eyebrow": "Đồng bộ theo cấu tạo công trình",
       "image": "/images/insulation/cold-door-editorial.jpg",
       "imageSrcset": "/images/insulation/cold-door-editorial.jpg 1254w",
       "imageWidth": 1254,
       "imageHeight": 1254,
       "imageAlt": "Minh họa cửa bản lề cho kho lạnh",
-      "summary": "Cửa Inox 304 cùng nẹp U, V trong và V ngoài được cung cấp lẻ theo quy cách và kích thước yêu cầu.",
+      "summary": "Cửa kho lạnh Inox 304, phụ kiện panel, phụ kiện cửa và vật tư cách nhiệt được đối chiếu theo từng vị trí sử dụng.",
       "applications": [
-        "Cửa Inox 304",
-        "Nẹp U",
-        "V trong",
-        "V ngoài"
+        "Cửa kho lạnh Inox 304",
+        "Phụ kiện panel",
+        "Phụ kiện cửa",
+        "Vật tư cách nhiệt"
       ],
       "specifications": [
         {
@@ -92,8 +92,8 @@
           "value": "Bán lẻ theo quy cách và số lượng yêu cầu"
         },
         {
-          "label": "Phụ kiện",
-          "value": "Nẹp U, V trong và V ngoài"
+          "label": "Nhóm danh mục",
+          "value": "Nẹp U, V trong, V ngoài; phụ kiện treo trần; phụ kiện cửa và vật tư cách nhiệt"
         },
         {
           "label": "Vật liệu cửa",
@@ -101,12 +101,419 @@
         },
         {
           "label": "Kích thước cửa",
-          "value": "600 × 600 × 100 mm; 700 × 700 mm; 800 × 800 mm; 700 × 1700 mm; 800 × 1800 mm; 900 × 1800 mm; 1000 × 1800 mm; 1100 × 1800 mm; 1200 × 1800 mm"
+          "value": "600 × 600 × 100 mm (rộng × cao × dày); các kích thước rộng × cao: 700 × 700, 800 × 800, 700 × 1700, 800 × 1800, 900 × 1800, 1000 × 1800, 1100 × 1800, 1200 × 1800 mm; độ dày xác nhận theo cấu hình"
         },
         {
           "label": "Gia công khác",
           "value": "Nhận theo kích thước yêu cầu thực tế"
         }
+      ]
+    }
+  ],
+  "retailProducts": [
+    {
+      "slug": "panel-eps",
+      "familyId": "eps",
+      "name": "Panel EPS cách nhiệt",
+      "eyebrow": "Kết cấu ba lớp · bán lẻ theo quy cách",
+      "image": "/images/insulation/eps-panel-editorial.jpg",
+      "imageSrcset": "/images/insulation/eps-panel-editorial.jpg 1254w",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "imageAlt": "Ảnh minh họa mặt cắt tấm panel EPS cách nhiệt",
+      "summary": "Panel EPS cho vách, trần và công trình lắp ghép; cấu hình được đối chiếu theo độ dày, tỷ trọng, bề mặt và điều kiện sử dụng thực tế.",
+      "applications": [
+        "Kho mát và kho lạnh",
+        "Vách và trần panel",
+        "Nhà xưởng",
+        "Phòng sạch",
+        "Công trình lắp ghép"
+      ],
+      "specifications": [
+        {
+          "label": "Độ dày",
+          "value": "50–200 mm; mức sản xuất cụ thể được xác nhận theo đơn hàng"
+        },
+        {
+          "label": "Tỷ trọng",
+          "value": "14–16 kg/m³; 18–20 kg/m³; 23–25 kg/m³, tùy loại panel"
+        },
+        {
+          "label": "Cấu tạo",
+          "value": "Hai lớp bề mặt kim loại và lõi EPS ở giữa"
+        },
+        {
+          "label": "Quy cách sản xuất",
+          "value": "Khổ hữu dụng, chiều dài, bề mặt và kiểu ngàm được xác nhận theo đơn hàng"
+        }
+      ],
+      "detailSections": [
+        {
+          "id": "cau-tao-panel",
+          "title": "Cấu tạo sandwich ba lớp",
+          "summary": "Lõi EPS nằm giữa hai bề mặt kim loại, tạo thành tấm lắp ghép nhẹ và liền mạch.",
+          "points": [
+            "Hai bề mặt bảo vệ lõi và tạo lớp hoàn thiện cho công trình",
+            "Lõi EPS được chọn theo nhóm tỷ trọng phù hợp với yêu cầu sử dụng",
+            "Các tấm liên kết theo hệ ngàm; chi tiết ngàm được chốt theo lô sản xuất"
+          ]
+        },
+        {
+          "id": "quy-cach-panel",
+          "title": "Quy cách cần đối chiếu",
+          "summary": "Độ dày và tỷ trọng chưa đủ để chốt hàng; cần xác nhận thêm mặt tấm, chiều dài và số lượng.",
+          "points": [
+            "Chọn độ dày theo nhiệt độ vận hành và vị trí vách, trần hoặc mái",
+            "Xác nhận chiều dài tấm theo mặt bằng để hạn chế mối nối",
+            "Bề mặt, màu sắc và khổ hữu dụng được ghi rõ trong báo giá"
+          ]
+        },
+        {
+          "id": "ung-dung-panel",
+          "title": "Ứng dụng theo công năng",
+          "summary": "Panel EPS được dùng cho nhiều loại không gian nhưng cấu hình phải thay đổi theo tải nhiệt và điều kiện vệ sinh.",
+          "points": [
+            "Kho mát, kho lạnh và khu bảo quản",
+            "Vách, trần nhà xưởng và phòng sản xuất",
+            "Văn phòng, nhà lắp ghép và khu phụ trợ"
+          ]
+        }
+      ],
+      "selectionChecklist": [
+        "Nhiệt độ vận hành và mục đích sử dụng",
+        "Vị trí dùng cho vách, trần hay mái",
+        "Kích thước khu vực và chiều dài tấm dự kiến",
+        "Độ dày, tỷ trọng, số lượng và địa điểm giao hàng"
+      ]
+    },
+    {
+      "slug": "cua-kho-lanh",
+      "familyId": "doors-accessories",
+      "name": "Cửa kho lạnh Inox 304",
+      "eyebrow": "Bản lề · cửa trượt · cấu hình theo ô chờ",
+      "image": "/images/insulation/cold-door-editorial.jpg",
+      "imageSrcset": "/images/insulation/cold-door-editorial.jpg 1254w",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "imageAlt": "Cửa kho lạnh Inox 304 trong hệ panel cách nhiệt",
+      "summary": "Cửa kho lạnh Inox 304 được chọn theo kiểu mở, kích thước ô chờ, độ dày vách và nhiệt độ vận hành; nhận gia công theo công trình.",
+      "applications": [
+        "Kho lạnh",
+        "Kho đông",
+        "Kho mát",
+        "Phòng sạch",
+        "Khu chế biến"
+      ],
+      "specifications": [
+        {
+          "label": "Bề mặt cửa",
+          "value": "Inox 304"
+        },
+        {
+          "label": "Kiểu mở",
+          "value": "Cửa bản lề, cửa trượt và cấu hình song gài theo yêu cầu"
+        },
+        {
+          "label": "Kích thước thường dùng",
+          "value": "600 × 600 × 100 mm (rộng × cao × dày); các kích thước rộng × cao: 700 × 700, 800 × 800, 700 × 1700, 800 × 1800, 900 × 1800, 1000 × 1800, 1100 × 1800, 1200 × 1800 mm; độ dày xác nhận theo cấu hình"
+        },
+        {
+          "label": "Gia công khác",
+          "value": "Theo kích thước ô chờ, chiều mở và điều kiện vận hành thực tế"
+        }
+      ],
+      "detailSections": [
+        {
+          "id": "cua-ban-le",
+          "title": "Cửa bản lề",
+          "summary": "Phù hợp lối đi người hoặc ô cửa có tần suất đóng mở vừa phải, ưu tiên thao tác trực tiếp và gọn hệ ray.",
+          "points": [
+            "Chốt hướng mở trái hoặc phải theo mặt bằng",
+            "Đối chiếu khung bao với độ dày panel",
+            "Gioăng, khóa và chốt mở phía trong được xác nhận theo cấu hình"
+          ]
+        },
+        {
+          "id": "cua-truot",
+          "title": "Cửa trượt",
+          "summary": "Dùng khi cần giải phóng vùng quay cánh; hệ ray và khoảng trượt phải được kiểm tra trước khi gia công.",
+          "points": [
+            "Kiểm tra khoảng trống dọc theo vách để cánh trượt",
+            "Xác nhận ray, bánh xe, dẫn hướng và chặn hành trình",
+            "Chọn tay kéo, khóa và giải pháp an toàn theo vận hành"
+          ]
+        },
+        {
+          "id": "cua-song-gai",
+          "title": "Cửa song gài",
+          "summary": "Cấu hình được xem xét cho ô cửa cần lực ép kín lớn hơn hoặc điều kiện vận hành chuyên biệt.",
+          "points": [
+            "Chọn cấu hình sau khi biết nhiệt độ và tần suất mở cửa",
+            "Kích thước, lõi cánh và cơ cấu gài phải thể hiện trong bản duyệt",
+            "Không dùng một cấu hình chung cho mọi mức nhiệt"
+          ]
+        },
+        {
+          "id": "do-kin-va-an-toan",
+          "title": "Độ kín và an toàn",
+          "summary": "Hiệu quả của cửa phụ thuộc đồng thời vào cánh, khung, gioăng và phụ kiện chứ không chỉ vật liệu bề mặt.",
+          "points": [
+            "Kiểm tra gioăng quanh cánh và độ ép kín khi đóng",
+            "Xem xét sưởi khung cho môi trường nhiệt độ âm theo thiết kế",
+            "Ưu tiên cơ cấu mở an toàn từ phía trong kho"
+          ]
+        }
+      ],
+      "selectionChecklist": [
+        "Kích thước ô chờ rộng × cao và độ dày panel",
+        "Nhiệt độ vận hành, tần suất mở và loại hàng di chuyển",
+        "Kiểu cửa, chiều mở hoặc khoảng trượt khả dụng",
+        "Số lượng, vị trí công trình và phụ kiện cần kèm theo"
+      ]
+    },
+    {
+      "slug": "phu-kien-kho-lanh",
+      "familyId": "doors-accessories",
+      "name": "Phụ kiện kho lạnh và panel",
+      "eyebrow": "Hoàn thiện liên kết · treo trần · cân bằng áp",
+      "image": "/images/insulation/cold-room-installation-documentary.jpg",
+      "imageSrcset": "/images/insulation/cold-room-installation-documentary.jpg 1672w",
+      "imageWidth": 1672,
+      "imageHeight": 941,
+      "imageAlt": "Ảnh minh họa thi công hệ panel và phụ kiện kho lạnh",
+      "summary": "Nhóm phụ kiện phục vụ định vị vách, xử lý góc, treo trần và vận hành kho; từng món được xác nhận theo cấu tạo công trình.",
+      "applications": [
+        "Kho lạnh và kho mát",
+        "Trần panel",
+        "Vách panel",
+        "Phòng sạch",
+        "Công trình lắp ghép"
+      ],
+      "specifications": [
+        {
+          "label": "Nẹp panel đã xác nhận",
+          "value": "Nẹp U, V trong và V ngoài"
+        },
+        {
+          "label": "Nhóm treo trần",
+          "value": "Thanh T và bulong dù được đối chiếu theo nhịp, tải và bản vẽ"
+        },
+        {
+          "label": "Nhóm vận hành",
+          "value": "Van cân bằng áp và ống cách nhiệt được kiểm tra theo hệ thống thực tế"
+        },
+        {
+          "label": "Hình thức cung cấp",
+          "value": "Bán lẻ hoặc đồng bộ theo khối lượng công trình"
+        }
+      ],
+      "detailSections": [
+        {
+          "id": "nep-u-panel",
+          "title": "Nẹp U panel",
+          "summary": "Dùng tại chân vách, đầu vách hoặc vị trí cần định vị mép panel.",
+          "points": [
+            "Chọn theo độ dày panel",
+            "Chốt vị trí sử dụng và tổng chiều dài",
+            "Vật liệu, màu và kích thước cạnh xác nhận theo mẫu"
+          ]
+        },
+        {
+          "id": "nep-v-panel",
+          "title": "Nẹp V trong và V ngoài",
+          "summary": "Hoàn thiện giao tuyến góc trong hoặc bảo vệ cạnh góc ngoài của hệ panel.",
+          "points": [
+            "Phân biệt đúng góc trong và góc ngoài",
+            "Đối chiếu cấu tạo góc với độ dày tấm",
+            "Xác nhận chiều dài, vật liệu và bề mặt trước khi đặt"
+          ]
+        },
+        {
+          "id": "treo-tran-panel",
+          "title": "Thanh T và bulong dù treo trần",
+          "summary": "Hỗ trợ liên kết và treo hệ trần panel; cấu hình phụ thuộc nhịp, tải và kết cấu phía trên.",
+          "points": [
+            "Không chốt phụ kiện treo chỉ từ diện tích trần",
+            "Cần bản vẽ bố trí điểm treo và kết cấu đỡ",
+            "Khả năng cung cấp được xác nhận sau khi đối chiếu khối lượng"
+          ]
+        },
+        {
+          "id": "van-va-ong-cach-nhiet",
+          "title": "Van cân bằng áp và ống cách nhiệt",
+          "summary": "Nhóm phụ trợ vận hành được chọn theo thể tích kho, mức nhiệt và hệ đường ống.",
+          "points": [
+            "Van cân bằng áp cần được tính theo điều kiện chênh áp",
+            "Ống cách nhiệt chọn theo đường kính và nhiệt độ đường ống",
+            "Xác nhận cấu hình với đơn vị thiết kế hệ lạnh"
+          ]
+        }
+      ],
+      "selectionChecklist": [
+        "Tên phụ kiện và vị trí lắp trên bản vẽ",
+        "Độ dày panel, kích thước góc hoặc nhịp trần",
+        "Vật liệu, màu bề mặt và tổng chiều dài hoặc số lượng",
+        "Điều kiện vận hành và địa điểm giao hàng"
+      ]
+    },
+    {
+      "slug": "phu-kien-cua",
+      "familyId": "doors-accessories",
+      "name": "Phụ kiện cửa kho lạnh",
+      "eyebrow": "Đóng mở · làm kín · an toàn vận hành",
+      "image": "/images/insulation/cold-door.webp",
+      "imageSrcset": "/images/insulation/cold-door-640.webp 640w, /images/insulation/cold-door.webp 1200w",
+      "imageWidth": 1200,
+      "imageHeight": 800,
+      "imageAlt": "Cửa kho lạnh minh họa cho nhóm phụ kiện đóng mở và làm kín",
+      "summary": "Bản lề, khóa, gioăng, sưởi khung và phụ kiện cửa được chọn đồng bộ theo kiểu cửa, kích thước cánh và nhiệt độ kho.",
+      "applications": [
+        "Cửa bản lề",
+        "Cửa trượt",
+        "Kho đông",
+        "Kho mát",
+        "Phòng sạch"
+      ],
+      "specifications": [
+        {
+          "label": "Cơ cấu đóng mở",
+          "value": "Bản lề thường, bản lề nâng và bộ ray trượt theo cấu hình cửa"
+        },
+        {
+          "label": "Làm kín",
+          "value": "Gioăng cửa và sưởi khung được chọn theo mức nhiệt vận hành"
+        },
+        {
+          "label": "Khóa và an toàn",
+          "value": "Tay khóa, tay kéo và chốt mở phía trong đối chiếu theo kiểu cửa"
+        },
+        {
+          "label": "Ngăn thất thoát lạnh",
+          "value": "Màn PVC và bộ treo được xem xét theo kích thước lối đi"
+        }
+      ],
+      "detailSections": [
+        {
+          "id": "ban-le-cua",
+          "title": "Bản lề và bản lề nâng",
+          "summary": "Chịu tải cánh và quyết định quỹ đạo đóng mở; cần chọn theo trọng lượng, chiều mở và tần suất sử dụng.",
+          "points": [
+            "Không dùng mã bản lề khi chưa đối chiếu tải cánh",
+            "Bản lề nâng giúp giảm ma sát gioăng ở cấu hình phù hợp",
+            "Vị trí bắt phụ kiện phải tương thích khung và cánh"
+          ]
+        },
+        {
+          "id": "gioang-va-suoi-khung",
+          "title": "Gioăng và điện trở sưởi",
+          "summary": "Gioăng tạo độ kín; sưởi khung được cân nhắc khi nhiệt độ thấp có nguy cơ bám đá hoặc cứng gioăng.",
+          "points": [
+            "Chọn tiết diện gioăng theo cấu tạo cánh",
+            "Kiểm tra nguồn điện và công suất sưởi theo thiết kế",
+            "Bố trí để có thể kiểm tra và thay thế khi bảo trì"
+          ]
+        },
+        {
+          "id": "tay-khoa-va-an-toan",
+          "title": "Tay khóa và chốt an toàn",
+          "summary": "Cơ cấu khóa phải thuận tiện từ bên ngoài và có giải pháp thoát an toàn từ phía trong kho.",
+          "points": [
+            "Chọn theo chiều mở và độ dày cánh",
+            "Kiểm tra hành trình khóa sau khi ép gioăng",
+            "Ưu tiên cơ cấu mở trong dễ nhận biết"
+          ]
+        },
+        {
+          "id": "man-pvc",
+          "title": "Màn PVC và bộ treo",
+          "summary": "Lớp ngăn phụ tại lối đi giúp hạn chế trao đổi không khí khi cửa mở, nhưng không thay thế cửa cách nhiệt.",
+          "points": [
+            "Chọn khổ lá theo kích thước và loại phương tiện qua lại",
+            "Xác nhận thanh treo, bát treo và độ chồng lá",
+            "Bố trí để dễ tháo vệ sinh và thay lá"
+          ]
+        }
+      ],
+      "selectionChecklist": [
+        "Kiểu cửa, kích thước cánh và chiều mở",
+        "Nhiệt độ kho và tần suất đóng mở",
+        "Tên phụ kiện hoặc ảnh bộ phận cần thay",
+        "Số lượng, vị trí giao và yêu cầu lắp đặt"
+      ]
+    },
+    {
+      "slug": "vat-tu-cach-nhiet",
+      "familyId": "doors-accessories",
+      "name": "Vật tư cho hệ panel cách nhiệt",
+      "eyebrow": "Inox 304 · EPS · tôn mạ màu",
+      "image": "/images/insulation/eps-panel.webp",
+      "imageSrcset": "/images/insulation/eps-panel-640.webp 640w, /images/insulation/eps-panel.webp 1200w",
+      "imageWidth": 1200,
+      "imageHeight": 800,
+      "imageAlt": "Bề mặt và lõi của hệ panel cách nhiệt",
+      "summary": "Nhóm vật tư gồm Inox 304, xốp EPS và tôn mạ màu dùng trong gia công panel, cửa và các chi tiết hoàn thiện liên quan.",
+      "applications": [
+        "Gia công cửa",
+        "Gia công chi tiết panel",
+        "Bọc và hoàn thiện",
+        "Thay thế vật tư",
+        "Công trình cách nhiệt"
+      ],
+      "specifications": [
+        {
+          "label": "Inox",
+          "value": "Inox 304; dạng tấm, chiều dày và bề mặt xác nhận theo yêu cầu"
+        },
+        {
+          "label": "Xốp EPS",
+          "value": "Tỷ trọng và kích thước được đối chiếu theo mục đích sử dụng"
+        },
+        {
+          "label": "Tôn mạ màu",
+          "value": "Màu, chiều dày và kiểu bề mặt xác nhận theo mẫu hoặc báo giá"
+        },
+        {
+          "label": "Hình thức cung cấp",
+          "value": "Bán lẻ hoặc gia công theo khối lượng thực tế"
+        }
+      ],
+      "detailSections": [
+        {
+          "id": "inox-304",
+          "title": "Inox 304",
+          "summary": "Vật liệu bề mặt cho cửa và chi tiết cần khả năng vệ sinh, độ bền và tính đồng bộ cao.",
+          "points": [
+            "Chốt dạng tấm, chiều dày và bề mặt",
+            "Xác nhận có hay không lớp bảo vệ chống trầy khi giao",
+            "Gia công theo bản vẽ hoặc kích thước đã duyệt"
+          ]
+        },
+        {
+          "id": "xop-eps",
+          "title": "Xốp EPS",
+          "summary": "Lõi cách nhiệt nhẹ; tỷ trọng và kích thước phải phù hợp với chi tiết cần gia công.",
+          "points": [
+            "Chọn tỷ trọng theo yêu cầu sử dụng",
+            "Chốt chiều dày, khổ và số lượng",
+            "Bảo quản khô và tránh tác động cơ học khi vận chuyển"
+          ]
+        },
+        {
+          "id": "ton-ma-mau",
+          "title": "Tôn mạ màu",
+          "summary": "Bề mặt kim loại dùng cho panel và các chi tiết bọc hoàn thiện; cần đồng bộ màu và quy cách với công trình.",
+          "points": [
+            "Đối chiếu mẫu màu trước khi sản xuất",
+            "Chốt chiều dày và dạng bề mặt phẳng hoặc cán sóng",
+            "Kiểm tra yêu cầu cắt, chấn hoặc gia công kèm theo"
+          ]
+        }
+      ],
+      "selectionChecklist": [
+        "Tên vật tư và mục đích sử dụng",
+        "Chiều dày, kích thước, tỷ trọng hoặc bề mặt cần dùng",
+        "Mẫu màu, bản vẽ gia công hoặc ảnh hiện trạng",
+        "Số lượng và địa điểm giao hàng"
       ]
     }
   ],

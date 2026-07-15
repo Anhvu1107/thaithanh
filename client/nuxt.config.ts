@@ -10,6 +10,9 @@ const publishedPostRoutes = siteContent.posts
   .filter(post => post.published)
   .map(post => `/posts/${post.slug}`)
 
+const retailProductRoutes = siteContent.retailProducts
+  .map(product => `/products/${product.slug}`)
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
@@ -74,6 +77,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: [
         ...publicRoutes,
+        ...retailProductRoutes,
         ...publishedPostRoutes,
         '/robots.txt',
         '/sitemap.xml',

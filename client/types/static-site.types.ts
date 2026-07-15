@@ -37,6 +37,25 @@ export interface ProductFamily extends ResponsiveImage {
   specifications: ProductSpecification[]
 }
 
+export interface ProductDetailSection {
+  id: string
+  title: string
+  summary: string
+  points: string[]
+}
+
+export interface RetailProduct extends ResponsiveImage {
+  slug: string
+  familyId: string
+  name: string
+  eyebrow: string
+  summary: string
+  applications: string[]
+  specifications: ProductSpecification[]
+  detailSections: ProductDetailSection[]
+  selectionChecklist: string[]
+}
+
 export interface StaticSolution {
   id: string
   index: string
@@ -82,6 +101,7 @@ export interface SiteContent {
   publicNavigation: PublicNavigationItem[]
   companyContact: CompanyContact
   productFamilies: ProductFamily[]
+  retailProducts: RetailProduct[]
   solutions: StaticSolution[]
   referenceApplications: ReferenceApplication[]
   posts: ContentPost[]

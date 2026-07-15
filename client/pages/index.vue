@@ -280,6 +280,10 @@ usePageSeo({
                   {{ application }}
                 </span>
               </div>
+              <span class="mt-7 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#8d5437]">
+                Mở danh mục chi tiết
+                <span aria-hidden="true">→</span>
+              </span>
             </div>
           </NuxtLink>
         </div>

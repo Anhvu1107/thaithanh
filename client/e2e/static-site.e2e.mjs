@@ -293,7 +293,7 @@ try {
   await page.goto(`${webUrl}/products`, { waitUntil: 'networkidle' })
   const retailProducts = page.locator('#retail-products')
   const retailProductText = await retailProducts.innerText()
-  assert.match(retailProductText, /Sản phẩm công trình|Panel, nẹp U\/V và cửa Inox 304/i, 'products page must expose the retail catalog')
+  assert.match(retailProductText, /Panel EPS, cửa kho lạnh, phụ kiện và vật tư cách nhiệt/i, 'products page must expose the retail catalog')
   assert.match(retailProductText, /50–200 mm/, 'products page must expose the panel thickness range')
   assert.match(retailProductText, /14–16 kg\/m³.*18–20 kg\/m³.*23–25 kg\/m³/s, 'products page must expose the panel density ranges')
   assert.match(retailProductText, /Nẹp U.*V trong.*V ngoài/s, 'products page must expose the supplied U and V accessories')
@@ -303,6 +303,76 @@ try {
   assert.match(productsSeoDescription, /bán lẻ/i, 'products SEO description must mention retail supply')
   assert.match(productsSeoDescription, /U\/V/i, 'products SEO description must mention U/V accessories')
   assert.match(productsSeoDescription, /Inox 304/i, 'products SEO description must mention Inox 304 doors')
+
+  const productDetailLinks = page.locator('[data-product-detail-link]')
+  assert.equal(await productDetailLinks.count(), 5, 'products page must expose five product detail links')
+  const productDetailHrefs = await productDetailLinks.evaluateAll(links => links.map(link => link.getAttribute('href') || ''))
+  assert.equal(new Set(productDetailHrefs).size, 5, 'product detail links must use five unique routes')
+  assert.deepEqual(
+    [...productDetailHrefs].sort(),
+    [
+      '/products/cua-kho-lanh',
+      '/products/panel-eps',
+      '/products/phu-kien-cua',
+      '/products/phu-kien-kho-lanh',
+      '/products/vat-tu-cach-nhiet',
+    ],
+    'products page must link to every confirmed retail product detail route',
+  )
+
+  const panelProductLink = page.locator('[data-product-detail-link][href="/products/panel-eps"]')
+  assert.equal(await panelProductLink.count(), 1, 'products page must expose one Panel EPS detail link')
+  await Promise.all([
+    page.waitForURL(`${webUrl}/products/panel-eps`),
+    panelProductLink.click(),
+  ])
+  const panelProductResponse = await page.request.get(`${webUrl}/products/panel-eps`)
+  assert.equal(panelProductResponse.status(), 200, 'Panel EPS detail route must render successfully')
+  const panelProductHeading = page.locator('article h1')
+  await panelProductHeading.waitFor({ state: 'visible' }).catch(() => {})
+  const panelBodyText = (await page.locator('body').innerText()).slice(0, 600).replace(/\s+/g, ' ')
+  assert.equal(
+    await panelProductHeading.count(),
+    1,
+    `Panel EPS detail must expose one product h1; url=${page.url()}; pageErrors=${pageErrors.join(' | ')}; consoleErrors=${consoleErrors.join(' | ')}; body=${panelBodyText}`,
+  )
+  assert.match(await panelProductHeading.innerText(), /Panel EPS/i, 'Panel EPS detail must expose its product name as the h1')
+  const panelProductText = await page.locator('article').first().innerText()
+  assert.match(panelProductText, /50–200 mm/, 'Panel EPS detail must expose the supplied thickness range')
+  assert.match(panelProductText, /14–16 kg\/m³.*18–20 kg\/m³.*23–25 kg\/m³/s, 'Panel EPS detail must expose every supplied density range')
+  assert.equal(
+    await page.locator('link[rel="canonical"]').getAttribute('href'),
+    `${productionUrl}/products/panel-eps/`,
+    'Panel EPS canonical URL must use the production trailing-slash format',
+  )
+
+  const inoxDoorResponse = await page.goto(`${webUrl}/products/cua-kho-lanh`, { waitUntil: 'networkidle' })
+  assert.equal(inoxDoorResponse?.status(), 200, 'cold-room door detail route must render successfully')
+  assert.match(await page.locator('article h1').innerText(), /Cửa kho lạnh Inox 304/i, 'cold-room door detail must expose its product name as the h1')
+  const inoxDoorText = await page.locator('article').first().innerText()
+  assert.match(inoxDoorText, /Inox 304/i, 'cold-room door detail must expose its confirmed surface material')
+  assert.match(inoxDoorText, /Cửa bản lề.*Cửa trượt/s, 'cold-room door detail must explain the two common opening configurations')
+  assert.ok(inoxDoorText.includes('600 × 600 × 100 mm'), 'cold-room door detail must expose the first supplied size')
+  assert.ok(inoxDoorText.includes('1200 × 1800 mm'), 'cold-room door detail must expose the last supplied size')
+
+  const coldRoomAccessoryResponse = await page.goto(`${webUrl}/products/phu-kien-kho-lanh`, { waitUntil: 'networkidle' })
+  assert.equal(coldRoomAccessoryResponse?.status(), 200, 'cold-room accessory catalog must render successfully')
+  const coldRoomAccessoryText = await page.locator('article').first().innerText()
+  assert.match(coldRoomAccessoryText, /Nẹp U.*V trong.*V ngoài/s, 'cold-room accessory catalog must retain the confirmed U/V profiles')
+  assert.match(coldRoomAccessoryText, /Thanh T.*bulong dù.*Van cân bằng áp/s, 'cold-room accessory catalog must explain the referenced technical groups')
+
+  const doorAccessoryResponse = await page.goto(`${webUrl}/products/phu-kien-cua`, { waitUntil: 'networkidle' })
+  assert.equal(doorAccessoryResponse?.status(), 200, 'door accessory catalog must render successfully')
+  assert.match(await page.locator('article').first().innerText(), /Bản lề.*Gioăng.*điện trở sưởi.*Tay khóa.*Màn PVC/s, 'door accessory catalog must explain the main functional groups')
+
+  const insulationMaterialResponse = await page.goto(`${webUrl}/products/vat-tu-cach-nhiet`, { waitUntil: 'networkidle' })
+  assert.equal(insulationMaterialResponse?.status(), 200, 'insulation material catalog must render successfully')
+  assert.match(await page.locator('article').first().innerText(), /Inox 304.*Xốp EPS.*Tôn mạ màu/s, 'material catalog must expose the supported material groups')
+
+  for (const href of productDetailHrefs) {
+    const response = await page.request.get(`${webUrl}${href}`)
+    assert.equal(response.status(), 200, `${href} product detail route must render successfully`)
+  }
 
   await page.goto(`${webUrl}/contact`, { waitUntil: 'networkidle' })
   const quickContactForm = page.locator('#quick-contact-form')
@@ -363,6 +433,17 @@ try {
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/`), 'sitemap must include the posts index')
   assert.ok(sitemapLocations.some(location => location.startsWith(`${productionUrl}/posts/`) && location !== `${productionUrl}/posts/`), 'sitemap must include published posts')
   assert.ok(sitemapLocations.includes(`${productionUrl}/privacy/`), 'sitemap must include the privacy policy')
+  for (const href of productDetailHrefs) {
+    assert.ok(
+      sitemapLocations.includes(`${productionUrl}${canonicalPath(href)}`),
+      `sitemap must include the ${href} product detail route`,
+    )
+  }
+  assert.equal(
+    sitemapLocations.filter(location => location.startsWith(`${productionUrl}/products/`) && location !== `${productionUrl}/products/`).length,
+    5,
+    'sitemap must expose exactly five product detail URLs',
+  )
   assert.ok(
     sitemapLocations.every(location => location === `${productionUrl}/` || location.endsWith('/')),
     'every non-homepage sitemap URL must use a trailing slash',
@@ -379,6 +460,25 @@ try {
   assert.deepEqual(pageErrors, [], 'public static pages must not throw browser errors')
   assert.deepEqual(consoleErrors, [], 'public static pages must not log console errors')
   assert.deepEqual(failedRequests, [], 'public static pages must not make failed requests')
+
+  await page.goto(`${webUrl}/products/panel-eps`, { waitUntil: 'networkidle' })
+  const spaRouterAvailable = await page.evaluate(() => Boolean(
+    document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$router,
+  ))
+  assert.equal(spaRouterAvailable, true, 'the hydrated app must expose Vue Router for the SPA navigation regression check')
+  await page.evaluate(async () => {
+    const router = document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$router
+    await router.push('/products/not-a-product').catch(() => {})
+  })
+  await page.waitForFunction(() => /Không tìm thấy trang/i.test(document.querySelector('h1')?.textContent || ''))
+  assert.match(await page.locator('h1').innerText(), /Không tìm thấy trang/, 'SPA navigation to an unknown product must use the branded 404 page')
+  pageErrors.length = 0
+  consoleErrors.length = 0
+  failedRequests.length = 0
+
+  const missingProductResponse = await page.goto(`${webUrl}/products/not-a-product`, { waitUntil: 'networkidle' })
+  assert.equal(missingProductResponse?.status(), 404, 'an unknown product must return HTTP 404')
+  assert.match(await page.locator('h1').innerText(), /Không tìm thấy trang/, 'unknown product routes must use the branded 404 page')
 
   const missingPostResponse = await page.goto(`${webUrl}/posts/khong-ton-tai`, { waitUntil: 'networkidle' })
   assert.equal(missingPostResponse?.status(), 404, 'an unknown post must return HTTP 404')
@@ -676,7 +776,7 @@ try {
   assert.equal(noScriptResponse?.status(), 200, 'products page must render without JavaScript')
   await noScriptPage.locator('h1').waitFor({ state: 'visible' })
   await noScriptPage.locator('#retail-products').waitFor({ state: 'visible' })
-  assert.match(await noScriptPage.locator('#retail-products').innerText(), /Panel, nẹp U\/V và cửa Inox 304/i, 'retail content must remain readable without JavaScript')
+  assert.match(await noScriptPage.locator('#retail-products').innerText(), /Panel EPS, cửa kho lạnh, phụ kiện và vật tư cách nhiệt/i, 'retail content must remain readable without JavaScript')
 
   const noScriptContactResponse = await noScriptPage.goto(`${webUrl}/contact`, { waitUntil: 'load' })
   assert.equal(noScriptContactResponse?.status(), 200, 'contact page must render without JavaScript')

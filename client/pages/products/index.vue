@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const { content } = useSiteContent()
 const productFamilies = computed(() => content.value.productFamilies)
+const retailProducts = computed(() => content.value.retailProducts)
 const companyContact = computed(() => content.value.companyContact)
+const productsForFamily = (familyId: string) => retailProducts.value.filter(product => product.familyId === familyId)
 
 usePageSeo({
-  title: 'Sản phẩm bán lẻ',
-  description: 'Panel EPS dày 50–200 mm, phụ kiện U/V và cửa Inox 304 bán lẻ theo quy cách.',
+  title: 'Panel, cửa kho lạnh và phụ kiện',
+  description: 'Panel EPS, cửa kho lạnh Inox 304 và phụ kiện U/V bán lẻ; các nhóm phụ kiện, vật tư khác được Thái Thành xác nhận theo yêu cầu.',
   path: '/products',
   image: '/images/insulation/eps-panel.webp',
   imageAlt: 'Minh họa mặt cắt tấm panel EPS',
@@ -27,17 +29,17 @@ usePageSeo({
       <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(24,27,24,0.88)_0%,rgba(24,27,24,0.70)_44%,rgba(24,27,24,0.22)_78%,rgba(24,27,24,0.06)_100%)]" aria-hidden="true" />
 
       <div class="container-site flex min-h-[34rem] flex-col justify-between py-10 sm:py-14 lg:py-16">
-        <div class="page-hero-marker flex items-center justify-between gap-6 border-b border-white/16 pb-5">
-          <p class="text-xs font-bold uppercase tracking-[0.24em] text-white/68">Thái Thanh / Sản phẩm</p>
-          <p class="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-white/48 sm:block">Panel · Phụ kiện · Cửa Inox</p>
+        <div class="page-hero-marker flex items-center justify-between gap-6 border-b border-white/[0.16] pb-5">
+          <p class="text-xs font-bold uppercase tracking-[0.24em] text-white/[0.68]">Thái Thanh / Sản phẩm</p>
+          <p class="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-white/[0.48] sm:block">Panel · Cửa kho lạnh · Phụ kiện</p>
         </div>
 
         <div class="page-hero-copy mt-12 max-w-4xl">
           <h1 class="max-w-4xl text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.025em] text-white sm:text-6xl lg:text-[5.25rem]">
-            Sản phẩm panel, phụ kiện và cửa Inox.
+            Panel, cửa kho lạnh và vật tư đồng bộ.
           </h1>
-          <p class="mt-7 max-w-xl text-base leading-8 text-white/74 sm:text-lg">
-            Panel EPS, cửa Inox 304 và phụ kiện U/V cho công trình hoặc nhu cầu mua lẻ theo quy cách.
+          <p class="mt-7 max-w-xl text-base leading-8 text-white/[0.74] sm:text-lg">
+            Đi từ nhóm sản phẩm đến cấu tạo, thông số cần chốt và checklist đặt hàng — dễ xem trên cả máy tính lẫn điện thoại.
           </p>
           <div class="mt-7 flex flex-col gap-3 sm:flex-row">
             <a
@@ -48,20 +50,20 @@ usePageSeo({
             </a>
             <NuxtLink
               to="/contact#quick-contact-form"
-              class="inline-flex min-h-12 items-center justify-center rounded-full border border-white/24 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-panel-black"
+              class="inline-flex min-h-12 items-center justify-center rounded-full border border-white/[0.24] px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-panel-black"
             >
               Gửi quy cách cần mua
             </NuxtLink>
           </div>
         </div>
 
-        <nav class="mt-12 grid border border-white/16 bg-panel-black/34 backdrop-blur-sm sm:grid-cols-2" aria-label="Đi đến từng nhóm sản phẩm">
+        <nav class="mt-12 grid border border-white/[0.16] bg-panel-black/[0.34] backdrop-blur-sm sm:grid-cols-2" aria-label="Đi đến từng nhóm sản phẩm">
           <a
             v-for="(family, index) in productFamilies"
             :key="family.id"
             :href="`#${family.id}`"
             :aria-label="`Xem ${family.name}`"
-            class="group flex min-h-24 items-center justify-between gap-5 border-b border-white/16 px-5 py-5 text-white transition-colors last:border-b-0 hover:bg-white/10 sm:min-h-28 sm:border-b-0 sm:first:border-r"
+            class="group flex min-h-24 items-center justify-between gap-5 border-b border-white/[0.16] px-5 py-5 text-white transition-colors last:border-b-0 hover:bg-white/10 sm:min-h-28 sm:border-b-0 sm:first:border-r"
           >
             <span class="flex min-w-0 items-center gap-4">
               <span class="font-mono text-xs font-bold text-[#d79068]">0{{ index + 1 }}</span>
@@ -76,8 +78,8 @@ usePageSeo({
     <section id="retail-products" aria-label="Sản phẩm bán lẻ" class="scroll-mt-24">
       <div class="border-b border-[#d8cfc4] bg-[#f7f3ed]">
         <div data-reveal class="container-site flex flex-col gap-2 py-7 sm:flex-row sm:items-center sm:justify-between">
-          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#9a5c3b]">Danh mục bán lẻ</p>
-          <p class="text-sm font-semibold text-[#514b45] sm:text-base">Panel, nẹp U/V và cửa Inox 304.</p>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Danh mục bán lẻ</p>
+          <p class="text-sm font-semibold text-[#514b45] sm:text-base">Panel EPS, cửa kho lạnh, phụ kiện và vật tư cách nhiệt.</p>
         </div>
       </div>
 
@@ -91,9 +93,9 @@ usePageSeo({
       >
         <div class="container-site py-14 sm:py-18 lg:py-24">
           <header data-reveal :data-reveal-delay="index * 70" class="grid gap-5 lg:grid-cols-[5rem_minmax(0,0.9fr)_minmax(18rem,0.7fr)] lg:items-end lg:gap-10">
-            <p class="font-mono text-sm font-bold text-[#a9633f]" aria-hidden="true">0{{ index + 1 }}</p>
+            <p class="font-mono text-sm font-bold text-[#874a2d]" aria-hidden="true">0{{ index + 1 }}</p>
             <div>
-              <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#9a5c3b]">{{ family.eyebrow }}</p>
+              <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#874a2d]">{{ family.eyebrow }}</p>
               <h2 :id="`product-${family.id}-title`" class="mt-3 text-4xl font-semibold leading-[1.06] tracking-[-0.02em] text-[#20211f] sm:text-5xl lg:text-6xl">
                 {{ family.name }}
               </h2>
@@ -113,11 +115,51 @@ usePageSeo({
               :loading="index === 0 ? 'eager' : 'lazy'"
               decoding="async"
             >
+            <figcaption class="px-2 pb-1 pt-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#625a52]">
+              Ảnh minh họa · Màu sắc và quy cách được xác nhận theo yêu cầu
+            </figcaption>
           </figure>
+
+          <section
+            data-reveal
+            :data-reveal-delay="Math.min(index * 70 + 90, 220)"
+            class="mt-8 rounded-[1.5rem] border border-[#d2c8bd] bg-white/[0.58] p-4 sm:p-6 lg:mt-10"
+            :aria-labelledby="`product-${family.id}-details-title`"
+          >
+            <div class="flex flex-col gap-2 border-b border-[#d8cfc4] pb-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#874a2d]">Chi tiết từng sản phẩm</p>
+                <h3 :id="`product-${family.id}-details-title`" class="mt-2 text-2xl font-semibold text-[#242421] sm:text-3xl">
+                  Chọn sản phẩm cần xem.
+                </h3>
+              </div>
+              <p class="text-sm font-semibold text-[#625a52]">{{ productsForFamily(family.id).length }} lựa chọn</p>
+            </div>
+
+            <div class="mt-4 grid gap-3" :class="productsForFamily(family.id).length > 1 ? 'md:grid-cols-2' : ''">
+              <NuxtLink
+                v-for="(product, productIndex) in productsForFamily(family.id)"
+                :key="product.slug"
+                :to="`/products/${product.slug}`"
+                data-product-detail-link
+                class="group flex min-h-44 flex-col justify-between rounded-[1.25rem] border border-[#ddd4ca] bg-[#fbf9f5] p-5 transition duration-300 hover:border-[#874a2d] hover:bg-white motion-safe:hover:-translate-y-0.5 sm:p-6"
+              >
+                <div>
+                  <div class="flex items-center justify-between gap-4">
+                    <span class="font-mono text-xs font-bold text-[#874a2d]">0{{ productIndex + 1 }}</span>
+                    <span class="text-lg transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true">→</span>
+                  </div>
+                  <h4 class="mt-4 text-xl font-semibold text-[#292926] sm:text-2xl">{{ product.name }}</h4>
+                  <p class="mt-3 line-clamp-2 text-sm leading-7 text-[#625d56]">{{ product.summary }}</p>
+                </div>
+                <span class="mt-5 text-[10px] font-bold uppercase tracking-[0.17em] text-[#8d5437]">Xem chi tiết sản phẩm</span>
+              </NuxtLink>
+            </div>
+          </section>
 
           <div class="mt-10 grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
             <div data-reveal :data-reveal-delay="Math.min(index * 70 + 100, 220)">
-              <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8b8177]">Phạm vi cung cấp</p>
+              <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-[#655d55]">Phạm vi cung cấp</p>
               <ul class="mt-4 flex flex-wrap gap-2">
                 <li
                   v-for="application in family.applications"
@@ -130,7 +172,7 @@ usePageSeo({
 
               <NuxtLink
                 to="/contact#quick-contact-form"
-                class="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[#262724] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#a9633f]"
+                class="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[#262724] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#874a2d]"
                 :aria-label="`Gửi quy cách ${family.name} để được xác nhận`"
               >
                 Gửi quy cách để xác nhận
@@ -140,7 +182,7 @@ usePageSeo({
             <div data-reveal :data-reveal-delay="Math.min(index * 70 + 140, 220)">
               <div class="flex items-end justify-between gap-5 border-b border-[#aaa096] pb-4">
                 <h3 class="text-xl font-semibold text-[#242421] sm:text-2xl">Thông tin cần đối chiếu</h3>
-                <p class="hidden text-[10px] font-bold uppercase tracking-[0.16em] text-[#8b8177] sm:block">Xác nhận trước khi đặt</p>
+                <p class="hidden text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55] sm:block">Xác nhận trước khi đặt</p>
               </div>
 
               <dl class="mt-4 grid gap-3 sm:grid-cols-2">
@@ -150,7 +192,7 @@ usePageSeo({
                   class="min-w-0 bg-white/65 p-5 sm:p-6"
                   :class="spec.value.length > 72 ? 'sm:col-span-2' : ''"
                 >
-                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9a5c3b]">{{ spec.label }}</dt>
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">{{ spec.label }}</dt>
                   <dd class="mt-3 break-words text-base font-semibold leading-7 text-[#292926]">{{ spec.value }}</dd>
                 </div>
               </dl>
