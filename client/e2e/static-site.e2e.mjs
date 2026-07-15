@@ -297,62 +297,91 @@ try {
   assert.match(retailProductText, /50–200 mm/, 'products page must expose the panel thickness range')
   assert.match(retailProductText, /14–25 kg\/m³/, 'products page must expose the concise panel density range')
   assert.match(retailProductText, /Nẹp U.*V trong và V ngoài/s, 'products page must expose the supplied U and V accessories')
-  assert.ok(retailProductText.includes('600 × 600 × 100 mm'), 'products page must expose the first supplied door size')
-  assert.ok(retailProductText.includes('1200 × 1800 mm'), 'products page must expose the last supplied door size')
   const productsSeoDescription = await page.locator('meta[name="description"]').getAttribute('content') || ''
   assert.match(productsSeoDescription, /bán lẻ/i, 'products SEO description must mention retail supply')
   assert.match(productsSeoDescription, /U\/V/i, 'products SEO description must mention U/V accessories')
   assert.match(productsSeoDescription, /Inox 304/i, 'products SEO description must mention Inox 304 doors')
 
-  const productDetailLinks = page.locator('[data-product-detail-link]')
-  assert.ok(await productDetailLinks.count() >= 15, 'products page must expose an image-first retail catalog')
-  const productDetailHrefs = await productDetailLinks.evaluateAll(links => links.map(link => link.getAttribute('href') || ''))
-  const productDetailRoutes = [...new Set(productDetailHrefs.map(href => href.split('#')[0]))]
-  assert.equal(productDetailRoutes.length, 5, 'product catalog links must cover five unique detail routes')
+  const productCategoryLinks = page.locator('[data-product-category-link]')
+  assert.equal(await productCategoryLinks.count(), 5, 'products page must expose exactly five clearly separated product categories')
+  const productDetailRoutes = await productCategoryLinks.evaluateAll(links => links.map(link => link.getAttribute('href') || ''))
   assert.deepEqual(
-    [...productDetailRoutes].sort(),
+    productDetailRoutes,
     [
-      '/products/cua-kho-lanh',
       '/products/panel-eps',
-      '/products/phu-kien-cua',
+      '/products/cua-kho-lanh',
       '/products/phu-kien-kho-lanh',
+      '/products/phu-kien-cua',
       '/products/vat-tu-cach-nhiet',
     ],
-    'products page must link to every confirmed retail product detail route',
+    'product categories must follow the confirmed Panel, Cửa, Phụ kiện and Vật tư order',
   )
 
-  const quickProductCards = page.locator('[data-product-quick-card]')
-  assert.ok(await quickProductCards.count() >= 15, 'products page must display the confirmed items as visual cards')
-  for (let index = 0; index < await quickProductCards.count(); index += 1) {
-    await quickProductCards.nth(index).scrollIntoViewIfNeeded()
+  const productCategoryCards = page.locator('[data-product-category-card]')
+  for (let index = 0; index < await productCategoryCards.count(); index += 1) {
+    await productCategoryCards.nth(index).scrollIntoViewIfNeeded()
   }
-  const quickCardContract = await quickProductCards.evaluateAll(cards => cards.map(card => ({
-    facts: card.querySelectorAll('[data-product-card-fact]').length,
-    imageAlt: card.querySelector('[data-product-card-image]')?.getAttribute('alt')?.trim() || '',
-    imageHeight: Number(card.querySelector('[data-product-card-image]')?.getAttribute('height') || 0),
-    imageSrc: card.querySelector('[data-product-card-image]')?.getAttribute('src') || '',
-    imageWidth: Number(card.querySelector('[data-product-card-image]')?.getAttribute('width') || 0),
-    loadedHeight: card.querySelector('[data-product-card-image]')?.naturalHeight || 0,
-    loadedWidth: card.querySelector('[data-product-card-image]')?.naturalWidth || 0,
+  const desktopCategoryLayout = await productCategoryCards.evaluateAll(cards => cards.map((card) => {
+    const box = card.getBoundingClientRect()
+    return { left: box.left, right: box.right, top: box.top, width: box.width }
+  }))
+  const sameRow = (first, second) => Math.abs(first.top - second.top) <= 2
+  const sameWidth = (first, second) => Math.abs(first.width - second.width) <= 2
+  assert.ok(
+    sameRow(desktopCategoryLayout[0], desktopCategoryLayout[1])
+      && sameRow(desktopCategoryLayout[1], desktopCategoryLayout[2]),
+    'desktop product categories must place the first three groups on one row',
+  )
+  assert.ok(
+    sameRow(desktopCategoryLayout[3], desktopCategoryLayout[4])
+      && desktopCategoryLayout[3].top > desktopCategoryLayout[0].top,
+    'desktop product categories must place the final two groups on a centered second row',
+  )
+  assert.ok(
+    desktopCategoryLayout.every(card => sameWidth(card, desktopCategoryLayout[0])),
+    'desktop product categories must keep equal card widths',
+  )
+  assert.ok(
+    Math.abs(
+      (desktopCategoryLayout[3].left + desktopCategoryLayout[4].right) / 2
+        - (desktopCategoryLayout[0].left + desktopCategoryLayout[2].right) / 2,
+    ) <= 2,
+    'desktop final product categories must be centered below the first row',
+  )
+  const categoryCardContract = await productCategoryCards.evaluateAll(cards => cards.map(card => ({
+    category: card.getAttribute('data-product-category') || '',
+    highlights: card.querySelectorAll('[data-product-category-highlight]').length,
+    imageAlt: card.querySelector('[data-product-category-image]')?.getAttribute('alt')?.trim() || '',
+    imageHeight: Number(card.querySelector('[data-product-category-image]')?.getAttribute('height') || 0),
+    imageSrc: card.querySelector('[data-product-category-image]')?.getAttribute('src') || '',
+    imageWidth: Number(card.querySelector('[data-product-category-image]')?.getAttribute('width') || 0),
+    loadedHeight: card.querySelector('[data-product-category-image]')?.naturalHeight || 0,
+    loadedWidth: card.querySelector('[data-product-category-image]')?.naturalWidth || 0,
     textLength: (card.textContent || '').trim().length,
-    title: card.querySelector('[data-product-card-title]')?.textContent?.trim() || '',
+    title: card.querySelector('[data-product-category-title]')?.textContent?.trim() || '',
   })))
-  for (const [index, card] of quickCardContract.entries()) {
-    assert.ok(card.title, `visual product card ${index + 1} must expose a title`)
-    assert.equal(card.facts, 2, `visual product card ${index + 1} must keep exactly two quick facts`)
-    assert.match(card.imageSrc, /^\/images\//, `visual product card ${index + 1} must use a local visual`)
-    assert.ok(card.imageAlt.length >= 12, `visual product card ${index + 1} must describe its visual`)
-    assert.ok(card.imageWidth > 0 && card.imageHeight > 0, `visual product card ${index + 1} must reserve image space`)
-    assert.ok(card.loadedWidth > 0 && card.loadedHeight > 0, `visual product card ${index + 1} must load its visual`)
-    assert.ok(card.textLength <= 260, `visual product card ${index + 1} must remain concise`)
+  assert.deepEqual(
+    categoryCardContract.map(card => card.category),
+    ['panel-eps', 'cua-kho-lanh', 'phu-kien-kho-lanh', 'phu-kien-cua', 'vat-tu-cach-nhiet'],
+    'category cards must expose stable identifiers in the same visual order',
+  )
+  for (const [index, card] of categoryCardContract.entries()) {
+    assert.ok(card.title, `product category ${index + 1} must expose a title`)
+    assert.ok(card.highlights >= 3 && card.highlights <= 4, `product category ${index + 1} must keep three or four concise highlights`)
+    assert.match(card.imageSrc, /^\/images\//, `product category ${index + 1} must use a local visual`)
+    assert.ok(card.imageAlt.length >= 12, `product category ${index + 1} must describe its visual`)
+    assert.ok(card.imageWidth > 0 && card.imageHeight > 0, `product category ${index + 1} must reserve image space`)
+    assert.ok(card.loadedWidth > 0 && card.loadedHeight > 0, `product category ${index + 1} must load its visual`)
+    assert.ok(card.textLength <= 360, `product category ${index + 1} must remain concise`)
   }
 
-  const panelProductLink = page.locator('[data-product-detail-link][href^="/products/panel-eps"]')
+  const panelProductLink = page.locator('[data-product-category-link][href="/products/panel-eps"]')
   assert.equal(await panelProductLink.count(), 1, 'products page must expose one Panel EPS detail link')
   await Promise.all([
-    page.waitForURL(url => url.pathname === '/products/panel-eps' && url.hash === '#quy-cach-panel'),
+    page.waitForURL(url => url.pathname === '/products/panel-eps' && !url.hash),
     panelProductLink.click(),
   ])
+  await page.goto(`${webUrl}/products/panel-eps#quy-cach-panel`, { waitUntil: 'networkidle' })
   await page.locator('#quy-cach-panel[open]').waitFor({ state: 'attached' })
   const openedPanelSection = await page.locator('#quy-cach-panel').evaluate(section => ({
     focused: document.activeElement === section.querySelector('summary'),
@@ -866,6 +895,22 @@ try {
   )
 
   await page.goto(`${webUrl}/products`, { waitUntil: 'networkidle' })
+  const mobileCategoryLayout = await page.locator('[data-product-category-card]').evaluateAll(cards => ({
+    viewport: innerWidth,
+    cards: cards.map((card) => {
+      const box = card.getBoundingClientRect()
+      return { left: box.left, right: box.right, top: box.top, width: box.width }
+    }),
+  }))
+  assert.equal(mobileCategoryLayout.cards.length, 5, 'mobile products page must retain all five product categories')
+  assert.ok(
+    mobileCategoryLayout.cards.every(card => card.width >= 340 && card.left >= 0 && card.right <= mobileCategoryLayout.viewport),
+    'mobile product categories must each use one readable full-width column',
+  )
+  assert.ok(
+    mobileCategoryLayout.cards.slice(1).every((card, index) => card.top > mobileCategoryLayout.cards[index].top),
+    'mobile product categories must stack in their confirmed order',
+  )
   await mobileMenuButton.click()
   await mobileNavigation.waitFor({ state: 'visible' })
   assert.equal(await mobileProductToggle.getAttribute('aria-expanded'), 'true', 'mobile product submenu must open automatically on product routes')
@@ -887,7 +932,7 @@ try {
     { width: 320, height: 800, label: 'minimum mobile' },
     { width: 768, height: 1024, label: 'tablet' },
   ]) {
-    for (const route of ['/', '/products', ...productDetailHrefs]) {
+    for (const route of ['/', '/products', ...productDetailRoutes]) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height })
       await page.goto(`${webUrl}${route === '/' ? '' : route}`, { waitUntil: 'networkidle' })
       const responsiveMetrics = await page.evaluate(() => ({
@@ -897,6 +942,44 @@ try {
       }))
       assert.ok(responsiveMetrics.scrollWidth <= responsiveMetrics.viewport, `${viewport.label} ${route} layout must not overflow horizontally`)
       assert.ok(responsiveMetrics.mainWidth >= responsiveMetrics.viewport - 10, `${viewport.label} ${route} content must use the available width`)
+      if (viewport.width === 320 && route === '/products') {
+        const compactCategoryLayout = await page.locator('[data-product-category-card]').evaluateAll(cards => cards.map((card) => {
+          const box = card.getBoundingClientRect()
+          return { left: box.left, right: box.right, top: box.top, width: box.width }
+        }))
+        assert.ok(
+          compactCategoryLayout.every(card => card.width >= 280 && card.left >= 0 && card.right <= responsiveMetrics.viewport),
+          'minimum mobile product categories must remain readable full-width cards',
+        )
+        assert.ok(
+          compactCategoryLayout.slice(1).every((card, index) => card.top > compactCategoryLayout[index].top),
+          'minimum mobile product categories must stay in one ordered column',
+        )
+      }
+      if (viewport.width === 768 && route === '/products') {
+        const tabletCategoryLayout = await page.locator('[data-product-category-card]').evaluateAll(cards => cards.map((card) => {
+          const box = card.getBoundingClientRect()
+          return { left: box.left, right: box.right, top: box.top, width: box.width }
+        }))
+        assert.ok(
+          sameRow(tabletCategoryLayout[0], tabletCategoryLayout[1])
+            && sameRow(tabletCategoryLayout[2], tabletCategoryLayout[3])
+            && tabletCategoryLayout[2].top > tabletCategoryLayout[0].top,
+          'tablet product categories must use two balanced columns',
+        )
+        assert.ok(
+          tabletCategoryLayout[4].top > tabletCategoryLayout[3].top
+            && sameWidth(tabletCategoryLayout[4], tabletCategoryLayout[0]),
+          'tablet final product category must remain a centered single card',
+        )
+        assert.ok(
+          Math.abs(
+            (tabletCategoryLayout[4].left + tabletCategoryLayout[4].right) / 2
+              - responsiveMetrics.viewport / 2,
+          ) <= 2,
+          'tablet final product category must be centered in the viewport',
+        )
+      }
     }
   }
 
@@ -1025,11 +1108,11 @@ try {
   await noScriptPage.locator('h1').waitFor({ state: 'visible' })
   await noScriptPage.locator('#retail-products').waitFor({ state: 'visible' })
   assert.match(await noScriptPage.locator('#retail-products').innerText(), /Panel EPS.*cửa kho lạnh.*phụ kiện/is, 'retail content must remain readable without JavaScript')
-  assert.ok(await noScriptPage.locator('[data-product-quick-card]').count() >= 15, 'image-first retail cards must render without JavaScript')
+  assert.equal(await noScriptPage.locator('[data-product-category-card]').count(), 5, 'five product categories must render without JavaScript')
   assert.equal(
-    await noScriptPage.locator('[data-product-card-image]').count(),
-    await noScriptPage.locator('[data-product-quick-card]').count(),
-    'every no-JavaScript retail card must retain its image',
+    await noScriptPage.locator('[data-product-category-image]').count(),
+    await noScriptPage.locator('[data-product-category-card]').count(),
+    'every no-JavaScript category card must retain its image',
   )
   assert.doesNotMatch(await noScriptPage.locator('main').textContent() || '', unsupportedProductPattern, 'no-JavaScript catalog must stay inside the confirmed product scope')
 

@@ -2,168 +2,76 @@
 const { content } = useSiteContent()
 const companyContact = computed(() => content.value.companyContact)
 
-const quickCatalogConfig = [
+interface ProductCategoryPresentation {
+  slug: string
+  label: string
+  title: string
+  summary: string
+  highlights: string[]
+  image?: string
+  imageAlt?: string
+  imageWidth?: number
+  imageHeight?: number
+}
+
+const categoryPresentation: ProductCategoryPresentation[] = [
   {
     slug: 'panel-eps',
-    sectionId: 'quy-cach-panel',
-    category: 'Panel cách nhiệt',
-    title: 'Panel EPS 50–200 mm',
-    summary: 'Tấm panel theo độ dày và tỷ trọng phù hợp từng hạng mục.',
-    facts: ['50–200 mm', '14–25 kg/m³'],
-    image: '/images/insulation/panel-eps-construction-diagram.svg',
+    label: 'Panel cách nhiệt',
+    title: 'Panel EPS',
+    summary: 'Tấm panel bán lẻ theo độ dày, tỷ trọng và số lượng yêu cầu.',
+    highlights: ['50–200 mm', '14–25 kg/m³', 'Vách · trần · mái'],
   },
   {
     slug: 'cua-kho-lanh',
-    sectionId: 'kich-thuoc-va-cach-do-o-cho',
-    category: 'Cửa Inox 304',
-    title: 'Cửa kho lạnh theo ô chờ',
-    summary: 'Gia công theo kích thước, hướng mở và điều kiện vận hành.',
-    facts: ['600 × 600 × 100 mm', 'Tới 1200 × 1800 mm'],
-    image: '/images/insulation/cold-door-measurement-diagram.svg',
-  },
-  {
-    slug: 'cua-kho-lanh',
-    sectionId: 'cua-ban-le',
-    category: 'Cửa Inox 304',
-    title: 'Cửa kho lạnh bản lề',
-    summary: 'Kiểu mở quay gọn, phù hợp lối người và xe đẩy nhỏ.',
-    facts: ['Mở trái hoặc phải', 'Lõi EPS'],
-    image: '/images/insulation/cold-door-types-diagram.svg',
-  },
-  {
-    slug: 'cua-kho-lanh',
-    sectionId: 'cua-truot',
-    category: 'Cửa Inox 304',
-    title: 'Cửa lùa, cửa trượt',
-    summary: 'Không chiếm vùng quay, phù hợp ô rộng và luồng xe hàng.',
-    facts: ['Ray + bánh xe', 'Lõi EPS'],
-    image: '/images/insulation/cold-door-types-diagram.svg',
-  },
-  {
-    slug: 'cua-kho-lanh',
-    sectionId: 'song-gai-inox',
-    category: 'Cửa Inox 304',
-    title: 'Cửa song gài Inox',
-    summary: 'Cánh hộp bọc kín Inox 304, cơ cấu gài ép kín nhiều điểm.',
-    facts: ['Cánh bọc Inox 304', 'Lõi EPS'],
-    image: '/images/insulation/cold-door-types-diagram.svg',
-  },
-  {
-    slug: 'cua-kho-lanh',
-    sectionId: 'song-gai-eps',
-    category: 'Cửa Inox 304',
-    title: 'Cửa song gài EPS',
-    summary: 'Cánh panel EPS làm kết cấu chính, viền nẹp U Inox 304.',
-    facts: ['Cánh panel EPS', 'Viền Inox 304'],
-    image: '/images/insulation/cold-door-types-diagram.svg',
+    label: 'Cửa Inox 304',
+    title: 'Cửa kho lạnh',
+    summary: 'Tách riêng các dòng cửa bản lề, cửa trượt và cửa song gài theo ô chờ.',
+    highlights: ['Bản lề', 'Cửa trượt', 'Song gài', 'Theo kích thước'],
   },
   {
     slug: 'phu-kien-kho-lanh',
-    sectionId: 'nep-u-panel',
-    category: 'Phụ kiện panel',
-    title: 'Nẹp U panel',
-    summary: 'Định vị chân vách và hoàn thiện cạnh panel theo quy cách.',
-    facts: ['Chân vách', 'Theo dày panel'],
-    image: '/images/insulation/accessory-u-profile.svg',
-  },
-  {
-    slug: 'phu-kien-kho-lanh',
-    sectionId: 'nep-v-panel',
-    category: 'Phụ kiện panel',
-    title: 'V trong và V ngoài',
-    summary: 'Che và hoàn thiện các góc giao nhau của hệ panel.',
-    facts: ['V trong', 'V ngoài'],
-    image: '/images/insulation/accessory-v-profiles.svg',
-  },
-  {
-    slug: 'phu-kien-kho-lanh',
-    sectionId: 'treo-tran-panel',
-    category: 'Phụ kiện panel',
-    title: 'Thanh T và bulông dù',
-    summary: 'Cụm treo trần cần được chọn theo nhịp và tải thiết kế.',
-    facts: ['Treo trần panel', 'Theo tải thiết kế'],
-    image: '/images/insulation/accessory-ceiling-hanger.svg',
-  },
-  {
-    slug: 'phu-kien-kho-lanh',
-    sectionId: 'van-can-bang-ap',
-    category: 'Phụ kiện kho lạnh',
-    title: 'Van cân bằng áp',
-    summary: 'Hỗ trợ cân bằng chênh áp khi nhiệt độ trong kho thay đổi.',
-    facts: ['Theo thể tích kho', 'Theo chênh nhiệt'],
-    image: '/images/insulation/accessory-pressure-pipe.svg',
-  },
-  {
-    slug: 'phu-kien-kho-lanh',
-    sectionId: 'ong-cach-nhiet',
-    category: 'Phụ kiện kho lạnh',
-    title: 'Ống cách nhiệt EPS',
-    summary: 'Chi tiết bao ống được xác nhận theo đường kính và vị trí lắp.',
-    facts: ['Lõi EPS', 'Theo đường kính ống'],
-    image: '/images/insulation/accessory-pressure-pipe.svg',
+    label: 'Phụ kiện hệ panel',
+    title: 'Phụ kiện kho lạnh',
+    summary: 'Nhóm liên kết, hoàn thiện góc, treo trần và cân bằng áp của hệ kho.',
+    highlights: ['Nẹp U', 'V trong và V ngoài', 'Thanh T · bulông', 'Van · ống EPS'],
   },
   {
     slug: 'phu-kien-cua',
-    sectionId: 'ban-le-cua',
-    category: 'Phụ kiện cửa',
-    title: 'Phụ kiện cửa kho lạnh',
-    summary: 'Bản lề, ray, khóa, gioăng và bộ sưởi theo đúng loại cửa.',
-    facts: ['Bản lề · khóa', 'Gioăng · ray'],
+    label: 'Phụ kiện đóng mở',
+    title: 'Phụ kiện cửa',
+    summary: 'Bản lề, khóa, ray, gioăng và chi tiết làm kín được gom đúng một nhóm.',
+    highlights: ['Bản lề · khóa', 'Ray · bánh xe', 'Gioăng · sưởi'],
     image: '/images/insulation/door-accessories-diagram.svg',
+    imageAlt: 'Sơ đồ nhận biết bản lề, ray bánh xe, tay khóa, gioăng và phụ kiện cửa kho lạnh',
+    imageWidth: 1200,
+    imageHeight: 760,
   },
   {
     slug: 'vat-tu-cach-nhiet',
-    sectionId: 'inox-304',
-    category: 'Vật tư bán lẻ',
-    title: 'Inox 304',
-    summary: 'Tấm và chi tiết Inox cho cửa, khung hoặc hạng mục hoàn thiện.',
-    facts: ['Inox 304', 'Cắt/chấn theo bản vẽ'],
-    image: '/images/insulation/cold-room-editorial.jpg',
-    imageWidth: 1672,
-    imageHeight: 941,
-  },
-  {
-    slug: 'vat-tu-cach-nhiet',
-    sectionId: 'xop-eps',
-    category: 'Vật tư bán lẻ',
-    title: 'Xốp EPS tấm hoặc khối',
-    summary: 'Kích thước và tỷ trọng được chọn theo mục đích gia công.',
-    facts: ['14–25 kg/m³', 'Tấm hoặc khối'],
-    image: '/images/insulation/panel-eps-construction-diagram.svg',
-  },
-  {
-    slug: 'vat-tu-cach-nhiet',
-    sectionId: 'ton-ma-mau',
-    category: 'Vật tư bán lẻ',
-    title: 'Tôn mạ màu',
-    summary: 'Bề mặt, màu và quy cách được duyệt theo mẫu công trình.',
-    facts: ['Theo mẫu màu', 'Cắt/chấn theo yêu cầu'],
-    image: '/images/insulation/panel-eps-construction-diagram.svg',
-  },
-  {
-    slug: 'vat-tu-cach-nhiet',
-    sectionId: 'chi-tiet-gia-cong',
-    category: 'Gia công theo yêu cầu',
-    title: 'Chi tiết cắt chấn theo bản vẽ',
-    summary: 'Nẹp và tấm bọc được gia công theo kích thước đã duyệt.',
-    facts: ['Inox hoặc tôn màu', 'Theo bản vẽ'],
+    label: 'Vật tư bán lẻ',
+    title: 'Vật tư cách nhiệt',
+    summary: 'Vật liệu và chi tiết gia công được tách khỏi panel thành phẩm và phụ kiện.',
+    highlights: ['Inox 304', 'Xốp EPS', 'Tôn mạ màu', 'Cắt chấn'],
     image: '/images/insulation/panel-profiles-diagram.svg',
+    imageAlt: 'Sơ đồ các dạng nẹp, tấm bọc và chi tiết vật tư gia công cho hệ panel',
+    imageWidth: 1200,
+    imageHeight: 760,
   },
-] as const
+]
 
-const quickCatalogItems = computed(() => quickCatalogConfig.flatMap((config) => {
-  const product = content.value.retailProducts.find(item => item.slug === config.slug)
-  const section = product?.detailSections.find(item => item.id === config.sectionId)
-
-  if (!product || !section) return []
+const productCategories = computed(() => categoryPresentation.flatMap((presentation) => {
+  const product = content.value.retailProducts.find(item => item.slug === presentation.slug)
+  if (!product) return []
 
   return [{
-    ...config,
-    to: `/products/${config.slug}#${config.sectionId}`,
-    imageAlt: section.media?.imageAlt || `${config.title} — minh họa kỹ thuật`,
-    imageSrcset: section.media?.image === config.image ? section.media.imageSrcset : undefined,
-    imageWidth: 'imageWidth' in config ? config.imageWidth : 1200,
-    imageHeight: 'imageHeight' in config ? config.imageHeight : 760,
+    ...presentation,
+    to: `/products/${presentation.slug}`,
+    image: presentation.image ?? product.image,
+    imageAlt: presentation.imageAlt ?? product.imageAlt,
+    imageWidth: presentation.imageWidth ?? product.imageWidth,
+    imageHeight: presentation.imageHeight ?? product.imageHeight,
+    imageSrcset: presentation.image ? undefined : product.imageSrcset,
   }]
 }))
 
@@ -193,19 +101,19 @@ usePageSeo({
       <div class="container-site flex min-h-[29rem] flex-col justify-between py-10 sm:py-12 lg:py-14">
         <div class="page-hero-marker flex items-center justify-between gap-6 border-b border-white/[0.16] pb-5">
           <p class="text-xs font-bold uppercase tracking-[0.24em] text-white/[0.7]">Thái Thành / Sản phẩm</p>
-          <p class="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-white/[0.5] sm:block">Xem bằng hình · Mở chi tiết khi cần</p>
+          <p class="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-white/[0.5] sm:block">5 nhóm rõ ràng · Không trộn danh mục</p>
         </div>
 
         <div class="page-hero-copy mt-12 max-w-3xl">
-          <p class="text-xs font-bold uppercase tracking-[0.22em] text-[#e0a17d]">Danh mục bán lẻ</p>
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-[#e0a17d]">Danh mục theo nhóm</p>
           <h1 class="mt-4 max-w-3xl text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.03em] text-white sm:text-6xl lg:text-[4.5rem]">
-            Nhìn sản phẩm trước. Xem thông số sau.
+            Chọn đúng nhóm. Tìm sản phẩm nhanh hơn.
           </h1>
           <p class="mt-6 max-w-xl text-base leading-8 text-white/[0.75] sm:text-lg">
-            Chọn đúng món hàng bằng hình minh họa, rồi mở phần kỹ thuật khi cần đối chiếu quy cách.
+            Panel, cửa, phụ kiện và vật tư được tách riêng để khách không phải tìm giữa một danh sách lẫn lộn.
           </p>
           <a href="#retail-products" class="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-panel-black transition-colors hover:bg-[#d79068] hover:text-white">
-            Xem sản phẩm ngay ↓
+            Xem 5 nhóm sản phẩm ↓
           </a>
         </div>
       </div>
@@ -215,71 +123,78 @@ usePageSeo({
       <div class="container-site py-12 sm:py-16 lg:py-20">
         <header data-reveal class="grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-end lg:gap-16">
           <div>
-            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Xem nhanh bằng hình</p>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Phân loại sản phẩm</p>
             <h2 class="mt-4 max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-[#20211f] sm:text-5xl">
-              Chọn thẳng sản phẩm cần xem.
+              Mỗi nhóm một lối vào riêng.
             </h2>
           </div>
           <p class="max-w-2xl text-base leading-8 text-[#625d56] lg:justify-self-end">
-            Mỗi thẻ chỉ giữ thông tin quan trọng nhất. Bấm vào thẻ để đi thẳng đến cấu tạo, quy cách và hướng dẫn chọn của sản phẩm đó.
+            Chọn nhóm trước, sau đó xem các kiểu sản phẩm, hình minh họa và thông số kỹ thuật nằm đúng trong nhóm đó.
           </p>
         </header>
 
-        <div data-product-visual-catalog class="mt-9 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div data-product-category-grid class="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
           <NuxtLink
-            v-for="(card, index) in quickCatalogItems"
-            :key="`${card.slug}-${card.sectionId}`"
-            :to="card.to"
-            data-product-detail-link
-            data-product-quick-card
+            v-for="(category, index) in productCategories"
+            :key="category.slug"
+            :to="category.to"
+            data-product-category-card
+            data-product-category-link
             data-reveal
-            :data-reveal-delay="Math.min((index % 4) * 55, 165)"
-            class="group flex min-w-0 flex-col overflow-hidden rounded-[1.35rem] border border-[#ded6cd] bg-white shadow-[0_14px_40px_rgba(63,52,42,0.06)] transition duration-300 hover:border-[#b98b70] hover:shadow-[0_22px_55px_rgba(63,52,42,0.12)] motion-safe:hover:-translate-y-1"
+            :data-product-category="category.slug"
+            :data-reveal-delay="Math.min(index * 55, 165)"
+            class="group flex min-w-0 flex-col overflow-hidden rounded-[1.55rem] border border-[#ded6cd] bg-white shadow-[0_14px_40px_rgba(63,52,42,0.07)] transition duration-300 hover:border-[#b98b70] hover:shadow-[0_24px_60px_rgba(63,52,42,0.14)] motion-safe:hover:-translate-y-1"
+            :class="index < 3
+              ? 'lg:col-span-2'
+              : (index === 3
+                ? 'lg:col-span-2 lg:col-start-2'
+                : 'sm:col-span-2 sm:w-[calc(50%-0.625rem)] sm:justify-self-center lg:col-span-2 lg:col-start-4 lg:w-auto')"
           >
-            <div class="relative aspect-[4/3] overflow-hidden border-b border-[#e2dad1] bg-[#eee9e2]">
+            <div class="relative aspect-[16/10] overflow-hidden border-b border-[#e2dad1] bg-[#eee9e2]">
               <img
-                data-product-card-image
-                :src="card.image"
-                :srcset="card.imageSrcset"
-                :width="card.imageWidth"
-                :height="card.imageHeight"
-                :alt="card.imageAlt"
-                sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+                data-product-category-image
+                :src="category.image"
+                :srcset="category.imageSrcset"
+                :width="category.imageWidth"
+                :height="category.imageHeight"
+                :alt="category.imageAlt"
+                sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
                 class="h-full w-full transition-transform duration-500 motion-safe:group-hover:scale-[1.035]"
-                :class="card.image.endsWith('.svg') ? 'object-contain p-2' : 'object-cover'"
-                :loading="index < 4 ? 'eager' : 'lazy'"
+                :class="category.image.endsWith('.svg') ? 'object-contain p-3' : 'object-cover'"
+                :loading="index < 3 ? 'eager' : 'lazy'"
                 decoding="async"
               >
-              <span class="absolute left-3 top-3 rounded-full border border-white/65 bg-white/80 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#514b45] shadow-sm backdrop-blur-md">
-                {{ card.category }}
+              <span class="absolute left-4 top-4 rounded-full border border-white/70 bg-white/85 px-3 py-1.5 font-mono text-[10px] font-bold text-[#70442f] shadow-sm backdrop-blur-md">
+                {{ String(index + 1).padStart(2, '0') }} / 05
               </span>
             </div>
 
-            <div class="flex flex-1 flex-col p-5 sm:p-6">
+            <div class="flex flex-1 flex-col p-6 sm:p-7">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#874a2d]">{{ category.label }}</p>
               <div class="flex items-start justify-between gap-4">
-                <h3 data-product-card-title class="min-w-0 text-xl font-semibold leading-tight tracking-[-0.02em] text-[#292926]">
-                  {{ card.title }}
+                <h3 data-product-category-title class="mt-2 min-w-0 text-2xl font-semibold leading-tight tracking-[-0.025em] text-[#292926] sm:text-[1.7rem]">
+                  {{ category.title }}
                 </h3>
-                <span class="shrink-0 text-lg text-[#874a2d] transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true">→</span>
+                <span class="mt-2 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#d2c5b9] text-lg text-[#874a2d] transition motion-safe:group-hover:translate-x-1 group-hover:border-[#a56c4e]" aria-hidden="true">→</span>
               </div>
-              <ul data-product-card-facts class="mt-4 flex flex-wrap gap-2">
+              <p class="mt-4 text-sm leading-6 text-[#625d56]">{{ category.summary }}</p>
+              <ul data-product-category-highlights class="mt-5 flex flex-wrap gap-2">
                 <li
-                  v-for="fact in card.facts"
-                  :key="fact"
-                  data-product-card-fact
+                  v-for="highlight in category.highlights"
+                  :key="highlight"
+                  data-product-category-highlight
                   class="rounded-full bg-[#f1ece6] px-3 py-1.5 text-[10px] font-bold text-[#675f57]"
                 >
-                  {{ fact }}
+                  {{ highlight }}
                 </li>
               </ul>
-              <p class="mt-4 line-clamp-2 text-sm leading-6 text-[#625d56]">{{ card.summary }}</p>
-              <span class="mt-auto pt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Xem hình và thông số</span>
+              <span class="mt-auto border-t border-[#e2dad1] pt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Mở danh mục {{ category.title }}</span>
             </div>
           </NuxtLink>
         </div>
 
         <p class="mt-6 text-center text-xs leading-6 text-[#766e66]">
-          Hình dùng để nhận diện nhanh nhóm sản phẩm; kích thước và cấu hình cuối cùng được xác nhận theo yêu cầu thực tế.
+          Mỗi danh mục có trang riêng để xem loại sản phẩm, cấu tạo, quy cách và hướng dẫn lựa chọn.
         </p>
       </div>
     </section>
