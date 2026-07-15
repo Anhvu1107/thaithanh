@@ -180,6 +180,13 @@
       "detailSections": [
         {
           "id": "cau-tao-panel",
+          "media": {
+            "image": "/images/insulation/panel-eps-construction-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ cấu tạo panel EPS gồm hai bề mặt kim loại, lớp liên kết và lõi EPS",
+            "caption": "Panel EPS tạo thành từ hai bề mặt kim loại và lõi EPS liên kết ở giữa. Sơ đồ minh họa, không theo tỷ lệ."
+          },
           "title": "Cấu tạo sandwich ba lớp",
           "summary": "Hai bề mặt kim loại bảo vệ lõi EPS và cùng lớp liên kết tạo thành một tấm lắp ghép hoàn chỉnh.",
           "paragraphs": [
@@ -217,6 +224,14 @@
         },
         {
           "id": "quy-cach-panel",
+          "media": {
+            "image": "/images/insulation/eps-panel.webp",
+            "imageSrcset": "/images/insulation/eps-panel-640.webp 640w, /images/insulation/eps-panel.webp 1200w",
+            "imageWidth": 1200,
+            "imageHeight": 1200,
+            "imageAlt": "Các tấm panel EPS thành phẩm xếp chồng để minh họa bề mặt và cạnh tấm",
+            "caption": "Ảnh minh họa panel EPS thành phẩm; chiều dài, độ dày và kiểu bề mặt được xác nhận theo đơn hàng."
+          },
           "title": "Bảng quy cách cần đối chiếu",
           "summary": "Độ dày và tỷ trọng là hai thông số chính, nhưng chưa đủ để xác định đúng tấm cần mua.",
           "paragraphs": [
@@ -332,6 +347,14 @@
         },
         {
           "id": "ung-dung-panel",
+          "media": {
+            "image": "/images/insulation/cold-room-system-cutaway.jpg",
+            "imageSrcset": "/images/insulation/cold-room-system-cutaway-768.jpg 768w, /images/insulation/cold-room-system-cutaway.jpg 1536w",
+            "imageWidth": 1536,
+            "imageHeight": 1024,
+            "imageAlt": "Minh họa cắt lớp một phòng kho lạnh hoàn chỉnh bằng panel cách nhiệt",
+            "caption": "Minh họa hệ kho hoàn chỉnh gồm vách, trần, nền, cửa và các vị trí xuyên qua vỏ kho; không phải ảnh công trình thực tế."
+          },
           "title": "Ứng dụng theo công năng",
           "summary": "Panel EPS dùng được cho nhiều loại công trình, nhưng cấu hình vách, trần và mái không thể mặc định giống nhau.",
           "paragraphs": [
@@ -369,6 +392,13 @@
         },
         {
           "id": "thi-cong-va-phu-kien",
+          "media": {
+            "image": "/images/insulation/panel-profiles-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ ngàm panel, nẹp U, V trong và V ngoài tại các mối nối",
+            "caption": "Ngàm, nẹp U, V trong, V ngoài và vật liệu làm kín cần được chọn đồng bộ với vị trí lắp."
+          },
           "title": "Thi công và phụ kiện đồng bộ",
           "summary": "Độ kín và độ thẳng của hệ panel phụ thuộc cách chia tấm, xử lý ngàm, liên kết và hoàn thiện từng vị trí giao nhau.",
           "paragraphs": [
@@ -532,7 +562,7 @@
       "imageSrcset": "/images/insulation/cold-door-editorial.jpg 1254w",
       "imageWidth": 1254,
       "imageHeight": 1254,
-      "imageAlt": "Cửa kho lạnh Inox 304 trong hệ panel cách nhiệt",
+      "imageAlt": "Cửa kho lạnh bản lề trong hệ panel cách nhiệt",
       "summary": "Cửa kho lạnh Inox 304 được gia công theo ô chờ, độ dày vách và nhiệt độ vận hành. Thái Thành cung cấp cửa bản lề, cửa trượt, song gài Inox và song gài EPS với cấu hình phụ kiện theo từng công trình.",
       "applications": [
         "Kho lạnh",
@@ -592,6 +622,13 @@
       "detailSections": [
         {
           "id": "cau-tao-bo-cua",
+          "media": {
+            "image": "/images/insulation/cold-door-seal-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Mặt cắt minh họa cánh cửa, khung, gioăng ép kín và sưởi tùy chọn",
+            "caption": "Độ kín đến từ sự phối hợp giữa cánh, khung, gioăng và lực ép; sưởi khung được chọn theo nguy cơ đóng băng."
+          },
           "title": "Cấu tạo một bộ cửa kho lạnh",
           "summary": "Khả năng giữ nhiệt đến từ sự đồng bộ giữa cánh, lõi, khung bao, gioăng và cơ cấu đóng mở; không chỉ từ riêng lớp Inox bên ngoài.",
           "paragraphs": [
@@ -625,6 +662,13 @@
         },
         {
           "id": "kich-thuoc-va-cach-do-o-cho",
+          "media": {
+            "image": "/images/insulation/cold-door-measurement-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ đo chiều rộng, chiều cao ô chờ và chiều dày vách cửa kho lạnh",
+            "caption": "Cần phân biệt kích thước ô chờ, thông thủy và kích thước cánh; đồng thời ghi rõ chiều dày vách."
+          },
           "title": "Kích thước và cách đo ô chờ",
           "summary": "Phân biệt ô chờ, thông thủy và kích thước cánh giúp tránh sai số khi gia công khung, khe kỹ thuật và hướng vận hành.",
           "paragraphs": [
@@ -666,6 +710,14 @@
         },
         {
           "id": "cua-ban-le",
+          "media": {
+            "image": "/images/insulation/cold-door.webp",
+            "imageSrcset": "/images/insulation/cold-door-640.webp 640w, /images/insulation/cold-door.webp 1200w",
+            "imageWidth": 1200,
+            "imageHeight": 1200,
+            "imageAlt": "Ảnh minh họa cửa kho lạnh bản lề lắp trong hệ panel",
+            "caption": "Ảnh minh họa cửa bản lề trong hệ panel; vật liệu bề mặt và bộ phụ kiện được xác nhận theo cấu hình."
+          },
           "title": "Cửa kho lạnh bản lề",
           "summary": "Cánh quay quanh trục bản lề, phù hợp lối đi người, xe đẩy nhỏ và các ô cửa thông dụng có đủ khoảng quay cánh.",
           "paragraphs": [
@@ -707,6 +759,13 @@
         },
         {
           "id": "cua-truot",
+          "media": {
+            "image": "/images/insulation/cold-door-types-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ so sánh cửa bản lề, cửa trượt, cửa song gài Inox và cửa song gài EPS",
+            "caption": "Bản lề, cửa trượt, song gài Inox và song gài EPS khác nhau ở hành trình mở, cơ cấu ép kín và điều kiện sử dụng."
+          },
           "title": "Cửa lùa, cửa trượt kho lạnh",
           "summary": "Cánh di chuyển dọc mặt vách, giải phóng vùng quay phía trước và phù hợp lối xuất nhập hàng có xe đẩy hoặc ô cửa lớn.",
           "paragraphs": [
@@ -972,6 +1031,13 @@
       "detailSections": [
         {
           "id": "nep-u-panel",
+          "media": {
+            "image": "/images/insulation/panel-profiles-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ nhận biết nẹp U, V trong, V ngoài và ngàm nối panel",
+            "caption": "Sơ đồ giúp nhận biết hình dạng và vị trí dùng của nẹp U, V trong, V ngoài; kích thước thực tế cần khớp với panel."
+          },
           "title": "Nẹp U panel",
           "summary": "Nẹp U định vị và hoàn thiện mép panel tại chân vách, đầu vách, khung cửa hoặc vị trí theo thiết kế.",
           "paragraphs": [
@@ -1038,6 +1104,13 @@
         },
         {
           "id": "treo-tran-panel",
+          "media": {
+            "image": "/images/insulation/cold-room-accessory-locations-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ vị trí nẹp U, V, hệ treo trần, van cân bằng áp và ống cách nhiệt trong phòng kho lạnh",
+            "caption": "Sơ đồ minh họa vị trí khái quát của các nhóm phụ kiện; kích thước và cấu hình thực tế phải được kiểm tra theo công trình."
+          },
           "title": "Thanh T và bulong dù treo trần",
           "summary": "Nhóm phụ kiện liên kết và treo trần phải được chọn từ sơ đồ tải, điểm treo và kết cấu phía trên, không chỉ từ diện tích.",
           "paragraphs": [
@@ -1180,7 +1253,7 @@
       "image": "/images/insulation/cold-door.webp",
       "imageSrcset": "/images/insulation/cold-door-640.webp 640w, /images/insulation/cold-door.webp 1200w",
       "imageWidth": 1200,
-      "imageHeight": 800,
+      "imageHeight": 1200,
       "imageAlt": "Cửa kho lạnh minh họa cho nhóm phụ kiện đóng mở và làm kín",
       "summary": "Bản lề, khóa, gioăng, sưởi khung và phụ kiện cửa được chọn đồng bộ theo kiểu cửa, kích thước cánh và nhiệt độ kho.",
       "applications": [
@@ -1241,6 +1314,13 @@
       "detailSections": [
         {
           "id": "ban-le-cua",
+          "media": {
+            "image": "/images/insulation/door-accessories-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ nhận biết bản lề, ray bánh xe, tay khóa, gioăng, sưởi và màn PVC",
+            "caption": "Mỗi phụ kiện đảm nhiệm một chức năng khác nhau; cần chốt đồng bộ theo loại cửa và điều kiện vận hành."
+          },
           "title": "Bản lề và bản lề nâng",
           "summary": "Chịu tải cánh và quyết định quỹ đạo đóng mở; cần chọn theo trọng lượng, chiều mở và tần suất sử dụng.",
           "paragraphs": [
@@ -1307,6 +1387,13 @@
         },
         {
           "id": "gioang-cua",
+          "media": {
+            "image": "/images/insulation/cold-door-seal-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Mặt cắt gioăng cửa ép vào khung để tạo độ kín",
+            "caption": "Gioăng chỉ làm kín tốt khi đúng tiết diện, đúng chiều ép và bề mặt tiếp xúc sạch, phẳng."
+          },
           "title": "Gioăng làm kín cửa",
           "summary": "Gioăng tạo tiếp xúc liên tục giữa cánh và khung; đúng tiết diện và độ ép quan trọng hơn tên gọi chung.",
           "paragraphs": [
@@ -1483,7 +1570,7 @@
       "image": "/images/insulation/eps-panel.webp",
       "imageSrcset": "/images/insulation/eps-panel-640.webp 640w, /images/insulation/eps-panel.webp 1200w",
       "imageWidth": 1200,
-      "imageHeight": 800,
+      "imageHeight": 1200,
       "imageAlt": "Bề mặt và lõi của hệ panel cách nhiệt",
       "summary": "Thông tin lựa chọn Inox 304, xốp EPS, tôn mạ màu và PU foam dùng trong gia công panel, cửa hoặc chi tiết hoàn thiện. Dạng bán lẻ, quy cách và khả năng cung cấp được xác nhận theo từng yêu cầu.",
       "applications": [
@@ -1544,6 +1631,13 @@
       "detailSections": [
         {
           "id": "inox-304",
+          "media": {
+            "image": "/images/insulation/cold-room-editorial.jpg",
+            "imageWidth": 1672,
+            "imageHeight": 941,
+            "imageAlt": "Ảnh minh họa bề mặt kim loại và cửa trong một hệ kho lạnh",
+            "caption": "Ảnh minh họa bối cảnh sử dụng bề mặt kim loại; mác Inox 304 phải được xác nhận riêng trong báo giá và hồ sơ vật tư."
+          },
           "title": "Inox 304",
           "summary": "Inox 304 được dùng cho bề mặt cửa, khung và chi tiết gia công cần vệ sinh thuận tiện cùng độ hoàn thiện cao.",
           "paragraphs": [
@@ -1577,6 +1671,13 @@
         },
         {
           "id": "xop-eps",
+          "media": {
+            "image": "/images/insulation/panel-eps-construction-diagram.svg",
+            "imageWidth": 1200,
+            "imageHeight": 760,
+            "imageAlt": "Sơ đồ vị trí lõi EPS nằm giữa hai bề mặt kim loại của panel thành phẩm",
+            "caption": "Sơ đồ minh họa vị trí lõi EPS trong panel thành phẩm, không đại diện cho xốp EPS bán rời."
+          },
           "title": "Xốp EPS",
           "summary": "EPS rời là vật liệu lõi hoặc vật tư gia công, khác với panel hoàn chỉnh đã có hai bề mặt kim loại.",
           "paragraphs": [
@@ -1676,6 +1777,14 @@
         },
         {
           "id": "dong-bo-va-dat-hang",
+          "media": {
+            "image": "/images/insulation/cold-room-system-cutaway.jpg",
+            "imageSrcset": "/images/insulation/cold-room-system-cutaway-768.jpg 768w, /images/insulation/cold-room-system-cutaway.jpg 1536w",
+            "imageWidth": 1536,
+            "imageHeight": 1024,
+            "imageAlt": "Minh họa tổng thể vách, trần, nền, cửa và vị trí xuyên qua vỏ kho lạnh",
+            "caption": "Hiệu quả của kho phụ thuộc đồng thời vào vách, trần, nền, cửa và cách xử lý các mối nối."
+          },
           "title": "Đồng bộ vật tư và đặt hàng",
           "summary": "Một chi tiết hoàn chỉnh có thể dùng nhiều vật liệu; bản vẽ và bảng quy cách giúp tránh đặt đúng tên nhưng sai cấu hình.",
           "paragraphs": [

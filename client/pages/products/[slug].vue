@@ -239,6 +239,37 @@ usePageSeo({
                       {{ paragraph }}
                     </p>
                   </div>
+
+                  <figure
+                    v-if="section.media"
+                    data-product-section-media
+                    class="mt-7 overflow-hidden rounded-[1.25rem] border border-[#d5cbc0] bg-[#e8e0d7]"
+                  >
+                    <img
+                      :src="section.media.image"
+                      :srcset="section.media.imageSrcset"
+                      :width="section.media.imageWidth"
+                      :height="section.media.imageHeight"
+                      :alt="section.media.imageAlt"
+                      sizes="(min-width: 1024px) 34vw, (min-width: 640px) calc(100vw - 96px), calc(100vw - 64px)"
+                      class="h-auto w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    >
+                    <figcaption class="flex flex-col gap-3 border-t border-[#d5cbc0] bg-[#f2ece5] px-4 py-3 text-xs leading-5 text-[#655d55] sm:flex-row sm:items-start sm:justify-between sm:px-5">
+                      <span>{{ section.media.caption }}</span>
+                      <a
+                        :href="section.media.image"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-product-section-media-zoom
+                        class="inline-flex min-h-8 shrink-0 items-center font-bold text-[#874a2d] transition-colors hover:text-[#292926] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#874a2d]"
+                        :aria-label="`Mở hình lớn: ${section.media.imageAlt}`"
+                      >
+                        Mở hình lớn ↗
+                      </a>
+                    </figcaption>
+                  </figure>
                 </div>
 
                 <div>

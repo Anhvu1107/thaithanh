@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Mặt cắt làm kín cửa kho lạnh</title>
+  <desc id="desc">Sơ đồ mặt cắt cánh, khung, gioăng ép kín, sưởi khung tùy chọn và cơ cấu mở an toàn từ phía trong kho.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f3ed"/>
+      <stop offset="1" stop-color="#eee6dc"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#dfddd7"/>
+      <stop offset="1" stop-color="#aaa8a2"/>
+    </linearGradient>
+    <pattern id="core" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2.5" fill="#d7cfc4"/>
+      <circle cx="11" cy="10" r="2.7" fill="#e5ddd2"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="14" stdDeviation="15" flood-color="#443d36" flood-opacity="0.1"/>
+    </filter>
+    <marker id="arrowRust" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#a85d3b"/>
+    </marker>
+    <marker id="arrowInk" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#292b28"/>
+    </marker>
+    <style>
+      .sans{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"IBM Plex Mono",Consolas,monospace}
+      .ink{fill:#292b28}.muted{fill:#6d665e}.rust{fill:#a85d3b}.line{stroke:#292b28;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.fine{stroke:#81786f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.accent{stroke:#a85d3b;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.dash{stroke-dasharray:8 8}
+    </style>
+  </defs>
+
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <path d="M0 120H1200" stroke="#dbd0c4"/>
+  <text x="60" y="58" class="sans ink" font-size="34" font-weight="700" letter-spacing="-1">Làm kín và an toàn vận hành</text>
+  <text x="60" y="91" class="sans muted" font-size="15">Cánh, khung và gioăng phải làm việc như một cụm đồng bộ.</text>
+  <text x="1071" y="64" class="mono rust" font-size="12" font-weight="700" letter-spacing="1.8">MẶT CẮT</text>
+
+  <!-- Main technical section -->
+  <g transform="translate(58 154)" filter="url(#shadow)">
+    <rect width="744" height="500" rx="28" fill="#fbfaf7" stroke="#d9cec2"/>
+
+    <!-- Orientation labels -->
+    <g transform="translate(36 34)">
+      <rect width="147" height="34" rx="17" fill="#292b28"/>
+      <text x="73.5" y="22" text-anchor="middle" class="sans" fill="#fff" font-size="11" font-weight="700">PHÍA TRONG KHO</text>
+    </g>
+    <g transform="translate(555 34)">
+      <rect width="151" height="34" rx="17" fill="#eee7de" stroke="#d4c8bc"/>
+      <text x="75.5" y="22" text-anchor="middle" class="sans ink" font-size="11" font-weight="700">PHÍA BÊN NGOÀI</text>
+    </g>
+
+    <!-- Wall panel -->
+    <g transform="translate(306 92)">
+      <path d="M0 0H112V322H0Z" fill="url(#steel)" class="line"/>
+      <path d="M17 0H95V322H17Z" fill="url(#core)" stroke="#c8bfb5" stroke-width="2"/>
+      <text x="56" y="347" text-anchor="middle" class="sans muted" font-size="12" font-weight="700">VÁCH PANEL</text>
+    </g>
+
+    <!-- Frame profile -->
+    <g transform="translate(232 127)">
+      <path d="M74 0H126V252H74V224H28V28H74Z" fill="#c9c5be" class="line"/>
+      <path d="M83 14H112V238H83V210H42V42H83Z" fill="#f4efe7" stroke="#a85d3b" stroke-width="4"/>
+      <text x="-6" y="-17" class="sans rust" font-size="12" font-weight="700">KHUNG BAO</text>
+      <path d="M51 -11L82 17" class="accent"/>
+    </g>
+
+    <!-- Door leaf -->
+    <g transform="translate(424 113)">
+      <rect x="0" y="0" width="190" height="278" rx="8" fill="url(#steel)" class="line"/>
+      <rect x="15" y="15" width="160" height="248" rx="4" fill="url(#core)" stroke="#c4bbb0" stroke-width="2"/>
+      <path d="M14 15V263M176 15V263" stroke="#fdfcf9" stroke-width="6"/>
+      <text x="95" y="301" text-anchor="middle" class="sans muted" font-size="12" font-weight="700">CÁNH CỬA</text>
+    </g>
+
+    <!-- Compressed gasket -->
+    <g transform="translate(379 170)">
+      <path d="M0 0C22 2 35 18 35 41V97C35 120 22 136 0 138L-10 119C1 113 8 104 8 91V47C8 34 1 25-10 19Z" fill="#292b28"/>
+      <path d="M-5 11C12 15 22 27 22 43V95C22 111 12 123-5 127" fill="none" stroke="#5f625e" stroke-width="3"/>
+      <text x="-95" y="70" class="sans ink" font-size="12" font-weight="700">GIOĂNG</text>
+      <path d="M-38 66H-5" class="line" marker-end="url(#arrowInk)"/>
+    </g>
+
+    <!-- Compression arrows -->
+    <path d="M666 208H620" class="accent" marker-end="url(#arrowRust)"/>
+    <path d="M666 294H620" class="accent" marker-end="url(#arrowRust)"/>
+    <text x="628" y="188" class="sans rust" font-size="11" font-weight="700">LỰC ÉP</text>
+
+    <!-- Optional heater -->
+    <g transform="translate(290 285)">
+      <circle cx="0" cy="0" r="11" fill="#d97843"/>
+      <circle cx="0" cy="0" r="4" fill="#fff4e9"/>
+      <path d="M-4 -16C-18-28-32-25-44-25H-91" fill="none" class="accent dash"/>
+      <rect x="-201" y="-43" width="112" height="34" rx="17" fill="#a85d3b"/>
+      <text x="-145" y="-21" text-anchor="middle" class="sans" fill="#fff" font-size="10" font-weight="700">SƯỞI TÙY CHỌN</text>
+    </g>
+
+    <!-- Safety release on the inside -->
+    <g transform="translate(112 348)">
+      <rect x="0" y="0" width="88" height="34" rx="17" fill="#292b28"/>
+      <circle cx="17" cy="17" r="7" fill="#d99a73"/>
+      <path d="M38 17H68" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M88 17H165" class="accent" marker-end="url(#arrowRust)"/>
+      <text x="0" y="62" class="sans rust" font-size="11" font-weight="700">MỞ AN TOÀN</text>
+      <text x="0" y="80" class="sans muted" font-size="11">Thao tác từ phía trong</text>
+    </g>
+
+    <g transform="translate(35 456)">
+      <path d="M0 0H674" stroke="#e1d7cc"/>
+      <text x="0" y="27" class="sans muted" font-size="12">Sưởi khung và cơ cấu mở trong được chọn theo cấu hình thực tế.</text>
+    </g>
+  </g>
+
+  <!-- Callouts -->
+  <g transform="translate(830 154)">
+    <rect width="322" height="500" rx="28" fill="#292b28"/>
+    <text x="28" y="43" class="mono" fill="#d99a73" font-size="11" font-weight="700" letter-spacing="1.6">BỐN ĐIỂM KIỂM TRA</text>
+
+    <g transform="translate(28 80)">
+      <text x="0" y="0" class="mono" fill="#d99a73" font-size="12" font-weight="700">01</text>
+      <text x="42" y="0" class="sans" fill="#fff" font-size="17" font-weight="700">Cánh và khung</text>
+      <text x="42" y="25" class="sans" fill="#bcb7b0" font-size="12">Phẳng, đúng khe lắp</text>
+      <path d="M0 54H266" stroke="#4d504c"/>
+    </g>
+
+    <g transform="translate(28 171)">
+      <text x="0" y="0" class="mono" fill="#d99a73" font-size="12" font-weight="700">02</text>
+      <text x="42" y="0" class="sans" fill="#fff" font-size="17" font-weight="700">Độ ép gioăng</text>
+      <text x="42" y="25" class="sans" fill="#bcb7b0" font-size="12">Liên tục quanh chu vi</text>
+      <path d="M0 54H266" stroke="#4d504c"/>
+    </g>
+
+    <g transform="translate(28 262)">
+      <text x="0" y="0" class="mono" fill="#d99a73" font-size="12" font-weight="700">03</text>
+      <text x="42" y="0" class="sans" fill="#fff" font-size="17" font-weight="700">Sưởi khung</text>
+      <text x="42" y="25" class="sans" fill="#bcb7b0" font-size="12">Chỉ dùng khi thiết kế cần</text>
+      <path d="M0 54H266" stroke="#4d504c"/>
+    </g>
+
+    <g transform="translate(28 353)">
+      <text x="0" y="0" class="mono" fill="#d99a73" font-size="12" font-weight="700">04</text>
+      <text x="42" y="0" class="sans" fill="#fff" font-size="17" font-weight="700">Mở phía trong</text>
+      <text x="42" y="25" class="sans" fill="#bcb7b0" font-size="12">Dễ nhận biết, dễ thao tác</text>
+    </g>
+
+    <g transform="translate(28 445)">
+      <rect width="266" height="1" fill="#6d706c"/>
+      <circle cx="8" cy="28" r="8" fill="#a85d3b"/>
+      <path d="M5 28L7.5 30.5L12 25.5" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="26" y="33" class="sans" fill="#d8d3cc" font-size="11">Kiểm tra lại sau lắp đặt</text>
+    </g>
+  </g>
+
+  <g transform="translate(58 690)">
+    <path d="M0 8H32" class="accent"/>
+    <text x="48" y="13" class="sans muted" font-size="13">Độ kín phụ thuộc cả cấu tạo, phụ kiện, căn chỉnh và bảo trì.</text>
+  </g>
+</svg>

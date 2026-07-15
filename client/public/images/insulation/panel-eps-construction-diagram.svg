@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cấu tạo ba lớp của panel EPS</title>
+  <desc id="desc">Sơ đồ minh họa hai bề mặt kim loại, hai lớp liên kết và lõi EPS ở giữa, không theo tỷ lệ.</desc>
+  <defs>
+    <pattern id="epsBeads" width="28" height="24" patternUnits="userSpaceOnUse">
+      <rect width="28" height="24" fill="#e8dfcf"/>
+      <circle cx="7" cy="7" r="5.2" fill="#f8f3ea" stroke="#bcb3a6" stroke-width="1"/>
+      <circle cx="21" cy="5" r="5.5" fill="#f3ede3" stroke="#bcb3a6" stroke-width="1"/>
+      <circle cx="15" cy="18" r="6" fill="#fbf7ef" stroke="#bcb3a6" stroke-width="1"/>
+      <circle cx="29" cy="18" r="5.2" fill="#efe7da" stroke="#bcb3a6" stroke-width="1"/>
+      <circle cx="1" cy="20" r="5.4" fill="#f6f0e6" stroke="#bcb3a6" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="metalTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="0.55" stop-color="#dedbd3"/>
+      <stop offset="1" stop-color="#f5f2eb"/>
+    </linearGradient>
+    <linearGradient id="metalEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9c6be"/>
+      <stop offset="1" stop-color="#a7a49e"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#292b29" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="760" fill="#f3eee5"/>
+  <path d="M0 0H1200V14H0Z" fill="#a95335"/>
+  <circle cx="1110" cy="106" r="122" fill="#eadfce" opacity="0.55"/>
+  <circle cx="1134" cy="92" r="78" fill="none" stroke="#a95335" stroke-opacity="0.16"/>
+
+  <text x="72" y="82" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">PANEL EPS · CẤU TẠO</text>
+  <text x="72" y="132" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Sandwich ba lớp, nhìn từ bên trong.</text>
+  <text x="74" y="166" fill="#64625d" font-family="Arial, Helvetica, sans-serif" font-size="17">Hai bề mặt kim loại bảo vệ lõi EPS và tạo thành một tấm lắp ghép liền khối.</text>
+
+  <g transform="translate(72 201)">
+    <rect width="356" height="38" rx="19" fill="#252a27"/>
+    <text x="178" y="25" text-anchor="middle" fill="#fffaf2" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">MINH HỌA CẤU TẠO · KHÔNG THEO TỶ LỆ</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <!-- Upper metal facing, exploded above the core -->
+    <path d="M95 330L476 246L748 362L367 446Z" fill="url(#metalTop)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M367 446L748 362V378L367 462Z" fill="url(#metalEdge)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M95 330L367 446V462L95 346Z" fill="#bab8b1" stroke="#292e2b" stroke-width="2"/>
+    <path d="M159 330L506 254M231 360L578 283M304 390L651 312" fill="none" stroke="#b8b4ac" stroke-width="2" opacity="0.7"/>
+
+    <!-- Upper bonding layer -->
+    <path d="M106 383L476 302L737 413L367 494Z" fill="#b96647" fill-opacity="0.66" stroke="#8e452f" stroke-width="1.5"/>
+
+    <!-- EPS core -->
+    <path d="M106 417L476 336L737 447L367 528Z" fill="#f8f2e8" stroke="#292e2b" stroke-width="2"/>
+    <path d="M106 417L367 528V616L106 505Z" fill="url(#epsBeads)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M367 528L737 447V535L367 616Z" fill="url(#epsBeads)" stroke="#292e2b" stroke-width="2"/>
+
+    <!-- Lower bonding layer -->
+    <path d="M106 523L367 634L737 553L476 442Z" fill="#b96647" fill-opacity="0.72" stroke="#8e452f" stroke-width="1.5"/>
+
+    <!-- Lower metal facing -->
+    <path d="M95 558L367 674L748 590L476 474Z" fill="url(#metalTop)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M367 674L748 590V606L367 690Z" fill="url(#metalEdge)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M95 558L367 674V690L95 574Z" fill="#bab8b1" stroke="#292e2b" stroke-width="2"/>
+  </g>
+
+  <!-- Callout leaders -->
+  <g fill="none" stroke="#7a756d" stroke-width="1.5">
+    <path d="M646 302H805V291H842"/>
+    <path d="M684 406H794V394H842"/>
+    <path d="M688 495H805V497H842"/>
+    <path d="M660 600H793V604H842"/>
+  </g>
+  <g fill="#a95335">
+    <circle cx="646" cy="302" r="5"/>
+    <circle cx="684" cy="406" r="5"/>
+    <circle cx="688" cy="495" r="5"/>
+    <circle cx="660" cy="600" r="5"/>
+  </g>
+
+  <!-- Editorial callouts -->
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="842" y="278" fill="#a95335" font-size="12" font-weight="700" letter-spacing="2">01 · BỀ MẶT TRÊN</text>
+    <text x="842" y="306" fill="#252a27" font-size="17" font-weight="700">Kim loại hoàn thiện</text>
+    <text x="842" y="330" fill="#64625d" font-size="14">Tôn mạ màu hoặc Inox theo cấu hình.</text>
+
+    <text x="842" y="381" fill="#a95335" font-size="12" font-weight="700" letter-spacing="2">02 · LỚP LIÊN KẾT</text>
+    <text x="842" y="409" fill="#252a27" font-size="17" font-weight="700">Liên kết bề mặt với lõi</text>
+    <text x="842" y="433" fill="#64625d" font-size="14">Phân bố giữa hai mặt kim loại và EPS.</text>
+
+    <text x="842" y="484" fill="#a95335" font-size="12" font-weight="700" letter-spacing="2">03 · LÕI EPS</text>
+    <text x="842" y="512" fill="#252a27" font-size="17" font-weight="700">Lớp cách nhiệt nhẹ</text>
+    <text x="842" y="536" fill="#64625d" font-size="14">Chọn độ dày, tỷ trọng theo ứng dụng.</text>
+
+    <text x="842" y="587" fill="#a95335" font-size="12" font-weight="700" letter-spacing="2">04 · BỀ MẶT DƯỚI</text>
+    <text x="842" y="615" fill="#252a27" font-size="17" font-weight="700">Bảo vệ và hoàn thiện</text>
+    <text x="842" y="639" fill="#64625d" font-size="14">Có thể đồng bộ hoặc chọn theo môi trường.</text>
+  </g>
+
+  <line x1="72" y1="718" x2="1128" y2="718" stroke="#cbc2b5"/>
+  <text x="72" y="744" fill="#6f6b64" font-family="Arial, Helvetica, sans-serif" font-size="13">Quy cách vật liệu và cấu tạo cuối cùng được xác nhận trong báo giá hoặc bản duyệt kỹ thuật.</text>
+</svg>

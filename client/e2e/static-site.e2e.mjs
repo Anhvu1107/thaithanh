@@ -395,6 +395,42 @@ try {
     assert.ok(await page.locator('[data-product-detail-section]').count() >= 4, `${href} must expose at least four detailed sections`)
     assert.ok(await page.locator('[data-product-checklist-item]').count() >= 8, `${href} must expose at least eight preparation items`)
     assert.ok(await page.locator('[data-product-faq]').count() >= 4, `${href} must expose at least four FAQ entries`)
+    const sectionMedia = page.locator('[data-product-section-media]')
+    assert.ok(await sectionMedia.count() >= 1, `${href} must include at least one section-level visual`)
+    for (let index = 0; index < await sectionMedia.count(); index += 1) {
+      await sectionMedia.nth(index).scrollIntoViewIfNeeded()
+    }
+    const sectionMediaContract = await sectionMedia.evaluateAll(figures => figures.map((figure) => {
+      const image = figure.querySelector('img')
+      const caption = figure.querySelector('figcaption')
+      const zoom = figure.querySelector('[data-product-section-media-zoom]')
+      return {
+        alt: image?.getAttribute('alt')?.trim() || '',
+        caption: caption?.textContent?.trim() || '',
+        decoding: image?.getAttribute('decoding') || '',
+        height: Number(image?.getAttribute('height') || 0),
+        loadedHeight: image?.naturalHeight || 0,
+        loadedWidth: image?.naturalWidth || 0,
+        loading: image?.getAttribute('loading') || '',
+        src: image?.getAttribute('src') || '',
+        width: Number(image?.getAttribute('width') || 0),
+        zoomHref: zoom?.getAttribute('href') || '',
+        zoomRel: zoom?.getAttribute('rel') || '',
+        zoomTarget: zoom?.getAttribute('target') || '',
+      }
+    }))
+    for (const media of sectionMediaContract) {
+      assert.match(media.src, /^\/images\//, `${href} section media must use a public image path`)
+      assert.ok(media.width > 0 && media.height > 0, `${href} section media must reserve intrinsic space`)
+      assert.ok(media.loadedWidth > 0 && media.loadedHeight > 0, `${href} section media must load successfully`)
+      assert.ok(media.alt.length >= 20, `${href} section media must include useful alternative text`)
+      assert.ok(media.caption.length >= 24, `${href} section media must explain what the reader is seeing`)
+      assert.equal(media.loading, 'lazy', `${href} section media must lazy-load below the fold`)
+      assert.equal(media.decoding, 'async', `${href} section media must decode asynchronously`)
+      assert.equal(media.zoomHref, media.src, `${href} section media must expose its full-size source`)
+      assert.equal(media.zoomTarget, '_blank', `${href} full-size media must not replace the product page`)
+      assert.match(media.zoomRel, /noopener/, `${href} full-size media link must isolate the new tab`)
+    }
 
     const inPageAnchors = await page.locator('nav[aria-label="Đi nhanh trong trang sản phẩm"] a').evaluateAll(links => links.map(link => link.getAttribute('href') || ''))
     for (const anchor of inPageAnchors) {
@@ -812,12 +848,16 @@ try {
   const noScriptDoorText = await noScriptPage.locator('article').first().innerText()
   assert.match(noScriptDoorText, /Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s, 'all cold-room door configurations must remain readable without JavaScript')
   assert.match(noScriptDoorText, /Nên chọn cửa bản lề hay cửa trượt\?/i, 'cold-room door FAQ must remain readable without JavaScript')
+  assert.ok(await noScriptPage.locator('[data-product-section-media]').count() >= 1, 'cold-room door visuals must render without JavaScript')
+  assert.ok((await noScriptPage.locator('[data-product-section-media] figcaption').first().innerText()).trim().length >= 24, 'cold-room door visual caption must remain readable without JavaScript')
 
   const noScriptPanelResponse = await noScriptPage.goto(`${webUrl}/products/panel-eps`, { waitUntil: 'load' })
   assert.equal(noScriptPanelResponse?.status(), 200, 'Panel EPS detail must render without JavaScript')
   const noScriptPanelText = await noScriptPage.locator('article').first().innerText()
   assert.match(noScriptPanelText, /Cấu tạo sandwich ba lớp.*Chọn độ dày và tỷ trọng.*Thi công và phụ kiện đồng bộ/s, 'Panel EPS technical guidance must remain readable without JavaScript')
   assert.match(noScriptPanelText, /Panel EPS có phải panel chống cháy không\?/i, 'Panel EPS safety FAQ must remain readable without JavaScript')
+  assert.ok(await noScriptPage.locator('[data-product-section-media]').count() >= 1, 'Panel EPS visuals must render without JavaScript')
+  assert.ok((await noScriptPage.locator('[data-product-section-media] figcaption').first().innerText()).trim().length >= 24, 'Panel EPS visual caption must remain readable without JavaScript')
 
   const noScriptContactResponse = await noScriptPage.goto(`${webUrl}/contact`, { waitUntil: 'load' })
   assert.equal(noScriptContactResponse?.status(), 200, 'contact page must render without JavaScript')

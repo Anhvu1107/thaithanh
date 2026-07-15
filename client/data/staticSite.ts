@@ -5,6 +5,7 @@ import type {
   ProductDetailSection,
   ProductFrequentlyAskedQuestion,
   ProductFamily,
+  ProductSectionMedia,
   ProductSelectionGuideItem,
   ResponsiveImage,
   ProductSpecification,
@@ -124,6 +125,15 @@ const parseResponsiveImage = (value: UnknownRecord, path: string): ResponsiveIma
   imageHeight: expectPositiveInteger(value.imageHeight, `${path}.imageHeight`),
   imageAlt: expectString(value.imageAlt, `${path}.imageAlt`),
 })
+
+const parseProductSectionMedia = (value: unknown, path: string): ProductSectionMedia => {
+  const media = expectRecord(value, path)
+  expectExactKeys(media, path, ['image', 'imageWidth', 'imageHeight', 'imageAlt', 'caption'], ['imageSrcset'])
+  return {
+    ...parseResponsiveImage(media, path),
+    caption: expectString(media.caption, `${path}.caption`),
+  }
+}
 
 const assertUnique = (values: readonly string[], path: string) => {
   const seen = new Set<string>()
@@ -268,7 +278,7 @@ const parseProductFamily = (value: unknown, path: string): ProductFamily => {
 
 const parseProductDetailSection = (value: unknown, path: string): ProductDetailSection => {
   const section = expectRecord(value, path)
-  expectExactKeys(section, path, ['id', 'title', 'summary', 'paragraphs', 'specifications', 'points'])
+  expectExactKeys(section, path, ['id', 'title', 'summary', 'paragraphs', 'specifications', 'points'], ['media'])
   const specifications = expectArray(section.specifications, `${path}.specifications`).map((item, index) =>
     parseProductSpecification(item, `${path}.specifications[${index}]`),
   )
@@ -280,6 +290,7 @@ const parseProductDetailSection = (value: unknown, path: string): ProductDetailS
     paragraphs: expectStringArray(section.paragraphs, `${path}.paragraphs`),
     specifications,
     points: expectStringArray(section.points, `${path}.points`),
+    ...(section.media === undefined ? {} : { media: parseProductSectionMedia(section.media, `${path}.media`) }),
   }
 }
 

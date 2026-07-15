@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Vị trí khái quát của phụ kiện trong phòng panel</title>
+  <desc id="desc">Sơ đồ isometric minh họa vị trí nẹp U, V trong, V ngoài, thanh T và bulong dù, van cân bằng áp và ống cách nhiệt tại đường ống xuyên vách, không theo tỷ lệ.</desc>
+  <defs>
+    <linearGradient id="panelFace" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#ded9d0"/>
+    </linearGradient>
+    <linearGradient id="panelShade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e7e2d9"/>
+      <stop offset="1" stop-color="#c9c3b9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#292e2b" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#a95335"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="760" fill="#f3eee5"/>
+  <path d="M0 0H1200V14H0Z" fill="#a95335"/>
+  <circle cx="1112" cy="102" r="122" fill="#eadfce" opacity="0.55"/>
+  <circle cx="1128" cy="84" r="76" fill="none" stroke="#a95335" stroke-opacity="0.16"/>
+
+  <text x="72" y="80" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">PHÒNG PANEL · PHỤ KIỆN</text>
+  <text x="72" y="130" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Mỗi chi tiết có một vị trí riêng.</text>
+  <text x="74" y="164" fill="#64625d" font-family="Arial, Helvetica, sans-serif" font-size="17">Sơ đồ mở góc giúp nhận biết nơi hoàn thiện liên kết, treo trần và xử lý điểm xuyên vách.</text>
+
+  <g transform="translate(829 68)">
+    <rect width="299" height="38" rx="19" fill="#252a27"/>
+    <text x="149.5" y="25" text-anchor="middle" fill="#fffaf2" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">MINH HỌA VỊ TRÍ · KHÔNG THEO TỶ LỆ</text>
+  </g>
+
+  <!-- Isometric cold room -->
+  <g filter="url(#shadow)">
+    <!-- Floor -->
+    <path d="M125 545L467 455L800 570L458 666Z" fill="#ded8ce" stroke="#292e2b" stroke-width="2"/>
+    <path d="M125 545L458 666V682L125 561Z" fill="#bbb5ab" stroke="#292e2b" stroke-width="2"/>
+    <path d="M458 666L800 570V586L458 682Z" fill="#aaa49b" stroke="#292e2b" stroke-width="2"/>
+
+    <!-- Left wall -->
+    <path d="M125 286L467 405V655L125 536Z" fill="url(#panelShade)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M193 310V560M261 333V584M329 357V608M397 381V632" fill="none" stroke="#b4aea4" stroke-width="1.5"/>
+
+    <!-- Right wall -->
+    <path d="M467 405L800 313V570L467 655Z" fill="url(#panelFace)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M534 386V638M601 368V620M668 349V602M735 331V584" fill="none" stroke="#c5bfb5" stroke-width="1.5"/>
+
+    <!-- Ceiling, partially transparent so the suspension can be read -->
+    <path d="M125 258L467 168L800 283L467 377Z" fill="#f8f5ee" fill-opacity="0.82" stroke="#292e2b" stroke-width="2"/>
+    <path d="M193 240L532 354M261 222L600 335M329 204L668 317M397 186L736 299" fill="none" stroke="#c2bbb0" stroke-width="1.4"/>
+  </g>
+
+  <!-- Ceiling T bar and umbrella bolts -->
+  <g>
+    <path d="M255 246L594 360" fill="none" stroke="#5d615d" stroke-width="10" stroke-linecap="round"/>
+    <path d="M263 246L263 207M425 300L425 233M585 354L585 273" fill="none" stroke="#292e2b" stroke-width="3"/>
+    <path d="M249 207H277M411 233H439M571 273H599" fill="none" stroke="#a95335" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="263" cy="207" r="6" fill="#f3eee5" stroke="#292e2b" stroke-width="2"/>
+    <circle cx="425" cy="233" r="6" fill="#f3eee5" stroke="#292e2b" stroke-width="2"/>
+    <circle cx="585" cy="273" r="6" fill="#f3eee5" stroke="#292e2b" stroke-width="2"/>
+  </g>
+
+  <!-- U profile at wall base -->
+  <path d="M135 527L467 643L788 554" fill="none" stroke="#a95335" stroke-width="10" stroke-linejoin="round" opacity="0.9"/>
+  <path d="M135 516L467 632L788 543" fill="none" stroke="#f3eee5" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Inner and outer corner trims -->
+  <path d="M467 407V651" fill="none" stroke="#a95335" stroke-width="9" stroke-linecap="round"/>
+  <path d="M799 315V568" fill="none" stroke="#a95335" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- Pressure balance valve on the right wall -->
+  <g transform="translate(636 447) skewY(-15)">
+    <rect x="-26" y="-22" width="52" height="44" rx="8" fill="#f7f2e9" stroke="#292e2b" stroke-width="3"/>
+    <circle r="12" fill="#a95335"/>
+    <path d="M-6 0H6M0-6V6" stroke="#fffaf2" stroke-width="2"/>
+  </g>
+
+  <!-- Insulated pipe through the right wall -->
+  <g>
+    <path d="M708 503L834 469" fill="none" stroke="#292e2b" stroke-width="24" stroke-linecap="round"/>
+    <path d="M708 503L834 469" fill="none" stroke="#d8d1c6" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="708" cy="503" r="17" fill="#a95335" fill-opacity="0.24" stroke="#a95335" stroke-width="4"/>
+    <circle cx="834" cy="469" r="13" fill="#292e2b" stroke="#f3eee5" stroke-width="3"/>
+  </g>
+
+  <!-- Numbered hotspots -->
+  <g font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+    <g transform="translate(428 274)"><circle r="17" fill="#a95335"/><text y="4" fill="#fffaf2">01</text></g>
+    <g transform="translate(638 447)"><circle r="17" fill="#a95335"/><text y="4" fill="#fffaf2">02</text></g>
+    <g transform="translate(731 497)"><circle r="17" fill="#a95335"/><text y="4" fill="#fffaf2">03</text></g>
+    <g transform="translate(330 593)"><circle r="17" fill="#a95335"/><text y="4" fill="#fffaf2">04</text></g>
+    <g transform="translate(467 516)"><circle r="17" fill="#a95335"/><text y="4" fill="#fffaf2">05</text></g>
+    <g transform="translate(800 400)"><circle r="17" fill="#a95335"/><text y="4" fill="#fffaf2">06</text></g>
+  </g>
+
+  <!-- Legend -->
+  <g font-family="Arial, Helvetica, sans-serif">
+    <line x1="835" y1="222" x2="835" y2="655" stroke="#c9c0b3"/>
+
+    <text x="872" y="233" fill="#a95335" font-size="12" font-weight="700" letter-spacing="1.6">01 · HỆ TREO TRẦN</text>
+    <text x="872" y="259" fill="#252a27" font-size="17" font-weight="700">Thanh T + bulong dù</text>
+    <text x="872" y="281" fill="#64625d" font-size="13">Bố trí theo tải và kết cấu đỡ.</text>
+
+    <text x="872" y="322" fill="#a95335" font-size="12" font-weight="700" letter-spacing="1.6">02 · VAN CÂN BẰNG ÁP</text>
+    <text x="872" y="348" fill="#252a27" font-size="17" font-weight="700">Lắp tại vị trí phù hợp</text>
+    <text x="872" y="370" fill="#64625d" font-size="13">Chọn theo điều kiện vận hành.</text>
+
+    <text x="872" y="411" fill="#a95335" font-size="12" font-weight="700" letter-spacing="1.6">03 · ĐƯỜNG ỐNG XUYÊN VÁCH</text>
+    <text x="872" y="437" fill="#252a27" font-size="17" font-weight="700">Ống cách nhiệt + làm kín</text>
+    <text x="872" y="459" fill="#64625d" font-size="13">Xử lý liên tục quanh điểm xuyên.</text>
+
+    <text x="872" y="500" fill="#a95335" font-size="12" font-weight="700" letter-spacing="1.6">04 · CHÂN VÁCH</text>
+    <text x="872" y="526" fill="#252a27" font-size="17" font-weight="700">Nẹp U định vị panel</text>
+    <text x="872" y="548" fill="#64625d" font-size="13">Hoàn thiện theo nền thực tế.</text>
+
+    <text x="872" y="589" fill="#a95335" font-size="12" font-weight="700" letter-spacing="1.6">05–06 · GÓC PANEL</text>
+    <text x="872" y="615" fill="#252a27" font-size="17" font-weight="700">V trong + V ngoài</text>
+    <text x="872" y="637" fill="#64625d" font-size="13">Hoàn thiện góc lõm và bảo vệ góc lồi.</text>
+  </g>
+
+  <line x1="72" y1="708" x2="1128" y2="708" stroke="#cbc2b5"/>
+  <text x="72" y="736" fill="#6f6b64" font-family="Arial, Helvetica, sans-serif" font-size="13">Vị trí và chi tiết lắp đặt cuối cùng được xác nhận theo cấu tạo công trình và bản vẽ kỹ thuật.</text>
+</svg>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cách đo ô chờ cửa kho lạnh</title>
+  <desc id="desc">Sơ đồ minh họa chiều rộng, chiều cao, độ dày vách và sự khác nhau giữa ô chờ, kích thước thông thủy và cánh cửa.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f3ed"/>
+      <stop offset="1" stop-color="#eee6dc"/>
+    </linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdfcf9"/>
+      <stop offset="1" stop-color="#d9d3ca"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#443d36" flood-opacity="0.1"/>
+    </filter>
+    <marker id="arrowRust" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#a85d3b"/>
+    </marker>
+    <marker id="arrowInk" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#292b28"/>
+    </marker>
+    <style>
+      .sans{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"IBM Plex Mono",Consolas,monospace}
+      .ink{fill:#292b28}.muted{fill:#6d665e}.rust{fill:#a85d3b}.line{stroke:#292b28;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.fine{stroke:#81786f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.accent{stroke:#a85d3b;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.dash{stroke-dasharray:9 8}
+    </style>
+  </defs>
+
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <path d="M0 120H1200" stroke="#dbd0c4"/>
+  <text x="60" y="58" class="sans ink" font-size="34" font-weight="700" letter-spacing="-1">Đo ô chờ trước khi gia công</text>
+  <text x="60" y="91" class="sans muted" font-size="15">Ghi đủ rộng, cao, dày vách và chiều mở để lập bản duyệt.</text>
+  <text x="1092" y="64" class="mono rust" font-size="12" font-weight="700" letter-spacing="1.8">ĐO ĐẠC</text>
+
+  <!-- Main measurement board -->
+  <g transform="translate(58 154)" filter="url(#shadow)">
+    <rect width="760" height="478" rx="28" fill="#fbfaf7" stroke="#d9cec2"/>
+
+    <!-- Wall and opening in slight perspective -->
+    <path d="M176 86H548L604 121V398L548 430H176Z" fill="url(#wall)" class="line"/>
+    <path d="M548 86L604 121V398L548 430Z" fill="#d5cec5" class="line"/>
+    <rect x="228" y="128" width="266" height="258" rx="2" fill="#343633"/>
+    <rect x="253" y="151" width="216" height="212" rx="2" fill="#f1ece4" stroke="#a8a097" stroke-width="2"/>
+
+    <!-- Opening outline -->
+    <rect x="211" y="111" width="300" height="292" rx="3" fill="none" class="accent dash"/>
+    <text x="218" y="101" class="mono rust" font-size="11" font-weight="700" letter-spacing="1.3">Ô CHỜ</text>
+
+    <!-- Clear opening -->
+    <path d="M253 151H469V363H253Z" fill="#242624" opacity="0.1"/>
+    <path d="M253 151H469V363H253Z" fill="none" stroke="#292b28" stroke-width="3"/>
+    <text x="310" y="260" class="sans ink" font-size="16" font-weight="700">THÔNG THỦY</text>
+    <text x="319" y="284" class="sans muted" font-size="12">Phần sử dụng thực tế</text>
+
+    <!-- Leaf shown aside -->
+    <g transform="translate(557 143)">
+      <rect x="0" y="0" width="119" height="214" rx="5" fill="#faf8f3" class="line"/>
+      <rect x="13" y="13" width="93" height="188" rx="3" fill="#ebe5dc" stroke="#a85d3b" stroke-width="3"/>
+      <circle cx="91" cy="108" r="4" fill="#a85d3b"/>
+      <text x="59" y="239" text-anchor="middle" class="sans rust" font-size="12" font-weight="700">CÁNH CỬA</text>
+    </g>
+
+    <!-- Width dimension -->
+    <path d="M211 72V104M511 72V104" class="fine"/>
+    <path d="M218 72H504" class="accent" marker-start="url(#arrowRust)" marker-end="url(#arrowRust)"/>
+    <rect x="296" y="53" width="130" height="34" rx="17" fill="#fbfaf7"/>
+    <text x="361" y="75" text-anchor="middle" class="sans rust" font-size="12" font-weight="700">RỘNG Ô CHỜ</text>
+
+    <!-- Height dimension -->
+    <path d="M155 111H203M155 403H203" class="fine"/>
+    <path d="M155 118V396" class="accent" marker-start="url(#arrowRust)" marker-end="url(#arrowRust)"/>
+    <g transform="translate(128 257) rotate(-90)">
+      <rect x="-59" y="-17" width="118" height="34" rx="17" fill="#fbfaf7"/>
+      <text x="0" y="5" text-anchor="middle" class="sans rust" font-size="12" font-weight="700">CAO Ô CHỜ</text>
+    </g>
+
+    <!-- Wall thickness dimension -->
+    <path d="M551 72L608 108" class="line" marker-start="url(#arrowInk)" marker-end="url(#arrowInk)"/>
+    <text x="608" y="70" class="sans ink" font-size="12" font-weight="700">DÀY VÁCH</text>
+    <path d="M602 77L583 89" class="fine"/>
+
+    <g transform="translate(36 436)">
+      <circle cx="7" cy="7" r="7" fill="#a85d3b"/>
+      <path d="M4 7L6.5 9.5L10.5 5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="24" y="12" class="sans muted" font-size="12">Đo nhiều điểm và lấy sai lệch vào bản duyệt.</text>
+    </g>
+  </g>
+
+  <!-- Explanation rail -->
+  <g transform="translate(842 154)">
+    <rect width="310" height="478" rx="28" fill="#292b28"/>
+    <text x="28" y="42" class="mono" fill="#d99a73" font-size="11" font-weight="700" letter-spacing="1.6">PHÂN BIỆT KÍCH THƯỚC</text>
+
+    <g transform="translate(28 76)">
+      <circle cx="16" cy="16" r="16" fill="#a85d3b"/>
+      <text x="16" y="21" text-anchor="middle" class="mono" fill="#fff" font-size="11" font-weight="700">01</text>
+      <text x="46" y="12" class="sans" fill="#fff" font-size="17" font-weight="700">Ô chờ</text>
+      <text x="46" y="34" class="sans" fill="#bcb7b0" font-size="12">Khoảng trống tại vách</text>
+      <path d="M0 61H254" stroke="#4d504c"/>
+    </g>
+
+    <g transform="translate(28 168)">
+      <circle cx="16" cy="16" r="16" fill="#f2ece4"/>
+      <text x="16" y="21" text-anchor="middle" class="mono ink" font-size="11" font-weight="700">02</text>
+      <text x="46" y="12" class="sans" fill="#fff" font-size="17" font-weight="700">Thông thủy</text>
+      <text x="46" y="34" class="sans" fill="#bcb7b0" font-size="12">Lối đi sau khi lắp cửa</text>
+      <path d="M0 61H254" stroke="#4d504c"/>
+    </g>
+
+    <g transform="translate(28 260)">
+      <circle cx="16" cy="16" r="16" fill="#d99a73"/>
+      <text x="16" y="21" text-anchor="middle" class="mono ink" font-size="11" font-weight="700">03</text>
+      <text x="46" y="12" class="sans" fill="#fff" font-size="17" font-weight="700">Cánh cửa</text>
+      <text x="46" y="34" class="sans" fill="#bcb7b0" font-size="12">Kích thước sản xuất</text>
+      <path d="M0 61H254" stroke="#4d504c"/>
+    </g>
+
+    <g transform="translate(28 372)">
+      <path d="M0 0H254" stroke="#6d706c"/>
+      <text x="0" y="32" class="sans" fill="#fff" font-size="13" font-weight="700">Ghi thêm</text>
+      <text x="0" y="56" class="sans" fill="#bcb7b0" font-size="12">• Hướng mở hoặc chiều trượt</text>
+      <text x="0" y="79" class="sans" fill="#bcb7b0" font-size="12">• Độ dày panel tại ô cửa</text>
+    </g>
+  </g>
+
+  <g transform="translate(58 685)">
+    <path d="M0 8H32" class="accent"/>
+    <text x="48" y="13" class="sans muted" font-size="13">Không dùng một tên kích thước cho cả ô chờ, thông thủy và cánh cửa.</text>
+  </g>
+</svg>

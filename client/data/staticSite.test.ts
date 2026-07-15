@@ -156,6 +156,16 @@ describe('static site scope', () => {
       expect(product.detailSections.length, `${product.slug} detail sections`).toBeGreaterThanOrEqual(4)
       expect(product.selectionChecklist.length, `${product.slug} selection checklist`).toBeGreaterThanOrEqual(8)
       expect(product.frequentlyAskedQuestions.length, `${product.slug} FAQ`).toBeGreaterThanOrEqual(4)
+      const sectionMedia = product.detailSections.flatMap(section => section.media ? [section.media] : [])
+      expect(sectionMedia.length, `${product.slug} illustrated sections`).toBeGreaterThanOrEqual(1)
+      expect(sectionMedia.length, `${product.slug} editorial image budget`).toBeLessThanOrEqual(
+        Math.ceil(product.detailSections.length / 2),
+      )
+      expect(sectionMedia.every(media => media.image !== product.image), `${product.slug} media must add new context`).toBe(true)
+      for (const media of sectionMedia) {
+        expect(media.caption.trim().length, `${product.slug} media caption`).toBeGreaterThanOrEqual(24)
+        expect(media.imageAlt.trim().length, `${product.slug} media alt`).toBeGreaterThanOrEqual(20)
+      }
       for (const section of product.detailSections) {
         expect(section.paragraphs.length, `${product.slug}/${section.id} paragraphs`).toBeGreaterThanOrEqual(2)
         expect(section.specifications.length, `${product.slug}/${section.id} specifications`).toBeGreaterThanOrEqual(4)
@@ -184,7 +194,13 @@ describe('static site scope', () => {
       : []
     const imageReferences = [
       ...productFamilies.flatMap(item => [item.image, ...srcsetImages(item.imageSrcset)]),
-      ...retailProducts.flatMap(item => [item.image, ...srcsetImages(item.imageSrcset)]),
+      ...retailProducts.flatMap(item => [
+        item.image,
+        ...srcsetImages(item.imageSrcset),
+        ...item.detailSections.flatMap(section => section.media
+          ? [section.media.image, ...srcsetImages(section.media.imageSrcset)]
+          : []),
+      ]),
       ...posts.flatMap(item => [item.image, ...srcsetImages(item.imageSrcset)]),
     ]
 
@@ -196,7 +212,13 @@ describe('static site scope', () => {
       if (exists) expect(fs.statSync(absolutePath).isFile()).toBe(true)
     }
 
-    for (const item of [...productFamilies, ...retailProducts, ...posts]) {
+    const responsiveImages = [
+      ...productFamilies,
+      ...retailProducts,
+      ...posts,
+      ...retailProducts.flatMap(product => product.detailSections.flatMap(section => section.media ? [section.media] : [])),
+    ]
+    for (const item of responsiveImages) {
       expect(item.imageWidth).toBeGreaterThan(0)
       expect(item.imageHeight).toBeGreaterThan(0)
       expect(item.imageAlt.trim().length).toBeGreaterThan(0)
@@ -298,6 +320,22 @@ describe('site content validation', () => {
     selectionGuide[1]!.title = selectionGuide[0]!.title
     expect(() => parseSiteContent(duplicateSelectionTitle)).toThrow(
       /retailProducts\[0\]\.selectionGuide\[\]\.title: values must be unique/,
+    )
+
+    const missingMediaCaption = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ detailSections: Array<{ media?: Record<string, unknown> }> }>
+    }
+    delete missingMediaCaption.retailProducts[0]!.detailSections[0]!.media!.caption
+    expect(() => parseSiteContent(missingMediaCaption)).toThrow(
+      /retailProducts\[0\]\.detailSections\[0\]\.media\.caption: field is required/,
+    )
+
+    const unknownMediaField = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ detailSections: Array<{ media?: Record<string, unknown> }> }>
+    }
+    unknownMediaField.retailProducts[0]!.detailSections[0]!.media!.layout = 'wide'
+    expect(() => parseSiteContent(unknownMediaField)).toThrow(
+      /retailProducts\[0\]\.detailSections\[0\]\.media\.layout: unknown field/,
     )
   })
 })

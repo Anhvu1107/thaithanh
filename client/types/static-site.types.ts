@@ -28,6 +28,10 @@ export interface ResponsiveImage {
   imageAlt: string
 }
 
+export interface ProductSectionMedia extends ResponsiveImage {
+  caption: string
+}
+
 export interface ProductFamily extends ResponsiveImage {
   id: string
   name: string
@@ -44,6 +48,7 @@ export interface ProductDetailSection {
   paragraphs: string[]
   specifications: ProductSpecification[]
   points: string[]
+  media?: ProductSectionMedia
 }
 
 export interface ProductFrequentlyAskedQuestion {

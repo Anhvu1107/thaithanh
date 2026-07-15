@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Nhóm phụ kiện cửa kho lạnh</title>
+  <desc id="desc">Sơ đồ flat-lay gồm bản lề, ray và bánh xe, tay khóa, gioăng, sưởi tùy chọn và màn PVC.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f3ed"/>
+      <stop offset="1" stop-color="#ece4da"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.48" stop-color="#dedbd5"/>
+      <stop offset="1" stop-color="#aaa69f"/>
+    </linearGradient>
+    <linearGradient id="pvc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d6c6a8" stop-opacity="0.58"/>
+      <stop offset="0.5" stop-color="#f3e4c6" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#c8b48f" stop-opacity="0.58"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#443d36" flood-opacity="0.1"/>
+    </filter>
+    <marker id="arrowRust" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#a85d3b"/>
+    </marker>
+    <style>
+      .sans{font-family:Inter,"Segoe UI",Arial,sans-serif}.mono{font-family:"IBM Plex Mono",Consolas,monospace}
+      .ink{fill:#292b28}.muted{fill:#6d665e}.rust{fill:#a85d3b}.line{stroke:#292b28;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.fine{stroke:#81786f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.accent{stroke:#a85d3b;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <path d="M0 120H1200" stroke="#dbd0c4"/>
+  <text x="60" y="58" class="sans ink" font-size="34" font-weight="700" letter-spacing="-1">Phụ kiện theo từng cơ cấu cửa</text>
+  <text x="60" y="91" class="sans muted" font-size="15">Chọn đồng bộ theo kiểu mở, tải cánh và điều kiện vận hành.</text>
+  <text x="1082" y="64" class="mono rust" font-size="12" font-weight="700" letter-spacing="1.8">CHI TIẾT</text>
+
+  <!-- Flat-lay field -->
+  <g transform="translate(48 146)">
+    <!-- Hinge -->
+    <g transform="translate(0 0)" filter="url(#shadow)">
+      <rect width="344" height="234" rx="26" fill="#fbfaf7" stroke="#d9cec2"/>
+      <text x="22" y="32" class="mono rust" font-size="11" font-weight="700">01</text>
+      <text x="58" y="32" class="sans ink" font-size="16" font-weight="700">BẢN LỀ</text>
+      <g transform="translate(72 66)">
+        <path d="M0 25H77V132H0Z" fill="url(#steel)" class="line"/>
+        <path d="M123 25H200V132H123Z" fill="url(#steel)" class="line"/>
+        <rect x="72" y="10" width="56" height="137" rx="20" fill="#c3c0ba" class="line"/>
+        <rect x="91" y="0" width="18" height="157" rx="9" fill="#292b28"/>
+        <circle cx="25" cy="51" r="5" fill="#a85d3b"/><circle cx="52" cy="105" r="5" fill="#a85d3b"/>
+        <circle cx="148" cy="51" r="5" fill="#a85d3b"/><circle cx="175" cy="105" r="5" fill="#a85d3b"/>
+      </g>
+      <text x="22" y="212" class="sans muted" font-size="12">Theo tải và chiều mở cánh</text>
+    </g>
+
+    <!-- Rail + rollers -->
+    <g transform="translate(368 0)" filter="url(#shadow)">
+      <rect width="488" height="234" rx="26" fill="#fbfaf7" stroke="#d9cec2"/>
+      <text x="22" y="32" class="mono rust" font-size="11" font-weight="700">02</text>
+      <text x="58" y="32" class="sans ink" font-size="16" font-weight="700">RAY + BÁNH XE</text>
+      <g transform="translate(42 69)">
+        <path d="M0 10H402V42H0Z" fill="url(#steel)" class="line"/>
+        <path d="M14 25H388" stroke="#7a7d78" stroke-width="4"/>
+        <g transform="translate(72 39)">
+          <path d="M0 0V38M70 0V38" class="line"/>
+          <circle cx="0" cy="50" r="17" fill="#fbfaf7" class="line"/>
+          <circle cx="70" cy="50" r="17" fill="#fbfaf7" class="line"/>
+          <circle cx="0" cy="50" r="6" fill="#a85d3b"/>
+          <circle cx="70" cy="50" r="6" fill="#a85d3b"/>
+          <path d="M-16 83H86" class="fine"/>
+        </g>
+        <g transform="translate(266 39)">
+          <path d="M0 0V38M70 0V38" class="line"/>
+          <circle cx="0" cy="50" r="17" fill="#fbfaf7" class="line"/>
+          <circle cx="70" cy="50" r="17" fill="#fbfaf7" class="line"/>
+          <circle cx="0" cy="50" r="6" fill="#a85d3b"/>
+          <circle cx="70" cy="50" r="6" fill="#a85d3b"/>
+          <path d="M-16 83H86" class="fine"/>
+        </g>
+        <path d="M285 139H370" class="accent" marker-end="url(#arrowRust)"/>
+      </g>
+      <text x="22" y="212" class="sans muted" font-size="12">Theo trọng lượng cánh và hành trình</text>
+    </g>
+
+    <!-- Lock handle -->
+    <g transform="translate(880 0)" filter="url(#shadow)">
+      <rect width="224" height="234" rx="26" fill="#292b28"/>
+      <text x="22" y="32" class="mono" fill="#d99a73" font-size="11" font-weight="700">03</text>
+      <text x="58" y="32" class="sans" fill="#fff" font-size="16" font-weight="700">TAY KHÓA</text>
+      <g transform="translate(40 66)">
+        <rect x="0" y="22" width="58" height="104" rx="19" fill="#d8d4ce" class="line"/>
+        <circle cx="29" cy="74" r="10" fill="#a85d3b"/>
+        <path d="M29 74H121C137 74 144 64 144 52" fill="none" stroke="#efede8" stroke-width="17" stroke-linecap="round"/>
+        <path d="M29 74H121C137 74 144 64 144 52" fill="none" class="line"/>
+        <rect x="126" y="36" width="18" height="32" rx="8" fill="#a85d3b"/>
+      </g>
+      <text x="22" y="212" class="sans" fill="#bcb7b0" font-size="12">Khóa và thao tác đóng mở</text>
+    </g>
+
+    <!-- Gasket -->
+    <g transform="translate(0 260)" filter="url(#shadow)">
+      <rect width="300" height="264" rx="26" fill="#292b28"/>
+      <text x="22" y="32" class="mono" fill="#d99a73" font-size="11" font-weight="700">04</text>
+      <text x="58" y="32" class="sans" fill="#fff" font-size="16" font-weight="700">GIOĂNG</text>
+      <g transform="translate(60 65)">
+        <path d="M0 103C0 45 31 10 84 10S168 45 168 103" fill="none" stroke="#e7e3dc" stroke-width="22" stroke-linecap="round"/>
+        <path d="M0 103C0 45 31 10 84 10S168 45 168 103" fill="none" stroke="#767a75" stroke-width="4"/>
+        <path d="M0 103H168" stroke="#a85d3b" stroke-width="10" stroke-linecap="round"/>
+        <path d="M25 133H143" class="accent" marker-end="url(#arrowRust)"/>
+      </g>
+      <text x="22" y="240" class="sans" fill="#bcb7b0" font-size="12">Độ ép liên tục quanh cánh</text>
+    </g>
+
+    <!-- Heater -->
+    <g transform="translate(324 260)" filter="url(#shadow)">
+      <rect width="352" height="264" rx="26" fill="#fbfaf7" stroke="#d9cec2"/>
+      <text x="22" y="32" class="mono rust" font-size="11" font-weight="700">05</text>
+      <text x="58" y="32" class="sans ink" font-size="16" font-weight="700">SƯỞI TÙY CHỌN</text>
+      <g transform="translate(44 68)">
+        <path d="M0 55C18 8 48 8 66 55S114 102 132 55S180 8 198 55S246 102 264 55" fill="none" stroke="#a85d3b" stroke-width="8" stroke-linecap="round"/>
+        <path d="M0 109H264" stroke="#d6ccc1" stroke-width="3"/>
+        <g fill="#d97843">
+          <circle cx="20" cy="108" r="4"/><circle cx="68" cy="108" r="4"/><circle cx="116" cy="108" r="4"/><circle cx="164" cy="108" r="4"/><circle cx="212" cy="108" r="4"/><circle cx="260" cy="108" r="4"/>
+        </g>
+      </g>
+      <text x="22" y="240" class="sans muted" font-size="12">Dùng khi cấu hình yêu cầu</text>
+    </g>
+
+    <!-- PVC curtain -->
+    <g transform="translate(700 260)" filter="url(#shadow)">
+      <rect width="404" height="264" rx="26" fill="#fbfaf7" stroke="#d9cec2"/>
+      <text x="22" y="32" class="mono rust" font-size="11" font-weight="700">06</text>
+      <text x="58" y="32" class="sans ink" font-size="16" font-weight="700">MÀN PVC</text>
+      <g transform="translate(72 60)">
+        <path d="M0 0H260V22H0Z" fill="url(#steel)" class="line"/>
+        <g stroke="#9b896c" stroke-width="2">
+          <rect x="10" y="22" width="48" height="139" fill="url(#pvc)"/>
+          <rect x="49" y="22" width="48" height="139" fill="url(#pvc)"/>
+          <rect x="88" y="22" width="48" height="139" fill="url(#pvc)"/>
+          <rect x="127" y="22" width="48" height="139" fill="url(#pvc)"/>
+          <rect x="166" y="22" width="48" height="139" fill="url(#pvc)"/>
+          <rect x="205" y="22" width="48" height="139" fill="url(#pvc)"/>
+        </g>
+      </g>
+      <text x="22" y="240" class="sans muted" font-size="12">Bộ treo và dải màn theo lối đi</text>
+    </g>
+  </g>
+
+  <g transform="translate(48 704)">
+    <circle cx="8" cy="8" r="8" fill="#a85d3b"/>
+    <path d="M5 8L7.5 10.5L12 5.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="28" y="13" class="sans muted" font-size="13">Phụ kiện phải tương thích với kiểu cửa, kích thước cánh và điều kiện sử dụng.</text>
+  </g>
+</svg>
