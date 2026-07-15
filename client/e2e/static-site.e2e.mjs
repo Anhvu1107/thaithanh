@@ -26,7 +26,7 @@ const removedRoutes = [
 ]
 const forbiddenNavigationPattern = /^\/(?:shop|cart|checkout|payment|account|auth|admin)(?:\/|$)/
 const runtimeRequestPattern = /^\/(?:api(?:\/|$)|content(?:-live)?(?:\/|$)|uploads-live(?:\/|$))/
-const unsupportedProductPattern = /\b(?:PIR|Rockwool)\b|bông khoáng/i
+const unsupportedProductPattern = /\b(?:PIR|Rockwool|PU|PUR)\b|bông khoáng|polyurethane|pu-foam/i
 
 const contentTypes = {
   '.avif': 'image/avif',
@@ -293,10 +293,10 @@ try {
   await page.goto(`${webUrl}/products`, { waitUntil: 'networkidle' })
   const retailProducts = page.locator('#retail-products')
   const retailProductText = await retailProducts.innerText()
-  assert.match(retailProductText, /Panel EPS, cửa kho lạnh, phụ kiện và vật tư cách nhiệt/i, 'products page must expose the retail catalog')
+  assert.match(retailProductText, /Panel EPS.*cửa kho lạnh.*phụ kiện/is, 'products page must expose the retail catalog')
   assert.match(retailProductText, /50–200 mm/, 'products page must expose the panel thickness range')
-  assert.match(retailProductText, /14–16 kg\/m³.*18–20 kg\/m³.*23–25 kg\/m³/s, 'products page must expose the panel density ranges')
-  assert.match(retailProductText, /Nẹp U.*V trong.*V ngoài/s, 'products page must expose the supplied U and V accessories')
+  assert.match(retailProductText, /14–25 kg\/m³/, 'products page must expose the concise panel density range')
+  assert.match(retailProductText, /Nẹp U.*V trong và V ngoài/s, 'products page must expose the supplied U and V accessories')
   assert.ok(retailProductText.includes('600 × 600 × 100 mm'), 'products page must expose the first supplied door size')
   assert.ok(retailProductText.includes('1200 × 1800 mm'), 'products page must expose the last supplied door size')
   const productsSeoDescription = await page.locator('meta[name="description"]').getAttribute('content') || ''
@@ -305,11 +305,12 @@ try {
   assert.match(productsSeoDescription, /Inox 304/i, 'products SEO description must mention Inox 304 doors')
 
   const productDetailLinks = page.locator('[data-product-detail-link]')
-  assert.equal(await productDetailLinks.count(), 5, 'products page must expose five product detail links')
+  assert.ok(await productDetailLinks.count() >= 15, 'products page must expose an image-first retail catalog')
   const productDetailHrefs = await productDetailLinks.evaluateAll(links => links.map(link => link.getAttribute('href') || ''))
-  assert.equal(new Set(productDetailHrefs).size, 5, 'product detail links must use five unique routes')
+  const productDetailRoutes = [...new Set(productDetailHrefs.map(href => href.split('#')[0]))]
+  assert.equal(productDetailRoutes.length, 5, 'product catalog links must cover five unique detail routes')
   assert.deepEqual(
-    [...productDetailHrefs].sort(),
+    [...productDetailRoutes].sort(),
     [
       '/products/cua-kho-lanh',
       '/products/panel-eps',
@@ -320,12 +321,45 @@ try {
     'products page must link to every confirmed retail product detail route',
   )
 
-  const panelProductLink = page.locator('[data-product-detail-link][href="/products/panel-eps"]')
+  const quickProductCards = page.locator('[data-product-quick-card]')
+  assert.ok(await quickProductCards.count() >= 15, 'products page must display the confirmed items as visual cards')
+  for (let index = 0; index < await quickProductCards.count(); index += 1) {
+    await quickProductCards.nth(index).scrollIntoViewIfNeeded()
+  }
+  const quickCardContract = await quickProductCards.evaluateAll(cards => cards.map(card => ({
+    facts: card.querySelectorAll('[data-product-card-fact]').length,
+    imageAlt: card.querySelector('[data-product-card-image]')?.getAttribute('alt')?.trim() || '',
+    imageHeight: Number(card.querySelector('[data-product-card-image]')?.getAttribute('height') || 0),
+    imageSrc: card.querySelector('[data-product-card-image]')?.getAttribute('src') || '',
+    imageWidth: Number(card.querySelector('[data-product-card-image]')?.getAttribute('width') || 0),
+    loadedHeight: card.querySelector('[data-product-card-image]')?.naturalHeight || 0,
+    loadedWidth: card.querySelector('[data-product-card-image]')?.naturalWidth || 0,
+    textLength: (card.textContent || '').trim().length,
+    title: card.querySelector('[data-product-card-title]')?.textContent?.trim() || '',
+  })))
+  for (const [index, card] of quickCardContract.entries()) {
+    assert.ok(card.title, `visual product card ${index + 1} must expose a title`)
+    assert.equal(card.facts, 2, `visual product card ${index + 1} must keep exactly two quick facts`)
+    assert.match(card.imageSrc, /^\/images\//, `visual product card ${index + 1} must use a local visual`)
+    assert.ok(card.imageAlt.length >= 12, `visual product card ${index + 1} must describe its visual`)
+    assert.ok(card.imageWidth > 0 && card.imageHeight > 0, `visual product card ${index + 1} must reserve image space`)
+    assert.ok(card.loadedWidth > 0 && card.loadedHeight > 0, `visual product card ${index + 1} must load its visual`)
+    assert.ok(card.textLength <= 260, `visual product card ${index + 1} must remain concise`)
+  }
+
+  const panelProductLink = page.locator('[data-product-detail-link][href^="/products/panel-eps"]')
   assert.equal(await panelProductLink.count(), 1, 'products page must expose one Panel EPS detail link')
   await Promise.all([
-    page.waitForURL(`${webUrl}/products/panel-eps`),
+    page.waitForURL(url => url.pathname === '/products/panel-eps' && url.hash === '#quy-cach-panel'),
     panelProductLink.click(),
   ])
+  await page.locator('#quy-cach-panel[open]').waitFor({ state: 'attached' })
+  const openedPanelSection = await page.locator('#quy-cach-panel').evaluate(section => ({
+    focused: document.activeElement === section.querySelector('summary'),
+    open: section.open,
+  }))
+  assert.equal(openedPanelSection.open, true, 'deep product link must open its matching technical section')
+  assert.equal(openedPanelSection.focused, true, 'deep product link must focus the opened technical section summary')
   const panelProductResponse = await page.request.get(`${webUrl}/products/panel-eps`)
   assert.equal(panelProductResponse.status(), 200, 'Panel EPS detail route must render successfully')
   const panelProductHeading = page.locator('article h1')
@@ -353,10 +387,10 @@ try {
   const inoxDoorResponse = await page.goto(`${webUrl}/products/cua-kho-lanh`, { waitUntil: 'networkidle' })
   assert.equal(inoxDoorResponse?.status(), 200, 'cold-room door detail route must render successfully')
   assert.match(await page.locator('article h1').innerText(), /Cửa kho lạnh Inox 304/i, 'cold-room door detail must expose its product name as the h1')
-  const inoxDoorText = await page.locator('article').first().innerText()
+  const inoxDoorText = await page.locator('article').first().textContent() || ''
   assert.match(inoxDoorText, /Inox 304/i, 'cold-room door detail must expose its confirmed surface material')
   assert.match(inoxDoorText, /Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s, 'cold-room door detail must explain all four door configurations')
-  assert.match(inoxDoorText, /lõi PU.*ray.*bánh xe.*gioăng.*điện trở sưởi.*mở an toàn/is, 'cold-room door detail must cover the main construction, hardware and safety topics')
+  assert.match(inoxDoorText, /lõi EPS.*ray.*bánh xe.*gioăng.*điện trở sưởi.*mở an toàn/is, 'cold-room door detail must cover the main construction, hardware and safety topics')
   assert.ok(inoxDoorText.includes('600 × 600 × 100 mm'), 'cold-room door detail must expose the first supplied size')
   assert.ok(inoxDoorText.includes('1200 × 1800 mm'), 'cold-room door detail must expose the last supplied size')
   assert.equal(await page.locator('#cua-ban-le').count(), 1, 'cold-room door detail must expose one hinged-door section')
@@ -366,7 +400,7 @@ try {
   assert.equal(await page.locator('#kich-thuoc-va-cach-do-o-cho').count(), 1, 'cold-room door detail must explain measurements and opening sizes')
   assert.equal(await page.locator('#hoi-dap details').count(), 6, 'cold-room door detail must expose six practical FAQ entries')
   const doorNavigationHrefs = await page.locator('nav[aria-label="Đi nhanh trong trang sản phẩm"] a').evaluateAll(links => links.map(link => link.getAttribute('href')))
-  for (const anchor of ['#chon-nhanh', '#cau-tao-bo-cua', '#kich-thuoc-va-cach-do-o-cho', '#cua-ban-le', '#cua-truot', '#song-gai-inox', '#song-gai-eps', '#lam-kin-suoi-va-an-toan', '#chuan-bi', '#hoi-dap']) {
+  for (const anchor of ['#hinh-anh', '#thong-so', '#chon-nhanh', '#cau-hinh', '#chuan-bi', '#hoi-dap']) {
     assert.ok(doorNavigationHrefs.includes(anchor), `cold-room door in-page navigation must include ${anchor}`)
   }
   assert.doesNotMatch(inoxDoorText, /1471421817120_1148|tamcachnhiettabi|Tabi|Coolmax|Atimon|-70.*60\s*°C/i, 'cold-room door content must not copy competitor identifiers or unsupported claims')
@@ -384,12 +418,26 @@ try {
 
   const insulationMaterialResponse = await page.goto(`${webUrl}/products/vat-tu-cach-nhiet`, { waitUntil: 'networkidle' })
   assert.equal(insulationMaterialResponse?.status(), 200, 'insulation material catalog must render successfully')
-  assert.match(await page.locator('article').first().innerText(), /Inox 304.*Xốp EPS.*PU foam.*Tôn mạ màu/s, 'material catalog must explain every referenced material group')
+  const insulationMaterialText = await page.locator('article').first().textContent() || ''
+  assert.match(insulationMaterialText, /Inox 304.*Xốp EPS.*Tôn mạ màu/s, 'material catalog must explain every referenced material group')
+  assert.match(insulationMaterialText, /Chi tiết gia công theo bản vẽ/s, 'material catalog must explain custom fabricated details')
+  assert.doesNotMatch(insulationMaterialText, unsupportedProductPattern, 'material catalog must not advertise products outside the confirmed scope')
 
-  for (const href of productDetailHrefs) {
+  for (const href of productDetailRoutes) {
     const response = await page.goto(`${webUrl}${href}`, { waitUntil: 'networkidle' })
     assert.equal(response?.status(), 200, `${href} product detail route must render successfully`)
     assert.equal(await page.locator('article h1').count(), 1, `${href} must expose exactly one product h1`)
+    const publicProductContract = await page.evaluate(() => ({
+      anchors: [...document.querySelectorAll('a[href]')].map(link => link.getAttribute('href') || '').join(' '),
+      description: document.querySelector('meta[name="description"]')?.getAttribute('content') || '',
+      ids: [...document.querySelectorAll('[id]')].map(element => element.id).join(' '),
+      text: document.querySelector('main')?.textContent || '',
+    }))
+    assert.doesNotMatch(
+      Object.values(publicProductContract).join('\n'),
+      unsupportedProductPattern,
+      `${href} must not expose products outside the confirmed scope in copy, metadata or anchors`,
+    )
     assert.ok(await page.locator('[data-product-specification]').count() >= 4, `${href} must expose at least four top specifications`)
     assert.equal(await page.locator('[data-product-engineering-guide]').count(), 1, `${href} must expose one engineering selection guide`)
     const engineeringGuideRows = page.locator('[data-product-selection-guide]')
@@ -423,8 +471,38 @@ try {
       }
     }
     assert.ok(await page.locator('[data-product-detail-section]').count() >= 4, `${href} must expose at least four detailed sections`)
+    const detailDisclosures = page.locator('[data-product-detail-disclosure]')
+    assert.ok(await detailDisclosures.count() >= 4, `${href} must keep long technical sections in native disclosures`)
+    assert.ok(await page.locator('[data-product-detail-disclosure][open]').count() <= 1, `${href} must not open more than one long technical section by default`)
     assert.ok(await page.locator('[data-product-checklist-item]').count() >= 8, `${href} must expose at least eight preparation items`)
     assert.ok(await page.locator('[data-product-faq]').count() >= 4, `${href} must expose at least four FAQ entries`)
+
+    assert.equal(await page.locator('[data-product-visual-browser]').count(), 1, `${href} must expose one visual browser before long technical content`)
+    const visualCards = page.locator('[data-product-visual-card]')
+    assert.ok(await visualCards.count() >= 4, `${href} must expose at least four visual shortcuts`)
+    const visualImages = page.locator('[data-product-visual-image]')
+    assert.equal(await visualImages.count(), await visualCards.count(), `${href} visual shortcuts must all include an image`)
+    for (let index = 0; index < await visualImages.count(); index += 1) {
+      await visualImages.nth(index).scrollIntoViewIfNeeded()
+    }
+    const visualImageContract = await visualImages.evaluateAll(images => images.map(image => ({
+      alt: image.getAttribute('alt')?.trim() || '',
+      height: Number(image.getAttribute('height') || 0),
+      loadedHeight: image.naturalHeight || 0,
+      loadedWidth: image.naturalWidth || 0,
+      src: image.getAttribute('src') || '',
+      width: Number(image.getAttribute('width') || 0),
+    })))
+    for (const visual of visualImageContract) {
+      assert.match(visual.src, /^\/images\//, `${href} visual shortcuts must use local images`)
+      assert.ok(visual.alt.length >= 12, `${href} visual shortcut must have descriptive alt text`)
+      assert.ok(visual.width > 0 && visual.height > 0, `${href} visual shortcut must reserve space`)
+      assert.ok(visual.loadedWidth > 0 && visual.loadedHeight > 0, `${href} visual shortcut must load successfully`)
+    }
+
+    for (let index = 0; index < await detailDisclosures.count(); index += 1) {
+      await detailDisclosures.nth(index).evaluate(disclosure => { disclosure.open = true })
+    }
     const sectionMedia = page.locator('[data-product-section-media]')
     assert.ok(await sectionMedia.count() >= 1, `${href} must include at least one section-level visual`)
     for (let index = 0; index < await sectionMedia.count(); index += 1) {
@@ -528,7 +606,7 @@ try {
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/`), 'sitemap must include the posts index')
   assert.ok(sitemapLocations.some(location => location.startsWith(`${productionUrl}/posts/`) && location !== `${productionUrl}/posts/`), 'sitemap must include published posts')
   assert.ok(sitemapLocations.includes(`${productionUrl}/privacy/`), 'sitemap must include the privacy policy')
-  for (const href of productDetailHrefs) {
+  for (const href of productDetailRoutes) {
     assert.ok(
       sitemapLocations.includes(`${productionUrl}${canonicalPath(href)}`),
       `sitemap must include the ${href} product detail route`,
@@ -871,9 +949,16 @@ try {
   assert.equal(noScriptResponse?.status(), 200, 'products page must render without JavaScript')
   await noScriptPage.locator('h1').waitFor({ state: 'visible' })
   await noScriptPage.locator('#retail-products').waitFor({ state: 'visible' })
-  assert.match(await noScriptPage.locator('#retail-products').innerText(), /Panel EPS, cửa kho lạnh, phụ kiện và vật tư cách nhiệt/i, 'retail content must remain readable without JavaScript')
+  assert.match(await noScriptPage.locator('#retail-products').innerText(), /Panel EPS.*cửa kho lạnh.*phụ kiện/is, 'retail content must remain readable without JavaScript')
+  assert.ok(await noScriptPage.locator('[data-product-quick-card]').count() >= 15, 'image-first retail cards must render without JavaScript')
+  assert.equal(
+    await noScriptPage.locator('[data-product-card-image]').count(),
+    await noScriptPage.locator('[data-product-quick-card]').count(),
+    'every no-JavaScript retail card must retain its image',
+  )
+  assert.doesNotMatch(await noScriptPage.locator('main').textContent() || '', unsupportedProductPattern, 'no-JavaScript catalog must stay inside the confirmed product scope')
 
-  for (const href of productDetailHrefs) {
+  for (const href of productDetailRoutes) {
     const response = await noScriptPage.goto(`${webUrl}${href}`, { waitUntil: 'load' })
     assert.equal(response?.status(), 200, `${href} must render without JavaScript`)
     assert.equal(await noScriptPage.locator('[data-product-engineering-guide]').count(), 1, `${href} engineering guide must render without JavaScript`)
@@ -893,22 +978,34 @@ try {
     }
     assert.ok(await noScriptPage.locator('[data-product-advantage]').count() >= 3, `${href} advantages must render without JavaScript`)
     assert.ok(await noScriptPage.locator('[data-product-limitation]').count() >= 3, `${href} limitations must render without JavaScript`)
+    assert.ok(await noScriptPage.locator('[data-product-visual-card]').count() >= 4, `${href} visual browser must render without JavaScript`)
+    assert.doesNotMatch(await noScriptPage.locator('main').textContent() || '', unsupportedProductPattern, `${href} no-JavaScript content must stay inside the confirmed scope`)
   }
 
   const noScriptDoorResponse = await noScriptPage.goto(`${webUrl}/products/cua-kho-lanh`, { waitUntil: 'load' })
   assert.equal(noScriptDoorResponse?.status(), 200, 'cold-room door detail must render without JavaScript')
-  const noScriptDoorText = await noScriptPage.locator('article').first().innerText()
+  const noScriptDoorText = await noScriptPage.locator('article').first().textContent() || ''
   assert.match(noScriptDoorText, /Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s, 'all cold-room door configurations must remain readable without JavaScript')
   assert.match(noScriptDoorText, /Nên chọn cửa bản lề hay cửa trượt\?/i, 'cold-room door FAQ must remain readable without JavaScript')
   assert.ok(await noScriptPage.locator('[data-product-section-media]').count() >= 1, 'cold-room door visuals must render without JavaScript')
+  const firstDoorDisclosure = noScriptPage.locator('[data-product-detail-disclosure]').nth(0)
+  assert.equal(await firstDoorDisclosure.getAttribute('open'), null, 'long technical disclosures must start collapsed without JavaScript')
+  await firstDoorDisclosure.locator('summary').click()
+  assert.notEqual(await firstDoorDisclosure.getAttribute('open'), null, 'native technical disclosures must open without JavaScript')
   assert.ok((await noScriptPage.locator('[data-product-section-media] figcaption').first().innerText()).trim().length >= 24, 'cold-room door visual caption must remain readable without JavaScript')
+  const secondDoorDisclosure = noScriptPage.locator('[data-product-detail-disclosure]').nth(1)
+  assert.equal(await secondDoorDisclosure.getAttribute('open'), null, 'long technical disclosures must start collapsed without JavaScript')
+  await secondDoorDisclosure.locator('summary').click()
+  assert.notEqual(await secondDoorDisclosure.getAttribute('open'), null, 'native technical disclosures must open without JavaScript')
 
   const noScriptPanelResponse = await noScriptPage.goto(`${webUrl}/products/panel-eps`, { waitUntil: 'load' })
   assert.equal(noScriptPanelResponse?.status(), 200, 'Panel EPS detail must render without JavaScript')
-  const noScriptPanelText = await noScriptPage.locator('article').first().innerText()
+  const noScriptPanelText = await noScriptPage.locator('article').first().textContent() || ''
   assert.match(noScriptPanelText, /Cấu tạo sandwich ba lớp.*Đọc λ, U, R và chọn theo nhu cầu nhiệt.*Thi công và phụ kiện đồng bộ/s, 'Panel EPS technical guidance must remain readable without JavaScript')
   assert.match(noScriptPanelText, /Panel EPS có phải panel chống cháy không\?/i, 'Panel EPS safety FAQ must remain readable without JavaScript')
   assert.ok(await noScriptPage.locator('[data-product-section-media]').count() >= 1, 'Panel EPS visuals must render without JavaScript')
+  const firstPanelDisclosure = noScriptPage.locator('[data-product-detail-disclosure]').nth(0)
+  await firstPanelDisclosure.locator('summary').click()
   assert.ok((await noScriptPage.locator('[data-product-section-media] figcaption').first().innerText()).trim().length >= 24, 'Panel EPS visual caption must remain readable without JavaScript')
 
   const noScriptContactResponse = await noScriptPage.goto(`${webUrl}/contact`, { waitUntil: 'load' })

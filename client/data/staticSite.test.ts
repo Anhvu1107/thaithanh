@@ -72,7 +72,7 @@ describe('static site scope', () => {
     expect(productFamilies.length).toBeGreaterThanOrEqual(2)
     expect(retailProducts).toHaveLength(5)
     expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/"(?:price|salePrice|stock|checkout|cart)"/i)
-    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/\b(?:PIR|Rockwool|PCCC)\b|bông khoáng/i)
+    expect(JSON.stringify([productFamilies, retailProducts])).not.toMatch(/\b(?:PIR|Rockwool|PCCC|PU|PUR)\b|bông khoáng|polyurethane|pu-foam/i)
   })
 
   it('publishes the confirmed retail panel, accessory and Inox 304 door specifications', () => {
@@ -141,7 +141,7 @@ describe('static site scope', () => {
 
     const coldRoomDoorCopy = JSON.stringify(coldRoomDoor)
     expect(coldRoomDoorCopy).toMatch(/Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s)
-    expect(coldRoomDoorCopy).toMatch(/lõi PU.*ray.*bánh xe.*gioăng.*điện trở sưởi.*mở an toàn/is)
+    expect(coldRoomDoorCopy).toMatch(/lõi EPS.*ray.*bánh xe.*gioăng.*điện trở sưởi.*mở an toàn/is)
     expect(coldRoomDoorCopy).toMatch(/điểm sương.*số lần.*thời gian mở.*luồng người.*xe hàng/is)
     expect(coldRoomDoorCopy).toMatch(/mở từ bên trong.*bên ngoài.*khóa|mở từ trong.*khóa bên ngoài/is)
     expect(coldRoomDoorCopy).toMatch(/Cửa bản lề cần vùng quét cánh.*Cửa trượt cần khoảng vách/is)
@@ -156,7 +156,9 @@ describe('static site scope', () => {
       'ong-cach-nhiet',
     ])
     expect(JSON.stringify(retailProducts.find(product => product.slug === 'phu-kien-cua'))).toMatch(/Bản lề.*ray.*Gioăng.*Điện trở sưởi.*Tay khóa.*Màn PVC/is)
-    expect(JSON.stringify(retailProducts.find(product => product.slug === 'vat-tu-cach-nhiet'))).toMatch(/Inox 304.*Xốp EPS.*PU foam.*Tôn mạ màu/is)
+    const materialCatalogCopy = JSON.stringify(retailProducts.find(product => product.slug === 'vat-tu-cach-nhiet'))
+    expect(materialCatalogCopy).toMatch(/Inox 304.*Xốp EPS.*Tôn mạ màu/is)
+    expect(materialCatalogCopy).toMatch(/Chi tiết gia công theo bản vẽ/is)
 
     for (const product of retailProducts) {
       expect(product.specifications.length, `${product.slug} top-level specifications`).toBeGreaterThanOrEqual(4)
@@ -168,7 +170,7 @@ describe('static site scope', () => {
       expect(product.frequentlyAskedQuestions.length, `${product.slug} FAQ`).toBeGreaterThanOrEqual(4)
       const sectionMedia = product.detailSections.flatMap(section => section.media ? [section.media] : [])
       expect(sectionMedia.length, `${product.slug} illustrated sections`).toBeGreaterThanOrEqual(1)
-      expect(sectionMedia.length, `${product.slug} editorial image budget`).toBeLessThanOrEqual(
+      expect(sectionMedia.length, `${product.slug} illustrated browsing coverage`).toBeGreaterThanOrEqual(
         Math.ceil(product.detailSections.length / 2),
       )
       expect(sectionMedia.every(media => media.image !== product.image), `${product.slug} media must add new context`).toBe(true)

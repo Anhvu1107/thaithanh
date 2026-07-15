@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Van cân bằng áp và ống cách nhiệt EPS</title>
+  <desc id="desc">Bố cục chia đôi minh họa van cân bằng áp lắp xuyên vách kho lạnh và ống EPS bọc đường ống, không theo tỷ lệ.</desc>
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="0.48" stop-color="#d7d4cd"/>
+      <stop offset="1" stop-color="#9fa09c"/>
+    </linearGradient>
+    <linearGradient id="pipe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4b514e"/>
+      <stop offset="0.5" stop-color="#1f2422"/>
+      <stop offset="1" stop-color="#414744"/>
+    </linearGradient>
+    <pattern id="eps" width="24" height="22" patternUnits="userSpaceOnUse">
+      <rect width="24" height="22" fill="#e9e1d5"/>
+      <circle cx="6" cy="6" r="4.5" fill="#fffaf2" stroke="#beb4a7" stroke-width="0.8"/>
+      <circle cx="18" cy="7" r="5" fill="#f7f0e6" stroke="#beb4a7" stroke-width="0.8"/>
+      <circle cx="12" cy="18" r="5" fill="#fffaf2" stroke="#beb4a7" stroke-width="0.8"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#252a27" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5L0 9Z" fill="#a95335"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="760" fill="#f3eee5"/>
+  <path d="M0 0H1200V14H0Z" fill="#a95335"/>
+  <circle cx="1110" cy="92" r="118" fill="#e8ddcc" opacity="0.58"/>
+  <circle cx="1121" cy="78" r="72" fill="none" stroke="#a95335" stroke-opacity="0.17"/>
+
+  <text x="72" y="80" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">PHỤ KIỆN KHO LẠNH · VẬN HÀNH</text>
+  <text x="72" y="130" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Cân bằng áp và cách nhiệt ống.</text>
+  <text x="74" y="164" fill="#64625d" font-family="Arial, Helvetica, sans-serif" font-size="17">Hai chi tiết khác nhiệm vụ, cùng cần được chọn theo điều kiện vận hành thực tế.</text>
+
+  <g transform="translate(871 68)">
+    <rect width="257" height="38" rx="19" fill="#252a27"/>
+    <text x="128.5" y="25" text-anchor="middle" fill="#fffaf2" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">MẶT CẮT · KHÔNG THEO TỶ LỆ</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="208" width="508" height="472" rx="28" fill="#fbf8f2" stroke="#d6cdbf"/>
+    <rect x="620" y="208" width="508" height="472" rx="28" fill="#fbf8f2" stroke="#d6cdbf"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <g transform="translate(104 239)">
+      <rect width="160" height="31" rx="15.5" fill="#a95335"/>
+      <text x="80" y="21" text-anchor="middle" fill="#fffaf2" font-size="12" font-weight="700" letter-spacing="1.3">VAN CÂN BẰNG ÁP</text>
+      <text x="0" y="70" fill="#252a27" font-size="23" font-weight="700">Lắp xuyên vách panel</text>
+      <text x="0" y="97" fill="#716d66" font-size="14">Hỗ trợ cân bằng chênh lệch áp trong và ngoài kho.</text>
+
+      <rect x="54" y="147" width="330" height="176" rx="6" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+      <path d="M54 147H384M54 323H384" stroke="url(#metal)" stroke-width="10"/>
+
+      <path d="M119 235H319" stroke="#292e2b" stroke-width="38" stroke-linecap="round"/>
+      <path d="M119 235H319" stroke="#ded8ce" stroke-width="26" stroke-linecap="round"/>
+      <rect x="174" y="184" width="90" height="102" rx="18" fill="url(#metal)" stroke="#292e2b" stroke-width="3"/>
+      <circle cx="219" cy="235" r="27" fill="#a95335" stroke="#292e2b" stroke-width="3"/>
+      <path d="M205 235H233M219 221V249" stroke="#fffaf2" stroke-width="4" stroke-linecap="round"/>
+
+      <path d="M92 192H135" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="64" y="181" fill="#a95335" font-size="11" font-weight="700" letter-spacing="1.2">NGOÀI KHO</text>
+      <path d="M344 279H301" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="315" y="302" fill="#a95335" font-size="11" font-weight="700" letter-spacing="1.2">TRONG KHO</text>
+
+      <path d="M0 365H444" stroke="#ddd4c7"/>
+      <text x="0" y="396" fill="#252a27" font-size="13" font-weight="700">Chọn theo:</text>
+      <text x="76" y="396" fill="#67635d" font-size="13">nhiệt độ, thể tích kho và chế độ vận hành</text>
+      <text x="0" y="425" fill="#a95335" font-size="11" font-weight="700" letter-spacing="1.3">VỊ TRÍ LẮP CẦN THUẬN TIỆN KIỂM TRA</text>
+    </g>
+
+    <g transform="translate(652 239)">
+      <rect width="128" height="31" rx="15.5" fill="#252a27"/>
+      <text x="64" y="21" text-anchor="middle" fill="#fffaf2" font-size="12" font-weight="700" letter-spacing="1.3">ỐNG EPS</text>
+      <text x="0" y="70" fill="#252a27" font-size="23" font-weight="700">Bọc đường ống lạnh</text>
+      <text x="0" y="97" fill="#716d66" font-size="14">Hai nửa định hình ôm quanh ống và khép kín mối nối.</text>
+
+      <g transform="translate(46 143)">
+        <path d="M0 92C0 41 52 0 116 0H330V184H116C52 184 0 143 0 92Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+        <path d="M116 31H330M116 153H330" stroke="#d4cdc2" stroke-width="2"/>
+        <ellipse cx="116" cy="92" rx="80" ry="62" fill="#eee7dc" stroke="#292e2b" stroke-width="2"/>
+        <ellipse cx="116" cy="92" rx="34" ry="26" fill="url(#pipe)" stroke="#292e2b" stroke-width="3"/>
+        <path d="M116 30V154" stroke="#a95335" stroke-width="3" stroke-dasharray="8 7"/>
+        <path d="M330 0V184" stroke="#a95335" stroke-width="4"/>
+      </g>
+
+      <path d="M275 188H410" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="275" y="174" fill="#a95335" font-size="11" font-weight="700" letter-spacing="1.2">LỚP CÁCH NHIỆT</text>
+      <path d="M215 270H410" stroke="#7a756d" stroke-width="1.5"/>
+      <circle cx="215" cy="270" r="5" fill="#a95335"/>
+      <text x="244" y="261" fill="#252a27" font-size="13" font-weight="700">Hai nửa định hình</text>
+      <text x="244" y="282" fill="#6b6761" font-size="12">Ghép kín quanh ống kỹ thuật</text>
+
+      <path d="M0 365H444" stroke="#ddd4c7"/>
+      <text x="0" y="396" fill="#252a27" font-size="13" font-weight="700">Chọn theo:</text>
+      <text x="76" y="396" fill="#67635d" font-size="13">đường kính ống và chiều dày cách nhiệt</text>
+      <text x="0" y="425" fill="#a95335" font-size="11" font-weight="700" letter-spacing="1.3">MỐI GHÉP CẦN LIÊN TỤC VÀ KÍN</text>
+    </g>
+  </g>
+
+  <text x="72" y="730" fill="#6f6b64" font-family="Arial, Helvetica, sans-serif" font-size="13">Quy cách cuối cùng được xác nhận theo thiết bị, đường ống và điều kiện vận hành của công trình.</text>
+</svg>

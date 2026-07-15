@@ -15,11 +15,53 @@ const { content } = useSiteContent()
 const product = computed(() => content.value.retailProducts.find(item => item.slug === route.params.slug))
 const productIndex = computed(() => content.value.retailProducts.findIndex(item => item.slug === route.params.slug))
 const family = computed(() => content.value.productFamilies.find(item => item.id === product.value?.familyId))
+const visualSections = computed(() => product.value?.detailSections.filter(section => section.media) ?? [])
 const relatedProducts = computed(() => content.value.retailProducts
   .filter(item => item.slug !== product.value?.slug)
   .sort((left, right) => Number(right.familyId === product.value?.familyId) - Number(left.familyId === product.value?.familyId))
   .slice(0, 3))
 const formatIndex = (index: number) => String(index + 1).padStart(2, '0')
+
+const openDisclosure = async (id: string) => {
+  await nextTick()
+  const target = document.getElementById(id)
+
+  if (!(target instanceof HTMLDetailsElement)) return
+
+  document
+    .querySelectorAll<HTMLDetailsElement>('[data-product-detail-disclosure][open]')
+    .forEach((disclosure) => {
+      if (disclosure !== target) disclosure.open = false
+    })
+
+  target.open = true
+  await nextTick()
+  target.scrollIntoView({
+    block: 'start',
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+  })
+  target.querySelector<HTMLElement>('summary')?.focus({ preventScroll: true })
+}
+
+const openHashedDisclosure = () => {
+  const rawHash = route.hash.replace(/^#/, '')
+  if (!rawHash) return
+
+  try {
+    void openDisclosure(decodeURIComponent(rawHash))
+  }
+  catch {
+    // Ignore malformed hashes instead of breaking the product page.
+  }
+}
+
+onMounted(openHashedDisclosure)
+
+watch(
+  () => route.hash,
+  openHashedDisclosure,
+  { flush: 'post' },
+)
 
 usePageSeo({
   title: () => product.value!.name,
@@ -106,19 +148,64 @@ usePageSeo({
           </dl>
 
           <nav aria-label="Đi nhanh trong trang sản phẩm" class="mt-5 flex gap-2 overflow-x-auto rounded-full border border-[#d2c8bd] bg-white/50 p-1.5 backdrop-blur-sm">
+            <a href="#hinh-anh" class="inline-flex min-h-10 shrink-0 items-center rounded-full bg-white px-4 text-xs font-bold text-[#8d5437] shadow-sm">Xem bằng hình</a>
             <a href="#thong-so" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông số</a>
             <a href="#chon-nhanh" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thiết kế sơ bộ</a>
-            <a
-              v-for="section in product.detailSections"
-              :key="`nav-${section.id}`"
-              :href="`#${section.id}`"
-              class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]"
-            >
-              {{ section.title }}
-            </a>
+            <a href="#cau-hinh" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Chi tiết kỹ thuật</a>
             <a href="#chuan-bi" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông tin cần gửi</a>
             <a href="#hoi-dap" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Hỏi đáp</a>
           </nav>
+        </div>
+      </section>
+
+      <section id="hinh-anh" data-product-visual-browser class="scroll-mt-24 border-b border-[#d8cfc4] bg-white">
+        <div class="container-site py-12 sm:py-16 lg:py-20">
+          <header data-reveal class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Xem nhanh bằng hình</p>
+              <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#20211f] sm:text-4xl">Chọn mục cần tìm trước.</h2>
+            </div>
+            <p class="max-w-xl text-sm leading-7 text-[#625d56]">Bấm vào hình để đi thẳng đến phần cấu tạo và thông số tương ứng.</p>
+          </header>
+
+          <div
+            class="mt-8 grid gap-4 sm:grid-cols-2"
+            :class="visualSections.length === 5 || visualSections.length === 6 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'"
+          >
+            <NuxtLink
+              v-for="(section, index) in visualSections"
+              :key="`visual-${section.id}`"
+              :to="{ hash: `#${section.id}` }"
+              data-product-visual-card
+              data-reveal
+              :data-reveal-delay="Math.min(index * 55, 165)"
+              class="group min-w-0 overflow-hidden rounded-[1.25rem] border border-[#ded7cf] bg-[#f7f3ed] transition duration-300 hover:border-[#b98b70] hover:bg-white motion-safe:hover:-translate-y-1"
+              @click="openDisclosure(section.id)"
+            >
+              <div class="aspect-[4/3] overflow-hidden border-b border-[#ded7cf] bg-[#ece6de]">
+                <img
+                  v-if="section.media"
+                  data-product-visual-image
+                  :src="section.media.image"
+                  :srcset="section.media.imageSrcset"
+                  :width="section.media.imageWidth"
+                  :height="section.media.imageHeight"
+                  :alt="section.media.imageAlt"
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  class="h-full w-full object-contain transition-transform duration-500 motion-safe:group-hover:scale-[1.035]"
+                  :loading="index < 4 ? 'eager' : 'lazy'"
+                  decoding="async"
+                >
+              </div>
+              <div class="p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <h3 data-product-visual-title class="text-lg font-semibold leading-tight text-[#292926]">{{ section.title }}</h3>
+                  <span class="shrink-0 text-[#874a2d] transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true">↓</span>
+                </div>
+                <p class="mt-3 line-clamp-2 text-sm leading-6 text-[#625d56]">{{ section.summary }}</p>
+              </div>
+            </NuxtLink>
+          </div>
         </div>
       </section>
 
@@ -185,38 +272,42 @@ usePageSeo({
               data-product-selection-guide
               data-reveal
               :data-reveal-delay="Math.min(index * 60, 180)"
-              class="min-w-0 rounded-[1.5rem] border border-[#d2c8bd] bg-white/80 p-5 sm:p-7"
+              class="min-w-0 overflow-hidden rounded-[1.35rem] border border-[#d2c8bd] bg-white/80"
             >
-              <div class="flex items-center justify-between gap-4">
-                <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
-                <span class="h-px w-10 bg-[#c8b7aa]" aria-hidden="true" />
-              </div>
-              <dl class="mt-5 grid min-w-0 gap-5 sm:grid-cols-2 xl:grid-cols-[0.82fr_1.12fr_1.2fr_1fr] xl:gap-7">
-                <div class="min-w-0">
-                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Nhu cầu</dt>
-                  <dd data-selection-need class="mt-2 break-words text-base font-semibold leading-7 text-[#292926]">{{ item.need }}</dd>
-                </div>
-                <div class="min-w-0">
-                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Điều kiện vận hành</dt>
-                  <dd data-selection-conditions class="mt-2 break-words text-sm leading-7 text-[#514c46]">{{ item.operatingConditions }}</dd>
-                </div>
-                <div class="min-w-0">
-                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Cấu hình sơ bộ</dt>
-                  <dd data-selection-configuration class="mt-2 break-words text-sm font-semibold leading-7 text-[#373632]">{{ item.preliminaryConfiguration }}</dd>
-                </div>
-                <div class="min-w-0 border-t border-[#d8cfc4] pt-4 sm:border-t-0 sm:pt-0">
-                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Cần xác nhận</dt>
-                  <dd data-selection-confirm class="mt-2 break-words text-sm font-semibold leading-7 text-[#373632]">{{ item.confirm }}</dd>
-                </div>
-              </dl>
+              <details data-product-guide-disclosure class="group">
+                <summary class="grid cursor-pointer list-none grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 p-5 marker:hidden sm:p-6">
+                  <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
+                  <span data-selection-need class="min-w-0 break-words text-base font-semibold leading-7 text-[#292926]">{{ item.need }}</span>
+                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#c8bcb0] text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <dl class="grid min-w-0 gap-5 border-t border-[#d8cfc4] p-5 sm:grid-cols-3 sm:p-6 xl:gap-7">
+                  <div class="min-w-0">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Điều kiện vận hành</dt>
+                    <dd data-selection-conditions class="mt-2 break-words text-sm leading-7 text-[#514c46]">{{ item.operatingConditions }}</dd>
+                  </div>
+                  <div class="min-w-0">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Cấu hình sơ bộ</dt>
+                    <dd data-selection-configuration class="mt-2 break-words text-sm font-semibold leading-7 text-[#373632]">{{ item.preliminaryConfiguration }}</dd>
+                  </div>
+                  <div class="min-w-0 border-t border-[#d8cfc4] pt-4 sm:border-t-0 sm:pt-0">
+                    <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Cần xác nhận</dt>
+                    <dd data-selection-confirm class="mt-2 break-words text-sm font-semibold leading-7 text-[#373632]">{{ item.confirm }}</dd>
+                  </div>
+                </dl>
+              </details>
             </li>
           </ol>
 
           <div class="mt-8 grid min-w-0 gap-4 md:grid-cols-2">
-            <section data-product-advantages data-reveal class="min-w-0 rounded-[1.5rem] border border-[#cbd0c7] bg-[#f7f9f5] p-5 sm:p-7">
-              <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#53634f]">Ưu điểm</p>
-              <h3 class="mt-3 text-xl font-semibold text-[#292926]">Điểm phù hợp của sản phẩm</h3>
-              <ul class="mt-5 grid gap-3">
+            <details data-product-advantages data-reveal class="group min-w-0 overflow-hidden rounded-[1.35rem] border border-[#cbd0c7] bg-[#f7f9f5]">
+              <summary class="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 p-5 marker:hidden sm:p-6">
+                <span>
+                  <span class="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#53634f]">Ưu điểm</span>
+                  <span class="mt-2 block text-xl font-semibold text-[#292926]">Điểm phù hợp của sản phẩm</span>
+                </span>
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#b8c4b4] text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <ul class="grid gap-3 border-t border-[#cbd0c7] p-5 sm:p-6">
                 <li
                   v-for="advantage in product.advantages"
                   :key="advantage"
@@ -227,12 +318,17 @@ usePageSeo({
                   <span class="min-w-0 break-words">{{ advantage }}</span>
                 </li>
               </ul>
-            </section>
+            </details>
 
-            <section data-product-limitations data-reveal data-reveal-delay="80" class="min-w-0 rounded-[1.5rem] border border-[#d7c7bc] bg-[#fbf6f1] p-5 sm:p-7">
-              <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Hạn chế</p>
-              <h3 class="mt-3 text-xl font-semibold text-[#292926]">Điều kiện cần cân nhắc</h3>
-              <ul class="mt-5 grid gap-3">
+            <details data-product-limitations data-reveal data-reveal-delay="80" class="group min-w-0 overflow-hidden rounded-[1.35rem] border border-[#d7c7bc] bg-[#fbf6f1]">
+              <summary class="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 p-5 marker:hidden sm:p-6">
+                <span>
+                  <span class="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Hạn chế</span>
+                  <span class="mt-2 block text-xl font-semibold text-[#292926]">Điều kiện cần cân nhắc</span>
+                </span>
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#d2bfb2] text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <ul class="grid gap-3 border-t border-[#d7c7bc] p-5 sm:p-6">
                 <li
                   v-for="limitation in product.limitations"
                   :key="limitation"
@@ -243,7 +339,7 @@ usePageSeo({
                   <span class="min-w-0 break-words">{{ limitation }}</span>
                 </li>
               </ul>
-            </section>
+            </details>
           </div>
         </div>
       </section>
@@ -262,25 +358,31 @@ usePageSeo({
             </p>
           </div>
 
-          <div class="mt-9 grid gap-4 lg:grid-cols-2">
-            <article
+          <div class="mt-9 grid gap-3">
+            <details
               v-for="(section, index) in product.detailSections"
               :id="section.id"
               :key="section.id"
               data-product-detail-section
+              data-product-detail-disclosure
               data-reveal
               :data-reveal-delay="Math.min(index * 60, 180)"
-              class="scroll-mt-28 rounded-[1.5rem] border border-[#ded7cf] bg-[#f7f3ed] p-6 sm:p-8 lg:col-span-2 lg:p-10"
+              class="group scroll-mt-28 overflow-hidden rounded-[1.35rem] border border-[#ded7cf] bg-[#f7f3ed] open:bg-white"
             >
-              <div class="grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:gap-12">
+              <summary class="grid cursor-pointer list-none grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 p-5 marker:hidden sm:gap-6 sm:p-7">
+                <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
+                <span class="min-w-0">
+                  <span class="block text-lg font-semibold leading-tight text-[#292926] sm:text-xl">{{ section.title }}</span>
+                  <span class="mt-2 line-clamp-2 block text-sm leading-6 text-[#625d56]">{{ section.summary }}</span>
+                </span>
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#c8bcb0] text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+
+              <div class="border-t border-[#ded7cf] p-5 sm:p-7 lg:p-10">
+                <div class="grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:gap-12">
                 <div>
-                  <div class="flex items-center justify-between gap-4">
-                    <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
-                    <span class="h-px w-12 bg-[#c8b7aa]" aria-hidden="true" />
-                  </div>
-                  <h3 class="mt-6 text-2xl font-semibold tracking-[-0.025em] text-[#292926] sm:text-3xl lg:text-4xl">{{ section.title }}</h3>
-                  <p class="mt-4 text-base font-medium leading-8 text-[#555049]">{{ section.summary }}</p>
-                  <div class="mt-5 space-y-4">
+                  <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Mô tả và lưu ý</p>
+                  <div class="mt-4 space-y-4">
                     <p v-for="paragraph in section.paragraphs" :key="paragraph" class="text-sm leading-7 text-[#625d56]">
                       {{ paragraph }}
                     </p>
@@ -363,7 +465,8 @@ usePageSeo({
                   </div>
                 </div>
               </div>
-            </article>
+              </div>
+            </details>
           </div>
         </div>
       </section>
@@ -376,19 +479,26 @@ usePageSeo({
               Gửi đúng dữ liệu để báo giá không phải đoán.
             </h2>
           </div>
-          <ol class="grid gap-3 sm:grid-cols-2">
-            <li
-              v-for="(item, index) in product.selectionChecklist"
-              :key="item"
-              data-product-checklist-item
-              data-reveal
-              :data-reveal-delay="Math.min(index * 55, 180)"
-              class="flex min-h-28 gap-4 rounded-[1.25rem] border border-[#d2c8bd] bg-white/[0.72] p-5 sm:p-6"
-            >
-              <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
-              <span class="text-sm font-semibold leading-7 text-[#373632]">{{ item }}</span>
-            </li>
-          </ol>
+          <details data-product-checklist-disclosure data-reveal class="group overflow-hidden rounded-[1.35rem] border border-[#d2c8bd] bg-white/[0.72]">
+            <summary class="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 p-5 marker:hidden sm:p-6">
+              <span>
+                <span class="block text-lg font-semibold text-[#292926]">Danh sách cần chuẩn bị</span>
+                <span class="mt-1 block text-sm text-[#625d56]">{{ product.selectionChecklist.length }} mục — bấm để mở</span>
+              </span>
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#c8bcb0] text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <ol class="grid gap-px border-t border-[#d2c8bd] bg-[#d8cfc4] sm:grid-cols-2">
+              <li
+                v-for="(item, index) in product.selectionChecklist"
+                :key="item"
+                data-product-checklist-item
+                class="flex min-h-24 gap-4 bg-white p-5 sm:p-6"
+              >
+                <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
+                <span class="text-sm font-semibold leading-7 text-[#373632]">{{ item }}</span>
+              </li>
+            </ol>
+          </details>
         </div>
       </section>
 

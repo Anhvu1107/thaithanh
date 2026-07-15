@@ -6,9 +6,9 @@ const solutions = computed(() => content.value.solutions)
 const HERO_SLIDE_DURATION = 6500
 const heroSlides = [
   {
-    image: '/images/insulation/cold-room-installation-documentary.jpg',
-    alt: 'Hình ảnh minh họa quá trình lắp ghép kho lạnh bằng panel cách nhiệt',
-    label: 'Lắp dựng kho lạnh',
+    image: '/images/insulation/cold-room-system-cutaway.jpg',
+    alt: 'Minh họa cấu tạo đồng bộ vách, trần, nền và cửa kho lạnh',
+    label: 'Hệ kho lạnh đồng bộ',
   },
   {
     image: '/images/insulation/eps-panel-editorial.jpg',

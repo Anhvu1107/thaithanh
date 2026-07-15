@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Nẹp V trong và V ngoài cho góc panel</title>
+  <desc id="desc">Sơ đồ kỹ thuật so sánh nẹp V trong tại góc lõm và nẹp V ngoài tại góc lồi của hệ panel, không theo tỷ lệ.</desc>
+  <defs>
+    <linearGradient id="metalIn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="0.5" stop-color="#d9d6cf"/>
+      <stop offset="1" stop-color="#aaa9a5"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8f4ec"/>
+      <stop offset="1" stop-color="#d6cfc4"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#252a27" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5L0 9Z" fill="#a95335"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="760" fill="#f3eee5"/>
+  <path d="M0 0H1200V14H0Z" fill="#a95335"/>
+  <circle cx="1110" cy="92" r="118" fill="#e8ddcc" opacity="0.58"/>
+  <circle cx="1121" cy="78" r="72" fill="none" stroke="#a95335" stroke-opacity="0.17"/>
+
+  <text x="72" y="80" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">PHỤ KIỆN PANEL · HOÀN THIỆN GÓC</text>
+  <text x="72" y="130" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">V trong và V ngoài.</text>
+  <text x="74" y="164" fill="#64625d" font-family="Arial, Helvetica, sans-serif" font-size="17">Hai hình dạng cho hai vị trí khác nhau: góc lõm bên trong và góc lồi bên ngoài.</text>
+
+  <g transform="translate(871 68)">
+    <rect width="257" height="38" rx="19" fill="#252a27"/>
+    <text x="128.5" y="25" text-anchor="middle" fill="#fffaf2" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">MẶT CẮT · KHÔNG THEO TỶ LỆ</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="208" width="508" height="472" rx="28" fill="#fbf8f2" stroke="#d6cdbf"/>
+    <rect x="620" y="208" width="508" height="472" rx="28" fill="#fbf8f2" stroke="#d6cdbf"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <g transform="translate(104 239)">
+      <rect width="96" height="31" rx="15.5" fill="#a95335"/>
+      <text x="48" y="21" text-anchor="middle" fill="#fffaf2" font-size="12" font-weight="700" letter-spacing="1.4">V TRONG</text>
+      <text x="0" y="70" fill="#252a27" font-size="24" font-weight="700">Hoàn thiện góc lõm</text>
+      <text x="0" y="97" fill="#716d66" font-size="14">Che đường giao hai mặt panel phía trong.</text>
+
+      <path d="M66 167H245V346H424" fill="none" stroke="url(#panel)" stroke-width="74" stroke-linejoin="miter"/>
+      <path d="M68 168H246V346H423" fill="none" stroke="#292e2b" stroke-width="2" stroke-linejoin="miter"/>
+      <path d="M226 184V326H366" fill="none" stroke="url(#metalIn)" stroke-width="18" stroke-linejoin="round"/>
+      <path d="M226 184V326H366" fill="none" stroke="#252a27" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M238 194Q257 211 269 326" fill="none" stroke="#a95335" stroke-width="6" stroke-linecap="round"/>
+      <path d="M319 218H393" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="311" y="203" fill="#a95335" font-size="11" font-weight="700" letter-spacing="1.2">GÓC LÕM</text>
+
+      <path d="M0 397H444" stroke="#ddd4c7"/>
+      <text x="0" y="428" fill="#252a27" font-size="13" font-weight="700">Vị trí:</text>
+      <text x="53" y="428" fill="#67635d" font-size="13">giao tường–tường hoặc tường–trần phía trong</text>
+    </g>
+
+    <g transform="translate(652 239)">
+      <rect width="104" height="31" rx="15.5" fill="#252a27"/>
+      <text x="52" y="21" text-anchor="middle" fill="#fffaf2" font-size="12" font-weight="700" letter-spacing="1.4">V NGOÀI</text>
+      <text x="0" y="70" fill="#252a27" font-size="24" font-weight="700">Bảo vệ góc lồi</text>
+      <text x="0" y="97" fill="#716d66" font-size="14">Bao góc ngoài để đường biên gọn và liền mạch.</text>
+
+      <path d="M60 167H258V365H432" fill="none" stroke="url(#panel)" stroke-width="74" stroke-linejoin="miter"/>
+      <path d="M60 168H258V365H432" fill="none" stroke="#292e2b" stroke-width="2" stroke-linejoin="miter"/>
+      <path d="M236 145H281V388" fill="none" stroke="url(#metalIn)" stroke-width="18" stroke-linejoin="round"/>
+      <path d="M236 145H281V388" fill="none" stroke="#252a27" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M247 158Q270 170 271 202" fill="none" stroke="#a95335" stroke-width="6" stroke-linecap="round"/>
+      <path d="M329 218H403" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="321" y="203" fill="#a95335" font-size="11" font-weight="700" letter-spacing="1.2">GÓC LỒI</text>
+
+      <path d="M0 397H444" stroke="#ddd4c7"/>
+      <text x="0" y="428" fill="#252a27" font-size="13" font-weight="700">Vị trí:</text>
+      <text x="53" y="428" fill="#67635d" font-size="13">mép ngoài, đầu vách và góc cần bảo vệ</text>
+    </g>
+  </g>
+
+  <g transform="translate(424 628)" font-family="Arial, Helvetica, sans-serif">
+    <rect width="352" height="34" rx="17" fill="#eee4d7"/>
+    <circle cx="22" cy="17" r="7" fill="#a95335"/>
+    <text x="42" y="22" fill="#514e49" font-size="12" font-weight="700" letter-spacing="1.1">CHỌN KÍCH THƯỚC THEO CẤU TẠO GÓC</text>
+  </g>
+
+  <text x="72" y="730" fill="#6f6b64" font-family="Arial, Helvetica, sans-serif" font-size="13">Hình dạng, kích thước và vật liệu nẹp được chốt theo vị trí lắp và bản vẽ thực tế.</text>
+</svg>

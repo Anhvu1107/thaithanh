@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Thanh T và bulong dù treo trần panel</title>
+  <desc id="desc">Sơ đồ kỹ thuật minh họa thanh T đỡ mối nối trần panel và bulong dù liên kết lên kết cấu phía trên, không theo tỷ lệ.</desc>
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="0.45" stop-color="#d8d5ce"/>
+      <stop offset="1" stop-color="#9f9f9b"/>
+    </linearGradient>
+    <linearGradient id="ceiling" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f9f6ef"/>
+      <stop offset="1" stop-color="#d7d0c5"/>
+    </linearGradient>
+    <pattern id="eps" width="24" height="22" patternUnits="userSpaceOnUse">
+      <rect width="24" height="22" fill="#e9e1d5"/>
+      <circle cx="6" cy="6" r="4.5" fill="#fffaf2" stroke="#beb4a7" stroke-width="0.8"/>
+      <circle cx="18" cy="7" r="5" fill="#f7f0e6" stroke="#beb4a7" stroke-width="0.8"/>
+      <circle cx="12" cy="18" r="5" fill="#fffaf2" stroke="#beb4a7" stroke-width="0.8"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#252a27" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0 0L9 4.5L0 9Z" fill="#a95335"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="760" fill="#f3eee5"/>
+  <path d="M0 0H1200V14H0Z" fill="#a95335"/>
+  <circle cx="1110" cy="92" r="118" fill="#e8ddcc" opacity="0.58"/>
+  <circle cx="1121" cy="78" r="72" fill="none" stroke="#a95335" stroke-opacity="0.17"/>
+
+  <text x="72" y="80" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">PHỤ KIỆN PANEL · HỆ TREO TRẦN</text>
+  <text x="72" y="130" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Thanh T + bulong dù.</text>
+  <text x="74" y="164" fill="#64625d" font-family="Arial, Helvetica, sans-serif" font-size="17">Cụm liên kết truyền tải từ mối nối trần panel lên kết cấu đỡ phía trên.</text>
+
+  <g transform="translate(871 68)">
+    <rect width="257" height="38" rx="19" fill="#252a27"/>
+    <text x="128.5" y="25" text-anchor="middle" fill="#fffaf2" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">MẶT CẮT · KHÔNG THEO TỶ LỆ</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="208" width="1056" height="472" rx="28" fill="#fbf8f2" stroke="#d6cdbf"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="108" y="252" fill="#252a27" font-size="19" font-weight="700">Cấu tạo treo tại đường nối hai tấm trần</text>
+    <text x="108" y="279" fill="#77716a" font-size="14">Khoảng cách điểm treo và quy cách thanh được chốt theo tải thực tế.</text>
+  </g>
+
+  <rect x="120" y="318" width="692" height="38" rx="6" fill="#d2cbc1" stroke="#292e2b" stroke-width="2"/>
+  <path d="M142 326H790M142 339H790" stroke="#eee8df" stroke-width="3" opacity="0.8"/>
+  <text x="134" y="306" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" letter-spacing="1.3">KẾT CẤU ĐỠ PHÍA TRÊN</text>
+
+  <g>
+    <path d="M466 356V504" stroke="#292e2b" stroke-width="5"/>
+    <path d="M451 364H481L474 342H458Z" fill="#a95335" stroke="#292e2b" stroke-width="2"/>
+    <path d="M452 375L480 397M452 397L480 419M452 419L480 441M452 441L480 463M452 463L480 485" stroke="#8d8c87" stroke-width="1.2"/>
+    <circle cx="466" cy="502" r="12" fill="#fbf8f2" stroke="#292e2b" stroke-width="3"/>
+    <path d="M450 513H482" stroke="#a95335" stroke-width="7" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <path d="M248 541H446V613H248Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M486 541H684V613H486Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+    <path d="M248 541H446M248 613H446M486 541H684M486 613H684" stroke="url(#ceiling)" stroke-width="9"/>
+    <path d="M436 526H496V543H483V625H449V543H436Z" fill="url(#metal)" stroke="#292e2b" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M466 525V508" stroke="#292e2b" stroke-width="5"/>
+  </g>
+
+  <path d="M519 466H728" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="531" y="448" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.3">BULONG DÙ + TY TREO</text>
+  <path d="M520 583H728" stroke="#7b766f" stroke-width="1.5"/>
+  <circle cx="520" cy="583" r="5" fill="#a95335"/>
+  <text x="546" y="574" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Thanh T đỡ mối nối</text>
+  <text x="546" y="596" fill="#6c6862" font-family="Arial, Helvetica, sans-serif" font-size="12">Hai cánh đỡ mép tấm trần panel</text>
+
+  <g transform="translate(850 300)" font-family="Arial, Helvetica, sans-serif">
+    <path d="M0 0V326" stroke="#ded5c8"/>
+
+    <circle cx="36" cy="26" r="20" fill="#a95335"/>
+    <text x="36" y="31" text-anchor="middle" fill="#fffaf2" font-size="12" font-weight="700">01</text>
+    <text x="72" y="21" fill="#252a27" font-size="17" font-weight="700">Điểm neo phía trên</text>
+    <text x="72" y="47" fill="#68645e" font-size="13">Liên kết vào kết cấu chịu lực.</text>
+
+    <path d="M24 89H246" stroke="#ded5c8"/>
+    <circle cx="36" cy="124" r="20" fill="#a95335"/>
+    <text x="36" y="129" text-anchor="middle" fill="#fffaf2" font-size="12" font-weight="700">02</text>
+    <text x="72" y="119" fill="#252a27" font-size="17" font-weight="700">Ty treo truyền tải</text>
+    <text x="72" y="145" fill="#68645e" font-size="13">Điều chỉnh theo cao độ trần.</text>
+
+    <path d="M24 187H246" stroke="#ded5c8"/>
+    <circle cx="36" cy="222" r="20" fill="#252a27"/>
+    <text x="36" y="227" text-anchor="middle" fill="#fffaf2" font-size="12" font-weight="700">03</text>
+    <text x="72" y="217" fill="#252a27" font-size="17" font-weight="700">Thanh T nhận mép tấm</text>
+    <text x="72" y="243" fill="#68645e" font-size="13">Giữ đường nối thẳng và gọn.</text>
+
+    <rect x="24" y="280" width="244" height="46" rx="23" fill="#eee4d7"/>
+    <circle cx="48" cy="303" r="7" fill="#a95335"/>
+    <text x="67" y="308" fill="#514e49" font-size="11" font-weight="700" letter-spacing="1.1">BỐ TRÍ THEO TẢI THIẾT KẾ</text>
+  </g>
+
+  <text x="72" y="730" fill="#6f6b64" font-family="Arial, Helvetica, sans-serif" font-size="13">Hệ treo trần phải được đối chiếu tải trọng, nhịp tấm và kết cấu công trình trước khi thi công.</text>
+</svg>
