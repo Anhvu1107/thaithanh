@@ -687,9 +687,27 @@ try {
   assert.equal(await activeHeroNavigation.getAttribute('href'), '/', 'homepage navigation must visibly identify Trang chủ')
   const liquidNavigationIndicator = page.locator('[data-nav-liquid-indicator]')
   const liquidNavigationSurface = page.locator('[data-nav-liquid-surface]')
+  const productDropdown = page.locator('[data-product-dropdown]')
+  const productDropdownToggle = page.locator('[data-product-dropdown-toggle]')
+  const productDropdownLinks = productDropdown.locator('[data-product-dropdown-link]')
+  const expectedProductDropdownHrefs = [
+    '/products/panel-eps',
+    '/products/cua-kho-lanh',
+    '/products/phu-kien-kho-lanh',
+    '/products/phu-kien-cua',
+    '/products/vat-tu-cach-nhiet',
+  ]
   assert.equal(await liquidNavigationIndicator.count(), 1, 'desktop navigation must use one shared liquid indicator')
   assert.equal(await liquidNavigationSurface.count(), 1, 'liquid indicator must expose one deformable surface')
   assert.equal(await liquidNavigationIndicator.getAttribute('aria-hidden'), 'true', 'liquid indicator must remain decorative')
+  assert.equal(await productDropdown.count(), 1, 'desktop header must expose one quick product dropdown')
+  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'desktop product dropdown must start collapsed')
+  assert.equal(await productDropdownLinks.count(), 5, 'desktop product dropdown must link to every confirmed product group')
+  assert.deepEqual(
+    await productDropdownLinks.evaluateAll(links => links.map(link => link.getAttribute('href'))),
+    expectedProductDropdownHrefs,
+    'desktop product dropdown links must follow the confirmed product order',
+  )
   await page.waitForFunction(() => document.querySelector('[data-nav-liquid-indicator]')?.getAttribute('data-liquid-target') === '/')
   const heroLiquidNavigation = await page.evaluate(() => {
     const current = document.querySelector('[data-desktop-navigation] a[aria-current="page"]')
@@ -732,6 +750,27 @@ try {
 
   const reducedMotionProductsNavigation = page.locator('[data-desktop-nav-link][href="/products"]')
   await reducedMotionProductsNavigation.hover()
+  await productDropdown.waitFor({ state: 'visible' })
+  assert.equal(await productDropdown.isVisible(), true, 'hovering Sản phẩm must reveal the quick product dropdown')
+  const productDropdownLayout = await productDropdown.evaluate((element) => {
+    const box = element.getBoundingClientRect()
+    const style = getComputedStyle(element)
+    return {
+      bottom: box.bottom,
+      left: box.left,
+      right: box.right,
+      top: box.top,
+      transitionDuration: style.transitionDuration,
+      viewportHeight: innerHeight,
+      viewportWidth: innerWidth,
+    }
+  })
+  assert.ok(productDropdownLayout.left >= 0 && productDropdownLayout.right <= productDropdownLayout.viewportWidth, 'desktop product dropdown must stay inside the viewport width')
+  assert.ok(productDropdownLayout.top >= 0 && productDropdownLayout.bottom <= productDropdownLayout.viewportHeight, 'desktop product dropdown must stay inside the viewport height')
+  assert.ok(
+    productDropdownLayout.transitionDuration.split(',').every(value => Number.parseFloat(value) === 0),
+    'reduced motion must disable the product dropdown transition',
+  )
   await page.waitForFunction(() => {
     const indicator = document.querySelector('[data-nav-liquid-indicator]')
     return indicator?.getAttribute('data-liquid-target') === '/products'
@@ -739,6 +778,7 @@ try {
   })
   assert.equal(await liquidNavigationSurface.evaluate(element => getComputedStyle(element).animationName), 'none', 'reduced motion must keep the droplet surface still')
   await page.mouse.move(8, 180)
+  await productDropdown.waitFor({ state: 'hidden' })
   await page.waitForFunction(() => document.querySelector('[data-nav-liquid-indicator]')?.getAttribute('data-liquid-target') === '/')
 
   await page.evaluate(() => window.scrollTo(0, 160))
@@ -766,6 +806,26 @@ try {
   assert.notEqual(productLiquidAlignment, null, 'liquid navigation indicator must render on inner pages')
   assert.ok(productLiquidAlignment <= 1, 'liquid navigation indicator must follow the current inner page')
 
+  await productDropdownToggle.click()
+  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'true', 'clicking the desktop product toggle must expose its open state')
+  await productDropdown.waitFor({ state: 'visible' })
+  await productDropdownToggle.click()
+  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'clicking the open desktop product toggle must collapse it')
+  await productDropdown.waitFor({ state: 'hidden' })
+  await page.mouse.move(8, 180)
+
+  await productDropdownToggle.focus()
+  await page.keyboard.press('ArrowDown')
+  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'true', 'ArrowDown must expose the desktop product dropdown state')
+  await productDropdown.waitFor({ state: 'visible' })
+  await page.waitForFunction(expectedHref => document.activeElement?.getAttribute('href') === expectedHref, expectedProductDropdownHrefs[0])
+  assert.equal(await page.locator(':focus').getAttribute('href'), expectedProductDropdownHrefs[0], 'ArrowDown must focus the first quick product link')
+  await page.keyboard.press('Escape')
+  await productDropdown.waitFor({ state: 'hidden' })
+  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'Escape must collapse the desktop product dropdown')
+  await page.waitForFunction(() => document.activeElement?.matches('[data-product-dropdown-toggle]'))
+  assert.equal(await page.locator(':focus').getAttribute('data-product-dropdown-toggle'), '', 'Escape must return focus to the product dropdown button')
+
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto(webUrl, { waitUntil: 'networkidle' })
   await page.keyboard.press('Tab')
@@ -779,6 +839,19 @@ try {
   const mobileNavigation = page.locator('#static-mobile-navigation')
   await mobileNavigation.waitFor({ state: 'visible' })
   await mobileNavigation.locator('a[href="/products"]').waitFor({ state: 'visible' })
+  const mobileProductToggle = mobileNavigation.locator('[data-mobile-product-toggle]')
+  const mobileProductDropdown = mobileNavigation.locator('[data-mobile-product-dropdown]')
+  const mobileProductLinks = mobileProductDropdown.locator('[data-mobile-product-link]')
+  assert.equal(await mobileProductToggle.getAttribute('aria-expanded'), 'false', 'mobile product submenu must start collapsed outside the product route')
+  assert.equal(await mobileProductLinks.count(), 5, 'mobile product submenu must contain every confirmed product group')
+  assert.deepEqual(
+    await mobileProductLinks.evaluateAll(links => links.map(link => link.getAttribute('href'))),
+    expectedProductDropdownHrefs,
+    'mobile product submenu links must match the desktop quick links',
+  )
+  await mobileProductToggle.click()
+  assert.equal(await mobileProductToggle.getAttribute('aria-expanded'), 'true', 'mobile product toggle must expose its open state')
+  await mobileProductDropdown.waitFor({ state: 'visible' })
   const activeHomeMobileNavigation = mobileNavigation.locator('a[aria-current="page"]')
   assert.equal(await activeHomeMobileNavigation.getAttribute('href'), '/', 'mobile homepage navigation must identify Trang chủ')
   assert.match(await activeHomeMobileNavigation.innerText(), /Đang xem/i, 'mobile homepage navigation must include an explicit state label')
@@ -795,6 +868,8 @@ try {
   await page.goto(`${webUrl}/products`, { waitUntil: 'networkidle' })
   await mobileMenuButton.click()
   await mobileNavigation.waitFor({ state: 'visible' })
+  assert.equal(await mobileProductToggle.getAttribute('aria-expanded'), 'true', 'mobile product submenu must open automatically on product routes')
+  await mobileProductDropdown.waitFor({ state: 'visible' })
   const activeMobileNavigation = mobileNavigation.locator('a[aria-current="page"]')
   await activeMobileNavigation.waitFor({ state: 'visible' })
   assert.equal(await activeMobileNavigation.getAttribute('href'), '/products', 'mobile navigation must highlight the current route')
