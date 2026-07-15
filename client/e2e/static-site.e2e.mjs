@@ -340,7 +340,7 @@ try {
   const panelProductText = await page.locator('article').first().innerText()
   assert.match(panelProductText, /50–200 mm/, 'Panel EPS detail must expose the supplied thickness range')
   assert.match(panelProductText, /14–16 kg\/m³.*18–20 kg\/m³.*23–25 kg\/m³/s, 'Panel EPS detail must expose every supplied density range')
-  assert.match(panelProductText, /Cấu tạo sandwich ba lớp.*Bảng quy cách cần đối chiếu.*Chọn độ dày và tỷ trọng.*Bề mặt và hoàn thiện/s, 'Panel EPS detail must explain construction, specifications and selection')
+  assert.match(panelProductText, /Cấu tạo sandwich ba lớp.*Bảng quy cách cần đối chiếu.*Đọc λ, U, R và chọn theo nhu cầu nhiệt.*Bề mặt và hoàn thiện/s, 'Panel EPS detail must explain construction, specifications and thermal selection')
   assert.match(panelProductText, /Thi công và phụ kiện đồng bộ.*Vận chuyển và bảo quản.*Giới hạn sử dụng và bảo trì/s, 'Panel EPS detail must cover installation, handling and limitations')
   assert.match(panelProductText, /Panel EPS có phải panel chống cháy không\?/i, 'Panel EPS detail must answer the fire-safety limitation clearly')
   assert.ok(await page.locator('[data-product-selection-guide]').count() >= 4, 'Panel EPS detail must expose a quick selection guide')
@@ -391,7 +391,37 @@ try {
     assert.equal(response?.status(), 200, `${href} product detail route must render successfully`)
     assert.equal(await page.locator('article h1').count(), 1, `${href} must expose exactly one product h1`)
     assert.ok(await page.locator('[data-product-specification]').count() >= 4, `${href} must expose at least four top specifications`)
-    assert.ok(await page.locator('[data-product-selection-guide]').count() >= 3, `${href} must expose at least three quick-selection items`)
+    assert.equal(await page.locator('[data-product-engineering-guide]').count(), 1, `${href} must expose one engineering selection guide`)
+    const engineeringGuideRows = page.locator('[data-product-selection-guide]')
+    assert.ok(await engineeringGuideRows.count() >= 4, `${href} must expose at least four engineering selection rows`)
+    const engineeringGuideContract = await engineeringGuideRows.evaluateAll(rows => rows.map(row => ({
+      conditions: row.querySelector('[data-selection-conditions]')?.textContent?.trim() || '',
+      configuration: row.querySelector('[data-selection-configuration]')?.textContent?.trim() || '',
+      confirm: row.querySelector('[data-selection-confirm]')?.textContent?.trim() || '',
+      need: row.querySelector('[data-selection-need]')?.textContent?.trim() || '',
+    })))
+    for (const [index, guide] of engineeringGuideContract.entries()) {
+      assert.ok(guide.need.length > 0, `${href} engineering row ${index + 1} must state the customer need`)
+      assert.ok(guide.conditions.length > 0, `${href} engineering row ${index + 1} must state operating conditions`)
+      assert.ok(guide.configuration.length > 0, `${href} engineering row ${index + 1} must state a preliminary configuration`)
+      assert.ok(guide.confirm.length > 0, `${href} engineering row ${index + 1} must state what still needs confirmation`)
+    }
+    assert.ok(await page.locator('[data-product-advantage]').count() >= 3, `${href} must expose at least three advantages`)
+    assert.ok(await page.locator('[data-product-limitation]').count() >= 3, `${href} must expose at least three limitations`)
+    if (href === '/products/panel-eps' || href === '/products/cua-kho-lanh') {
+      const technicalReferences = page.locator('[data-product-technical-reference]')
+      assert.ok(await technicalReferences.count() >= 2, `${href} must expose traceable technical references`)
+      const referenceContracts = await technicalReferences.evaluateAll(links => links.map(link => ({
+        href: link.getAttribute('href') || '',
+        rel: link.getAttribute('rel') || '',
+        target: link.getAttribute('target') || '',
+      })))
+      for (const reference of referenceContracts) {
+        assert.match(reference.href, /^https:\/\//, `${href} technical references must use HTTPS`)
+        assert.equal(reference.target, '_blank', `${href} technical references must not replace the product page`)
+        assert.match(reference.rel, /noopener/, `${href} external references must isolate the opener`)
+      }
+    }
     assert.ok(await page.locator('[data-product-detail-section]').count() >= 4, `${href} must expose at least four detailed sections`)
     assert.ok(await page.locator('[data-product-checklist-item]').count() >= 8, `${href} must expose at least eight preparation items`)
     assert.ok(await page.locator('[data-product-faq]').count() >= 4, `${href} must expose at least four FAQ entries`)
@@ -704,7 +734,7 @@ try {
     { width: 320, height: 800, label: 'minimum mobile' },
     { width: 768, height: 1024, label: 'tablet' },
   ]) {
-    for (const route of ['/', '/products', '/products/panel-eps', '/products/cua-kho-lanh']) {
+    for (const route of ['/', '/products', ...productDetailHrefs]) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height })
       await page.goto(`${webUrl}${route === '/' ? '' : route}`, { waitUntil: 'networkidle' })
       const responsiveMetrics = await page.evaluate(() => ({
@@ -843,6 +873,28 @@ try {
   await noScriptPage.locator('#retail-products').waitFor({ state: 'visible' })
   assert.match(await noScriptPage.locator('#retail-products').innerText(), /Panel EPS, cửa kho lạnh, phụ kiện và vật tư cách nhiệt/i, 'retail content must remain readable without JavaScript')
 
+  for (const href of productDetailHrefs) {
+    const response = await noScriptPage.goto(`${webUrl}${href}`, { waitUntil: 'load' })
+    assert.equal(response?.status(), 200, `${href} must render without JavaScript`)
+    assert.equal(await noScriptPage.locator('[data-product-engineering-guide]').count(), 1, `${href} engineering guide must render without JavaScript`)
+    const noScriptGuideRows = noScriptPage.locator('[data-product-selection-guide]')
+    assert.ok(await noScriptGuideRows.count() >= 4, `${href} must keep at least four engineering rows without JavaScript`)
+    const noScriptGuideContract = await noScriptGuideRows.evaluateAll(rows => rows.map(row => ({
+      conditions: row.querySelector('[data-selection-conditions]')?.textContent?.trim() || '',
+      configuration: row.querySelector('[data-selection-configuration]')?.textContent?.trim() || '',
+      confirm: row.querySelector('[data-selection-confirm]')?.textContent?.trim() || '',
+      need: row.querySelector('[data-selection-need]')?.textContent?.trim() || '',
+    })))
+    for (const [index, guide] of noScriptGuideContract.entries()) {
+      assert.ok(guide.need.length > 0, `${href} no-JavaScript row ${index + 1} must retain its need`)
+      assert.ok(guide.conditions.length > 0, `${href} no-JavaScript row ${index + 1} must retain its operating conditions`)
+      assert.ok(guide.configuration.length > 0, `${href} no-JavaScript row ${index + 1} must retain its preliminary configuration`)
+      assert.ok(guide.confirm.length > 0, `${href} no-JavaScript row ${index + 1} must retain its confirmation inputs`)
+    }
+    assert.ok(await noScriptPage.locator('[data-product-advantage]').count() >= 3, `${href} advantages must render without JavaScript`)
+    assert.ok(await noScriptPage.locator('[data-product-limitation]').count() >= 3, `${href} limitations must render without JavaScript`)
+  }
+
   const noScriptDoorResponse = await noScriptPage.goto(`${webUrl}/products/cua-kho-lanh`, { waitUntil: 'load' })
   assert.equal(noScriptDoorResponse?.status(), 200, 'cold-room door detail must render without JavaScript')
   const noScriptDoorText = await noScriptPage.locator('article').first().innerText()
@@ -854,7 +906,7 @@ try {
   const noScriptPanelResponse = await noScriptPage.goto(`${webUrl}/products/panel-eps`, { waitUntil: 'load' })
   assert.equal(noScriptPanelResponse?.status(), 200, 'Panel EPS detail must render without JavaScript')
   const noScriptPanelText = await noScriptPage.locator('article').first().innerText()
-  assert.match(noScriptPanelText, /Cấu tạo sandwich ba lớp.*Chọn độ dày và tỷ trọng.*Thi công và phụ kiện đồng bộ/s, 'Panel EPS technical guidance must remain readable without JavaScript')
+  assert.match(noScriptPanelText, /Cấu tạo sandwich ba lớp.*Đọc λ, U, R và chọn theo nhu cầu nhiệt.*Thi công và phụ kiện đồng bộ/s, 'Panel EPS technical guidance must remain readable without JavaScript')
   assert.match(noScriptPanelText, /Panel EPS có phải panel chống cháy không\?/i, 'Panel EPS safety FAQ must remain readable without JavaScript')
   assert.ok(await noScriptPage.locator('[data-product-section-media]').count() >= 1, 'Panel EPS visuals must render without JavaScript')
   assert.ok((await noScriptPage.locator('[data-product-section-media] figcaption').first().innerText()).trim().length >= 24, 'Panel EPS visual caption must remain readable without JavaScript')

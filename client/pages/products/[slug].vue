@@ -107,7 +107,7 @@ usePageSeo({
 
           <nav aria-label="Đi nhanh trong trang sản phẩm" class="mt-5 flex gap-2 overflow-x-auto rounded-full border border-[#d2c8bd] bg-white/50 p-1.5 backdrop-blur-sm">
             <a href="#thong-so" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông số</a>
-            <a href="#chon-nhanh" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Chọn nhanh</a>
+            <a href="#chon-nhanh" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thiết kế sơ bộ</a>
             <a
               v-for="section in product.detailSections"
               :key="`nav-${section.id}`"
@@ -142,7 +142,7 @@ usePageSeo({
 
           <div data-reveal data-reveal-delay="80">
             <div class="flex items-end justify-between gap-5 border-b border-[#aaa096] pb-4">
-              <h2 class="text-2xl font-semibold text-[#242421] sm:text-3xl">Thông số hiện có</h2>
+              <h2 class="text-2xl font-semibold text-[#242421] sm:text-3xl">Thông số kỹ thuật cần đối chiếu</h2>
               <p class="hidden text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55] sm:block">Đối chiếu trước khi đặt</p>
             </div>
             <dl class="mt-4 grid gap-3 sm:grid-cols-2">
@@ -168,37 +168,83 @@ usePageSeo({
         <div class="container-site py-14 lg:py-20">
           <div data-reveal class="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
             <div>
-              <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Chọn nhanh theo nhu cầu</p>
+              <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Hướng dẫn thiết kế sơ bộ</p>
               <h2 class="mt-4 text-3xl font-semibold leading-tight tracking-[-0.025em] text-[#20211f] sm:text-5xl">
-                Khoanh đúng nhóm trước khi chốt quy cách.
+                Đối chiếu nhu cầu với điều kiện vận hành.
               </h2>
             </div>
             <p class="max-w-2xl text-base leading-8 text-[#625d56] lg:justify-self-end">
-              Các gợi ý dưới đây giúp sàng lọc ban đầu. Cấu hình cuối cùng vẫn cần đối chiếu kích thước, môi trường sử dụng và điều kiện lắp đặt thực tế.
+              Cấu hình dưới đây chỉ dùng để sàng lọc ban đầu, không thay thế tính tải nhiệt hoặc bản duyệt kỹ thuật. Quy cách cuối cùng phải được xác nhận theo kích thước, môi trường sử dụng và điều kiện lắp đặt thực tế.
             </p>
           </div>
 
-          <ol class="mt-9 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <ol data-product-engineering-guide class="mt-9 grid min-w-0 gap-4">
             <li
               v-for="(item, index) in product.selectionGuide"
-              :key="item.title"
+              :key="item.need"
               data-product-selection-guide
               data-reveal
               :data-reveal-delay="Math.min(index * 60, 180)"
-              class="flex min-h-full flex-col rounded-[1.5rem] border border-[#d2c8bd] bg-white/80 p-6 sm:p-7"
+              class="min-w-0 rounded-[1.5rem] border border-[#d2c8bd] bg-white/80 p-5 sm:p-7"
             >
               <div class="flex items-center justify-between gap-4">
                 <span class="font-mono text-xs font-bold text-[#874a2d]">{{ formatIndex(index) }}</span>
                 <span class="h-px w-10 bg-[#c8b7aa]" aria-hidden="true" />
               </div>
-              <h3 class="mt-6 text-xl font-semibold leading-tight text-[#292926]">{{ item.title }}</h3>
-              <p class="mt-4 flex-1 text-sm leading-7 text-[#625d56]">{{ item.summary }}</p>
-              <div class="mt-6 border-t border-[#d8cfc4] pt-4">
-                <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Cần xác nhận</p>
-                <p class="mt-2 text-sm font-semibold leading-6 text-[#373632]">{{ item.check }}</p>
-              </div>
+              <dl class="mt-5 grid min-w-0 gap-5 sm:grid-cols-2 xl:grid-cols-[0.82fr_1.12fr_1.2fr_1fr] xl:gap-7">
+                <div class="min-w-0">
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Nhu cầu</dt>
+                  <dd data-selection-need class="mt-2 break-words text-base font-semibold leading-7 text-[#292926]">{{ item.need }}</dd>
+                </div>
+                <div class="min-w-0">
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Điều kiện vận hành</dt>
+                  <dd data-selection-conditions class="mt-2 break-words text-sm leading-7 text-[#514c46]">{{ item.operatingConditions }}</dd>
+                </div>
+                <div class="min-w-0">
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Cấu hình sơ bộ</dt>
+                  <dd data-selection-configuration class="mt-2 break-words text-sm font-semibold leading-7 text-[#373632]">{{ item.preliminaryConfiguration }}</dd>
+                </div>
+                <div class="min-w-0 border-t border-[#d8cfc4] pt-4 sm:border-t-0 sm:pt-0">
+                  <dt class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Cần xác nhận</dt>
+                  <dd data-selection-confirm class="mt-2 break-words text-sm font-semibold leading-7 text-[#373632]">{{ item.confirm }}</dd>
+                </div>
+              </dl>
             </li>
           </ol>
+
+          <div class="mt-8 grid min-w-0 gap-4 md:grid-cols-2">
+            <section data-product-advantages data-reveal class="min-w-0 rounded-[1.5rem] border border-[#cbd0c7] bg-[#f7f9f5] p-5 sm:p-7">
+              <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#53634f]">Ưu điểm</p>
+              <h3 class="mt-3 text-xl font-semibold text-[#292926]">Điểm phù hợp của sản phẩm</h3>
+              <ul class="mt-5 grid gap-3">
+                <li
+                  v-for="advantage in product.advantages"
+                  :key="advantage"
+                  data-product-advantage
+                  class="flex min-w-0 gap-3 text-sm leading-7 text-[#454b42]"
+                >
+                  <span class="mt-[0.72rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#6d7d67]" aria-hidden="true" />
+                  <span class="min-w-0 break-words">{{ advantage }}</span>
+                </li>
+              </ul>
+            </section>
+
+            <section data-product-limitations data-reveal data-reveal-delay="80" class="min-w-0 rounded-[1.5rem] border border-[#d7c7bc] bg-[#fbf6f1] p-5 sm:p-7">
+              <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#874a2d]">Hạn chế</p>
+              <h3 class="mt-3 text-xl font-semibold text-[#292926]">Điều kiện cần cân nhắc</h3>
+              <ul class="mt-5 grid gap-3">
+                <li
+                  v-for="limitation in product.limitations"
+                  :key="limitation"
+                  data-product-limitation
+                  class="flex min-w-0 gap-3 text-sm leading-7 text-[#514740]"
+                >
+                  <span class="mt-[0.72rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#a76b4c]" aria-hidden="true" />
+                  <span class="min-w-0 break-words">{{ limitation }}</span>
+                </li>
+              </ul>
+            </section>
+          </div>
         </div>
       </section>
 
@@ -238,6 +284,28 @@ usePageSeo({
                     <p v-for="paragraph in section.paragraphs" :key="paragraph" class="text-sm leading-7 text-[#625d56]">
                       {{ paragraph }}
                     </p>
+                  </div>
+
+                  <div
+                    v-if="section.references?.length"
+                    data-product-technical-references
+                    class="mt-6 rounded-[1.1rem] border border-[#d8cfc4] bg-white/60 p-4 sm:p-5"
+                  >
+                    <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-[#655d55]">Cơ sở kỹ thuật tham khảo</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                      <a
+                        v-for="reference in section.references"
+                        :key="reference.url"
+                        :href="reference.url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-product-technical-reference
+                        class="inline-flex min-h-10 max-w-full items-center rounded-full border border-[#cabdb1] bg-white px-4 text-xs font-bold leading-5 text-[#514b45] transition-colors hover:border-[#9d6a50] hover:text-[#874a2d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#874a2d]"
+                      >
+                        <span class="min-w-0 break-words">{{ reference.label }}</span>
+                        <span class="ml-2 shrink-0" aria-hidden="true">↗</span>
+                      </a>
+                    </div>
                   </div>
 
                   <figure

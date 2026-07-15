@@ -117,8 +117,13 @@ describe('static site scope', () => {
       'van-chuyen-bao-quan',
       'gioi-han-va-bao-tri',
     ])
-    expect(JSON.stringify(panel)).toMatch(/sandwich ba lớp.*50.*75.*100.*125.*150.*175.*200.*14.*16.*18.*20.*23.*25/is)
-    expect(JSON.stringify(panel)).toMatch(/Tôn mạ màu.*Inox 304.*ngàm âm–dương.*Nẹp U.*V trong.*V ngoài/is)
+    const panelCopy = JSON.stringify(panel)
+    expect(panelCopy).toMatch(/sandwich ba lớp.*50.*75.*100.*125.*150.*175.*200.*14.*16.*18.*20.*23.*25/is)
+    expect(panelCopy).toMatch(/Tôn mạ màu.*Inox 304.*ngàm âm–dương.*Nẹp U.*V trong.*V ngoài/is)
+    expect(panelCopy).toMatch(/λ.*Uc\/U.*R.*Q = U × A × ΔT/is)
+    expect(panelCopy).toMatch(/\+4.*\+10.*4,4.*−4.*\+2.*4,2–5,6.*−23.*−29.*6,2–7,0.*−40.*−46.*7,9–8,8/is)
+    expect(panelCopy).toMatch(/ưu điểm|Khối lượng nhẹ/is)
+    expect(panelCopy).toMatch(/hạn chế|không tự động đồng nghĩa cách nhiệt tốt hơn|không phải lõi không cháy/is)
 
     const coldRoomDoor = retailProducts.find(product => product.slug === 'cua-kho-lanh')
     expect(coldRoomDoor?.specifications).toContainEqual({ label: 'Bề mặt cửa', value: 'Inox 304' })
@@ -137,6 +142,9 @@ describe('static site scope', () => {
     const coldRoomDoorCopy = JSON.stringify(coldRoomDoor)
     expect(coldRoomDoorCopy).toMatch(/Cửa kho lạnh bản lề.*Cửa lùa, cửa trượt kho lạnh.*Cửa song gài Inox.*Cửa song gài EPS/s)
     expect(coldRoomDoorCopy).toMatch(/lõi PU.*ray.*bánh xe.*gioăng.*điện trở sưởi.*mở an toàn/is)
+    expect(coldRoomDoorCopy).toMatch(/điểm sương.*số lần.*thời gian mở.*luồng người.*xe hàng/is)
+    expect(coldRoomDoorCopy).toMatch(/mở từ bên trong.*bên ngoài.*khóa|mở từ trong.*khóa bên ngoài/is)
+    expect(coldRoomDoorCopy).toMatch(/Cửa bản lề cần vùng quét cánh.*Cửa trượt cần khoảng vách/is)
     expect(coldRoomDoorCopy).not.toMatch(/1471421817120_1148|tamcachnhiettabi|Tabi|Coolmax|Atimon|-70.*60\s*°C/i)
 
     const accessoryCatalog = retailProducts.find(product => product.slug === 'phu-kien-kho-lanh')
@@ -152,7 +160,9 @@ describe('static site scope', () => {
 
     for (const product of retailProducts) {
       expect(product.specifications.length, `${product.slug} top-level specifications`).toBeGreaterThanOrEqual(4)
-      expect(product.selectionGuide.length, `${product.slug} selection guide`).toBeGreaterThanOrEqual(3)
+      expect(product.selectionGuide.length, `${product.slug} engineering selection guide`).toBeGreaterThanOrEqual(4)
+      expect(product.advantages.length, `${product.slug} advantages`).toBeGreaterThanOrEqual(3)
+      expect(product.limitations.length, `${product.slug} limitations`).toBeGreaterThanOrEqual(3)
       expect(product.detailSections.length, `${product.slug} detail sections`).toBeGreaterThanOrEqual(4)
       expect(product.selectionChecklist.length, `${product.slug} selection checklist`).toBeGreaterThanOrEqual(8)
       expect(product.frequentlyAskedQuestions.length, `${product.slug} FAQ`).toBeGreaterThanOrEqual(4)
@@ -170,6 +180,22 @@ describe('static site scope', () => {
         expect(section.paragraphs.length, `${product.slug}/${section.id} paragraphs`).toBeGreaterThanOrEqual(2)
         expect(section.specifications.length, `${product.slug}/${section.id} specifications`).toBeGreaterThanOrEqual(4)
         expect(section.points.length, `${product.slug}/${section.id} comparison points`).toBeGreaterThanOrEqual(3)
+        for (const reference of section.references ?? []) {
+          expect(reference.url, `${product.slug}/${section.id} technical reference`).toMatch(/^https:\/\//)
+          expect(reference.label.trim().length, `${product.slug}/${section.id} reference label`).toBeGreaterThan(0)
+        }
+      }
+      for (const [index, guide] of product.selectionGuide.entries()) {
+        expect(guide.need.trim().length, `${product.slug}/selectionGuide[${index}].need`).toBeGreaterThan(0)
+        expect(
+          guide.operatingConditions.trim().length,
+          `${product.slug}/selectionGuide[${index}].operatingConditions`,
+        ).toBeGreaterThan(0)
+        expect(
+          guide.preliminaryConfiguration.trim().length,
+          `${product.slug}/selectionGuide[${index}].preliminaryConfiguration`,
+        ).toBeGreaterThan(0)
+        expect(guide.confirm.trim().length, `${product.slug}/selectionGuide[${index}].confirm`).toBeGreaterThan(0)
       }
     }
 
@@ -313,13 +339,57 @@ describe('site content validation', () => {
       /retailProducts\[1\]\.frequentlyAskedQuestions\[\]\.question: values must be unique/,
     )
 
-    const duplicateSelectionTitle = structuredClone(siteContentJson) as unknown as {
-      retailProducts: Array<{ selectionGuide: Array<{ title: string }> }>
+    const duplicateSelectionNeed = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ selectionGuide: Array<{ need: string }> }>
     }
-    const selectionGuide = duplicateSelectionTitle.retailProducts[0]!.selectionGuide
-    selectionGuide[1]!.title = selectionGuide[0]!.title
-    expect(() => parseSiteContent(duplicateSelectionTitle)).toThrow(
-      /retailProducts\[0\]\.selectionGuide\[\]\.title: values must be unique/,
+    const selectionGuide = duplicateSelectionNeed.retailProducts[0]!.selectionGuide
+    selectionGuide[1]!.need = selectionGuide[0]!.need
+    expect(() => parseSiteContent(duplicateSelectionNeed)).toThrow(
+      /retailProducts\[0\]\.selectionGuide\[\]\.need: values must be unique/,
+    )
+
+    const missingSelectionField = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ selectionGuide: Array<Record<string, unknown>> }>
+    }
+    delete missingSelectionField.retailProducts[0]!.selectionGuide[0]!.operatingConditions
+    expect(() => parseSiteContent(missingSelectionField)).toThrow(
+      /retailProducts\[0\]\.selectionGuide\[0\]\.operatingConditions: field is required/,
+    )
+
+    const legacySelectionGuide = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ selectionGuide: Array<Record<string, unknown>> }>
+    }
+    legacySelectionGuide.retailProducts[0]!.selectionGuide[0] = {
+      check: 'Legacy check',
+      summary: 'Legacy summary',
+      title: 'Legacy title',
+    }
+    expect(() => parseSiteContent(legacySelectionGuide)).toThrow(
+      /retailProducts\[0\]\.selectionGuide\[0\]\.need: field is required/,
+    )
+
+    const unknownSelectionField = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ selectionGuide: Array<Record<string, unknown>> }>
+    }
+    unknownSelectionField.retailProducts[0]!.selectionGuide[0]!.title = 'Unknown legacy field'
+    expect(() => parseSiteContent(unknownSelectionField)).toThrow(
+      /retailProducts\[0\]\.selectionGuide\[0\]\.title: unknown field/,
+    )
+
+    const emptyAdvantages = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ advantages: string[] }>
+    }
+    emptyAdvantages.retailProducts[0]!.advantages = []
+    expect(() => parseSiteContent(emptyAdvantages)).toThrow(
+      /retailProducts\[0\]\.advantages: expected a non-empty array/,
+    )
+
+    const missingLimitations = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<Record<string, unknown>>
+    }
+    delete missingLimitations.retailProducts[0]!.limitations
+    expect(() => parseSiteContent(missingLimitations)).toThrow(
+      /retailProducts\[0\]\.limitations: field is required/,
     )
 
     const missingMediaCaption = structuredClone(siteContentJson) as unknown as {
@@ -336,6 +406,23 @@ describe('site content validation', () => {
     unknownMediaField.retailProducts[0]!.detailSections[0]!.media!.layout = 'wide'
     expect(() => parseSiteContent(unknownMediaField)).toThrow(
       /retailProducts\[0\]\.detailSections\[0\]\.media\.layout: unknown field/,
+    )
+
+    const insecureTechnicalReference = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ detailSections: Array<{ references?: Array<{ url: string }> }> }>
+    }
+    insecureTechnicalReference.retailProducts[0]!.detailSections[2]!.references![0]!.url = 'http://example.com/reference'
+    expect(() => parseSiteContent(insecureTechnicalReference)).toThrow(
+      /retailProducts\[0\]\.detailSections\[2\]\.references\[0\]\.url: must use an absolute HTTPS URL/,
+    )
+
+    const duplicateTechnicalReference = structuredClone(siteContentJson) as unknown as {
+      retailProducts: Array<{ detailSections: Array<{ references?: Array<{ url: string }> }> }>
+    }
+    const references = duplicateTechnicalReference.retailProducts[0]!.detailSections[2]!.references!
+    references[1]!.url = references[0]!.url
+    expect(() => parseSiteContent(duplicateTechnicalReference)).toThrow(
+      /retailProducts\[0\]\.detailSections\[2\]\.references\[\]\.url: values must be unique/,
     )
   })
 })

@@ -7,6 +7,7 @@ import type {
   ProductFamily,
   ProductSectionMedia,
   ProductSelectionGuideItem,
+  ProductTechnicalReference,
   ResponsiveImage,
   ProductSpecification,
   PrimaryNavigationRoute,
@@ -97,6 +98,18 @@ const expectImagePath = (value: unknown, path: string): string => {
   const imagePath = expectString(value, path)
   if (!imagePattern.test(imagePath)) invalid(path, 'must reference an image below /images')
   return imagePath
+}
+
+const expectHttpsUrl = (value: unknown, path: string): string => {
+  const url = expectString(value, path)
+  try {
+    const parsed = new URL(url)
+    if (parsed.protocol !== 'https:') invalid(path, 'must use an absolute HTTPS URL')
+  }
+  catch {
+    invalid(path, 'must use an absolute HTTPS URL')
+  }
+  return url
 }
 
 const expectImageSrcset = (value: unknown, path: string): string => {
@@ -276,13 +289,29 @@ const parseProductFamily = (value: unknown, path: string): ProductFamily => {
   }
 }
 
+const parseProductTechnicalReference = (value: unknown, path: string): ProductTechnicalReference => {
+  const reference = expectRecord(value, path)
+  expectExactKeys(reference, path, ['label', 'url'])
+  return {
+    label: expectString(reference.label, `${path}.label`),
+    url: expectHttpsUrl(reference.url, `${path}.url`),
+  }
+}
+
 const parseProductDetailSection = (value: unknown, path: string): ProductDetailSection => {
   const section = expectRecord(value, path)
-  expectExactKeys(section, path, ['id', 'title', 'summary', 'paragraphs', 'specifications', 'points'], ['media'])
+  expectExactKeys(section, path, ['id', 'title', 'summary', 'paragraphs', 'specifications', 'points'], ['media', 'references'])
   const specifications = expectArray(section.specifications, `${path}.specifications`).map((item, index) =>
     parseProductSpecification(item, `${path}.specifications[${index}]`),
   )
   assertUnique(specifications.map(item => item.label), `${path}.specifications[].label`)
+  const references = section.references === undefined
+    ? undefined
+    : expectArray(section.references, `${path}.references`).map((item, index) =>
+        parseProductTechnicalReference(item, `${path}.references[${index}]`),
+      )
+  if (references)
+    assertUnique(references.map(item => item.url), `${path}.references[].url`)
   return {
     id: expectIdentifier(section.id, `${path}.id`),
     title: expectString(section.title, `${path}.title`),
@@ -291,6 +320,7 @@ const parseProductDetailSection = (value: unknown, path: string): ProductDetailS
     specifications,
     points: expectStringArray(section.points, `${path}.points`),
     ...(section.media === undefined ? {} : { media: parseProductSectionMedia(section.media, `${path}.media`) }),
+    ...(references === undefined ? {} : { references }),
   }
 }
 
@@ -305,11 +335,12 @@ const parseProductFrequentlyAskedQuestion = (value: unknown, path: string): Prod
 
 const parseProductSelectionGuideItem = (value: unknown, path: string): ProductSelectionGuideItem => {
   const item = expectRecord(value, path)
-  expectExactKeys(item, path, ['title', 'summary', 'check'])
+  expectExactKeys(item, path, ['need', 'operatingConditions', 'preliminaryConfiguration', 'confirm'])
   return {
-    title: expectString(item.title, `${path}.title`),
-    summary: expectString(item.summary, `${path}.summary`),
-    check: expectString(item.check, `${path}.check`),
+    need: expectString(item.need, `${path}.need`),
+    operatingConditions: expectString(item.operatingConditions, `${path}.operatingConditions`),
+    preliminaryConfiguration: expectString(item.preliminaryConfiguration, `${path}.preliminaryConfiguration`),
+    confirm: expectString(item.confirm, `${path}.confirm`),
   }
 }
 
@@ -330,6 +361,8 @@ const parseRetailProduct = (value: unknown, path: string): RetailProduct => {
     'detailSections',
     'selectionChecklist',
     'selectionGuide',
+    'advantages',
+    'limitations',
     'frequentlyAskedQuestions',
   ], ['imageSrcset'])
   const specifications = expectArray(product.specifications, `${path}.specifications`).map((item, index) =>
@@ -343,7 +376,7 @@ const parseRetailProduct = (value: unknown, path: string): RetailProduct => {
   const selectionGuide = expectArray(product.selectionGuide, `${path}.selectionGuide`).map((item, index) =>
     parseProductSelectionGuideItem(item, `${path}.selectionGuide[${index}]`),
   )
-  assertUnique(selectionGuide.map(item => item.title), `${path}.selectionGuide[].title`)
+  assertUnique(selectionGuide.map(item => item.need), `${path}.selectionGuide[].need`)
   const frequentlyAskedQuestions = expectArray(product.frequentlyAskedQuestions, `${path}.frequentlyAskedQuestions`).map((item, index) =>
     parseProductFrequentlyAskedQuestion(item, `${path}.frequentlyAskedQuestions[${index}]`),
   )
@@ -360,6 +393,8 @@ const parseRetailProduct = (value: unknown, path: string): RetailProduct => {
     detailSections,
     selectionChecklist: expectStringArray(product.selectionChecklist, `${path}.selectionChecklist`),
     selectionGuide,
+    advantages: expectStringArray(product.advantages, `${path}.advantages`),
+    limitations: expectStringArray(product.limitations, `${path}.limitations`),
     frequentlyAskedQuestions,
   }
 }

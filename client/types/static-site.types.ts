@@ -49,6 +49,12 @@ export interface ProductDetailSection {
   specifications: ProductSpecification[]
   points: string[]
   media?: ProductSectionMedia
+  references?: ProductTechnicalReference[]
+}
+
+export interface ProductTechnicalReference {
+  label: string
+  url: string
 }
 
 export interface ProductFrequentlyAskedQuestion {
@@ -57,9 +63,10 @@ export interface ProductFrequentlyAskedQuestion {
 }
 
 export interface ProductSelectionGuideItem {
-  title: string
-  summary: string
-  check: string
+  need: string
+  operatingConditions: string
+  preliminaryConfiguration: string
+  confirm: string
 }
 
 export interface RetailProduct extends ResponsiveImage {
@@ -73,6 +80,8 @@ export interface RetailProduct extends ResponsiveImage {
   detailSections: ProductDetailSection[]
   selectionChecklist: string[]
   selectionGuide: ProductSelectionGuideItem[]
+  advantages: string[]
+  limitations: string[]
   frequentlyAskedQuestions: ProductFrequentlyAskedQuestion[]
 }
 

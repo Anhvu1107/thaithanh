@@ -136,7 +136,7 @@
         },
         {
           "label": "Tỷ trọng",
-          "value": "14 / 16 / 18 / 20 / 23 / 25 kg/m³, chia theo nhóm 14–16, 18–20 và 23–25 kg/m³"
+          "value": "14 / 16 / 18 / 20 / 23 / 25 kg/m³, chia theo nhóm 14–16 kg/m³, 18–20 kg/m³ và 23–25 kg/m³"
         },
         {
           "label": "Cấu tạo",
@@ -153,28 +153,53 @@
         {
           "label": "Khổ và chiều dài",
           "value": "Khổ hữu dụng, chiều dài tấm và giới hạn vận chuyển được ghi rõ trong báo giá hoặc bản duyệt"
+        },
+        {
+          "label": "Chỉ số nhiệt phải xác nhận",
+          "value": "Hệ số dẫn nhiệt λ của lõi hoặc hệ số truyền nhiệt Uc/U của tấm hoàn chỉnh, kèm phương pháp thử của đúng cấu hình panel"
+        },
+        {
+          "label": "Nguyên tắc kiểm tra nhiệt",
+          "value": "R xấp xỉ 1/U; tải truyền qua một bề mặt Q = U × A × ΔT, sau đó cộng thêm tải lọt khí, hàng hóa, người, đèn, quạt và xả đá"
         }
+      ],
+      "advantages": [
+        "Khối lượng nhẹ, thuận tiện vận chuyển, chia tấm và lắp ghép nhanh tại công trường.",
+        "Có nhiều nhóm độ dày 50–200 mm, tỷ trọng và bề mặt để cân đối công năng với ngân sách.",
+        "Hiệu quả chi phí tốt cho vách ngăn, kho mát và hệ kho lạnh khi cấu hình nhiệt phù hợp.",
+        "Thi công khô, dễ mở rộng hoặc thay từng khu vực hơn kết cấu xây truyền thống."
+      ],
+      "limitations": [
+        "Bảng độ dày chỉ dùng sàng lọc; thiết kế cuối phải tính chênh nhiệt, độ ẩm, thời gian chạy, tần suất mở cửa, nền và cầu nhiệt.",
+        "Khả năng chống cháy phải đánh giá theo đúng hệ panel và chứng chỉ thử nghiệm; không suy ra từ tên EPS hoặc lớp tôn.",
+        "Tỷ trọng cao hơn không tự động đồng nghĩa cách nhiệt tốt hơn; phải đối chiếu hệ số dẫn nhiệt của đúng lõi và lô hàng.",
+        "Panel không thay kết cấu chịu lực chính; nhịp, tải treo, điểm xuyên và liên kết phải được thiết kế riêng.",
+        "Ngàm, keo, chân vách và lớp cản ẩm làm sai có thể gây đọng sương hoặc giảm hiệu quả dù tấm đủ dày."
       ],
       "selectionGuide": [
         {
-          "title": "Vách ngăn và khu phụ trợ",
-          "summary": "Nhóm 50 mm thường được xem xét cho vách nhẹ, khu nhiệt độ chênh không lớn hoặc không gian phụ trợ cần thi công nhanh.",
-          "check": "Chiều cao vách, nhịp khung, tải treo và yêu cầu HVAC"
+          "need": "Kho mát +4 đến +10°C",
+          "operatingConditions": "Mốc tham khảo ASHRAE cho vách hoặc trần treo: R khoảng 4,4 m²·K/W; tải thật còn phụ thuộc khí hậu, hàng vào kho và số lần mở cửa.",
+          "preliminaryConfiguration": "Chọn trong dải 50–200 mm bằng Uc/U công bố của đúng panel; mục tiêu sơ bộ tương đương U khoảng 0,23 W/m²·K hoặc thấp hơn, không chọn chỉ theo tỷ trọng.",
+          "confirm": "Nhiệt độ và độ ẩm ngoài–trong, diện tích sáu mặt kho, loại hàng, kg/ngày, cửa, người, đèn, quạt và thời gian vận hành."
         },
         {
-          "title": "Kho mát và khu bảo quản",
-          "summary": "Nhóm 75–100 mm là điểm bắt đầu thường gặp khi cần cách nhiệt cao hơn cho kho mát, vách nhà xưởng hoặc khu sản xuất.",
-          "check": "Nhiệt độ mục tiêu, hàng lưu trữ, độ ẩm và tần suất mở cửa"
+          "need": "Kho lạnh −4 đến +2°C",
+          "operatingConditions": "Mốc tham khảo cho vách hoặc trần treo: R khoảng 4,2–5,6 m²·K/W; nguy cơ đọng sương tăng tại góc, chân vách, cửa và điểm xuyên.",
+          "preliminaryConfiguration": "Đối chiếu panel có U khoảng 0,18–0,24 W/m²·K hoặc thấp hơn; thiết kế liên tục lớp cách nhiệt và cản ẩm cho vách, trần cùng nền.",
+          "confirm": "Uc/U của tấm hoàn chỉnh, điểm sương phía nóng, độ kín ngàm, cấu tạo nền, cầu nhiệt, xả đá và phương án làm kín các điểm xuyên."
         },
         {
-          "title": "Kho lạnh nhiệt độ thấp",
-          "summary": "Nhóm 125–150 mm có thể được xem xét khi chênh lệch nhiệt lớn; không nên chốt chỉ từ một mốc nhiệt độ tham khảo.",
-          "check": "Tính tải nhiệt, nền kho, cầu nhiệt, cửa và hệ lạnh"
+          "need": "Kho đông bảo quản −23 đến −29°C",
+          "operatingConditions": "Mốc tham khảo cho vách hoặc trần treo: R khoảng 6,2–7,0 m²·K/W; nền có nguy cơ đóng băng và đội nền nếu xử lý không đúng.",
+          "preliminaryConfiguration": "Yêu cầu U khoảng 0,14–0,16 W/m²·K hoặc thấp hơn. Panel EPS 50–200 mm chỉ được chấp nhận khi hồ sơ đúng cấu hình chứng minh đạt mục tiêu; nếu không phải đổi độ dày hoặc vật liệu lõi.",
+          "confirm": "Tải bảo quản hay kéo đông hàng, nền cản hơi và chống đội nền, cửa có sưởi, van cân bằng áp, tần suất xuất nhập và dự phòng hệ lạnh."
         },
         {
-          "title": "Kho đông hoặc lạnh sâu",
-          "summary": "Nhóm 175–200 mm chỉ là lựa chọn sơ bộ cho bài toán lạnh sâu; toàn bộ vỏ kho phải được thiết kế đồng bộ.",
-          "check": "Nhiệt độ ngoài–trong, thời gian vận hành, nền, cửa và điểm xuyên"
+          "need": "Cấp đông nhanh −40 đến −46°C",
+          "operatingConditions": "Mốc tham khảo cho vách hoặc trần treo: R khoảng 7,9–8,8 m²·K/W; tải sản phẩm, quạt và xả đá thường rất lớn.",
+          "preliminaryConfiguration": "Yêu cầu U khoảng 0,11–0,13 W/m²·K hoặc thấp hơn và thiết kế lạnh chuyên biệt. Không mặc định panel EPS 200 mm đáp ứng nếu chưa có Uc/U cùng tính tải được duyệt.",
+          "confirm": "Năng suất cấp đông kg/mẻ, nhiệt độ hàng vào/ra, thời gian mẻ, lưu lượng gió, xả đá, nền, cửa, cầu nhiệt, nguồn điện và yêu cầu an toàn."
         }
       ],
       "detailSections": [
@@ -273,43 +298,63 @@
         },
         {
           "id": "chon-do-day-ty-trong",
-          "title": "Chọn độ dày và tỷ trọng",
-          "summary": "Chọn theo tải nhiệt và công năng, không gắn cứng một độ dày với một mức nhiệt cho mọi công trình.",
+          "title": "Đọc λ, U, R và chọn theo nhu cầu nhiệt",
+          "summary": "Độ dày và tỷ trọng là dữ liệu đầu vào; thiết kế phải kiểm tra khả năng truyền nhiệt của đúng tấm panel và tải của toàn bộ kho.",
           "paragraphs": [
-            "Nhóm 50 mm thường dùng cho vách nhẹ hoặc khu phụ trợ; 75–100 mm được xem xét cho kho mát và không gian cần cách nhiệt cao hơn; 125–150 mm phù hợp hơn khi chênh lệch nhiệt lớn; 175–200 mm dành cho bài toán chuyên sâu sau khi kiểm tra tải nhiệt.",
-            "Tỷ trọng 14–16 kg/m³ ưu tiên trọng lượng và chi phí, 18–20 kg/m³ là nhóm phổ biến, còn 23–25 kg/m³ được xem xét khi cần lõi cứng hơn. Độ cứng của tấm hoàn chỉnh vẫn phụ thuộc bề mặt, keo, chiều dày, nhịp và cách lắp."
+            "λ biểu thị mức dẫn nhiệt của vật liệu lõi; Uc/U biểu thị lượng nhiệt truyền qua cả tấm hoàn chỉnh; R biểu thị khả năng cản nhiệt và có thể ước tính bằng 1/U. Trong cùng điều kiện, λ và U càng thấp hoặc R càng cao thì cách nhiệt càng tốt. Không được lấy tỷ trọng thay cho λ, U hoặc R.",
+            "Tải truyền qua một mặt được ước tính bằng Q = U × A × ΔT. Đây mới là một phần của tải lạnh; thiết kế còn phải cộng nhiệt do không khí lọt qua cửa, hàng nhập kho, người, đèn, quạt, xả đá và cầu nhiệt. Vì vậy danh sách 50–200 mm chỉ là khả năng cung cấp, không phải bảng quy đổi nhiệt độ tự động.",
+            "Các mốc R bên dưới là giá trị tham khảo cho thiết kế kho lạnh từ ASHRAE, không phải chứng nhận sản phẩm Thái Thành hay yêu cầu pháp lý thay thế hồ sơ công trình. Cấu hình được chốt khi có Uc/U của đúng panel và phép tính tải nhiệt."
           ],
           "specifications": [
             {
-              "label": "Nhóm 50 mm",
-              "value": "Vách ngăn, khu phụ trợ hoặc chênh lệch nhiệt vừa; cần kiểm tra nhịp và tải treo"
+              "label": "λ — hệ số dẫn nhiệt lõi",
+              "value": "Đơn vị W/(m·K); dùng giá trị thiết kế hoặc thử nghiệm của đúng loại EPS, không suy từ tỷ trọng"
             },
             {
-              "label": "Nhóm 75–100 mm",
-              "value": "Kho mát, vách nhà xưởng và không gian cần mức cách nhiệt cao hơn"
+              "label": "Uc/U — hệ số truyền nhiệt",
+              "value": "Đơn vị W/(m²·K); nên lấy của tấm hoàn chỉnh vì ngàm, bề mặt và cầu nhiệt ảnh hưởng kết quả"
             },
             {
-              "label": "Nhóm 125–150 mm",
-              "value": "Xem xét cho chênh lệch nhiệt lớn hoặc kho nhiệt độ thấp sau khi tính tải"
+              "label": "R — nhiệt trở",
+              "value": "Đơn vị m²·K/W; ước tính R ≈ 1/U, giá trị càng cao thì mức cản truyền nhiệt càng lớn"
             },
             {
-              "label": "Nhóm 175–200 mm",
-              "value": "Cấu hình chuyên sâu cho môi trường lạnh sâu khi thiết kế yêu cầu"
+              "label": "Kho mát +4…+10°C",
+              "value": "R vách/trần treo tham khảo khoảng 4,4 m²·K/W; tương đương U khoảng 0,23 W/m²·K"
             },
             {
-              "label": "Nhóm 14–16 kg/m³",
-              "value": "Ưu tiên tải cơ học thấp, trọng lượng và chi phí"
+              "label": "Kho lạnh −4…+2°C",
+              "value": "R vách/trần treo tham khảo khoảng 4,2–5,6 m²·K/W; U khoảng 0,18–0,24 W/m²·K"
             },
             {
-              "label": "Nhóm 18–25 kg/m³",
-              "value": "Chọn theo yêu cầu độ cứng, nhịp lắp và điều kiện vận hành"
+              "label": "Kho đông −23…−29°C",
+              "value": "R vách/trần treo tham khảo khoảng 6,2–7,0 m²·K/W; U khoảng 0,14–0,16 W/m²·K"
+            },
+            {
+              "label": "Cấp đông nhanh −40…−46°C",
+              "value": "R vách/trần treo tham khảo khoảng 7,9–8,8 m²·K/W; U khoảng 0,11–0,13 W/m²·K"
             }
           ],
           "points": [
-            "Kích thước kho, nhiệt độ ngoài trời và loại hàng đều ảnh hưởng lựa chọn",
-            "Tần suất mở cửa, nền và các điểm xuyên có thể làm tăng tải lạnh",
-            "Không suy ra khả năng chịu lực chỉ từ tỷ trọng lõi",
-            "Bảng chọn nhanh không thay thế tính tải nhiệt và bản vẽ thi công"
+            "Yêu cầu nhà cung cấp ghi λ hoặc Uc/U cùng nguồn dữ liệu trong báo giá kỹ thuật",
+            "Mỗi mặt vách, trần, mái và nền có thể cần R khác nhau; không dùng một con số cho toàn bộ kho",
+            "Kho dưới 0°C phải kiểm tra lớp cản hơi, chống đội nền, cầu nhiệt và điểm xuyên",
+            "EPS không phải lõi không cháy; phân hạng cháy chỉ công bố theo báo cáo thử đúng hệ panel",
+            "Bảng tham khảo không thay thế tính tải nhiệt, kết cấu, an toàn cháy và bản vẽ thi công được duyệt"
+          ],
+          "references": [
+            {
+              "label": "ASHRAE — Refrigerated-Facility Design",
+              "url": "https://handbook.ashrae.org/Handbooks/R18/SI/R18_Ch23/r18_ch23_si.aspx"
+            },
+            {
+              "label": "ISO 6946 — Thermal resistance and transmittance",
+              "url": "https://www.iso.org/standard/65708.html"
+            },
+            {
+              "label": "EUMEPS — Đặc tính cách nhiệt của EPS",
+              "url": "https://eumeps.eu/communications/insulation/index.html"
+            }
           ]
         },
         {
@@ -498,6 +543,16 @@
             "Xử lý sớm vết trầy, khe hở và dấu hiệu ăn mòn",
             "Không tự cắt thêm ô mở nếu chưa kiểm tra kết cấu và đường kỹ thuật",
             "Kho đông cần xử lý đồng bộ nền, cửa, cầu nhiệt và tải lạnh"
+          ],
+          "references": [
+            {
+              "label": "Bộ Xây dựng — Chỉ dẫn hệ bao che bằng kim loại và panel",
+              "url": "https://moc.gov.vn/Images/editor/files/TL%20KT%20Xay%20dung/Chi%20dan%20TK%2C%20TC%20v%C3%A0%20NT%20%20he%20bao%20che%20bang%20kim%20loai%20v2.pdf"
+            },
+            {
+              "label": "Bộ Xây dựng — QCVN 06:2022/BXD và Sửa đổi 1:2023",
+              "url": "https://moc.gov.vn/vn/pages/ChiTietHoiDap.aspx?chID=9513"
+            }
           ]
         }
       ],
@@ -595,28 +650,57 @@
         {
           "label": "Gia công khác",
           "value": "Theo kích thước ô chờ, chiều mở và điều kiện vận hành thực tế"
+        },
+        {
+          "label": "Dữ liệu thiết kế nhiệt",
+          "value": "Nhiệt độ và độ ẩm hai phía, điểm sương, kích thước thông thủy, số lần và thời gian mở cửa, luồng người hoặc xe hàng"
+        },
+        {
+          "label": "Sưởi chống đọng sương",
+          "value": "Vị trí, điện áp, công suất và điều khiển được chọn theo nguy cơ đọng sương hoặc đóng băng; không mặc định cho mọi cửa"
+        },
+        {
+          "label": "An toàn người dùng",
+          "value": "Kho có người đi vào phải có phương tiện mở từ bên trong dù bên ngoài đang khóa và được thử khi bàn giao"
         }
+      ],
+      "advantages": [
+        "Bề mặt Inox 304 thuận tiện vệ sinh và phù hợp nhiều môi trường chế biến, bảo quản.",
+        "Có thể chọn bản lề, trượt hoặc song gài theo kích thước ô chờ, luồng người và luồng xe hàng.",
+        "Gia công theo ô chờ và chiều dày vách giúp đồng bộ khung, gioăng, ngưỡng cùng hướng vận hành.",
+        "Có thể tích hợp sưởi, tay thoát trong và phụ kiện an toàn khi điều kiện nhiệt yêu cầu."
+      ],
+      "limitations": [
+        "Không thể suy dải nhiệt của cả bộ cửa chỉ từ chiều dày cánh hoặc tên lõi; phải xác nhận cánh, khung, gioăng, ngưỡng và sưởi cùng nhau.",
+        "Cửa bản lề cần vùng quét cánh; cửa trượt cần khoảng vách bên hông, kết cấu đỡ ray và bảo trì nhiều chi tiết chuyển động hơn.",
+        "Sưởi khung hoặc ngưỡng không phải cấu hình mặc định; vị trí, điện áp, công suất và điều khiển phải theo bài toán đọng sương hoặc đóng băng.",
+        "Mọi cửa mà người có thể đi vào kho cần giải pháp mở từ phía trong, dễ nhận biết và được thử khi bàn giao.",
+        "Tần suất mở cao có thể làm tải lạnh tăng mạnh; cần xem thêm màn PVC, phòng đệm hoặc giải pháp cửa nhanh phụ trợ."
       ],
       "selectionGuide": [
         {
-          "title": "Cửa bản lề",
-          "summary": "Phù hợp lối đi người, xe đẩy nhỏ và ô cửa có đủ khoảng quay cánh; thao tác trực tiếp, dễ kiểm tra phụ kiện.",
-          "check": "Hướng mở, bán kính quay, tải cánh, gioăng và cơ cấu mở phía trong"
+          "need": "Kho mát khoảng +1 đến +15°C",
+          "operatingConditions": "Lối người hoặc xe đẩy nhỏ, tần suất mở thấp đến vừa; chú ý độ ẩm ngoài và đọng sương quanh khung.",
+          "preliminaryConfiguration": "Ưu tiên cửa bản lề cho ô thông dụng; cửa trượt khi ô rộng hoặc không đủ vùng quay. Chọn gioăng liên tục và ngưỡng phù hợp.",
+          "confirm": "Ô chờ, thông thủy, chiều dày vách, hướng mở/trượt, số lượt mở, điểm sương và nhu cầu sưởi."
         },
         {
-          "title": "Cửa lùa, cửa trượt",
-          "summary": "Phù hợp lối hàng hoặc ô cửa lớn khi cần giải phóng vùng quay; cánh chạy dọc theo mặt vách.",
-          "check": "Khoảng vách trượt, tải ray, cao độ, dẫn hướng và vật cản trên hành trình"
+          "need": "Kho lạnh hoặc kho đông 0 đến khoảng −25°C",
+          "operatingConditions": "Chênh nhiệt lớn, nguy cơ ngưng tụ hoặc đóng băng tại gioăng, khung và ngưỡng; thời gian vận hành dài.",
+          "preliminaryConfiguration": "Xem xét cánh lõi PU đủ dày, gioăng ép kín, khung hạn chế cầu nhiệt, sưởi theo thiết kế và tay thoát trong.",
+          "confirm": "Nhiệt độ và độ ẩm ngoài, loại lõi, chiều dày cánh, sưởi khung/ngưỡng, nguồn điện và độ kín sau lắp."
         },
         {
-          "title": "Cửa song gài Inox",
-          "summary": "Cơ cấu móc gài nhiều điểm được xem xét khi cần lực ép kín cao hơn cho buồng lạnh chuyên dụng.",
-          "check": "Nhiệt độ, áp suất, kích thước cánh, lõi, sưởi và phương án thoát an toàn"
+          "need": "Ô cửa lớn hoặc luồng xe hàng",
+          "operatingConditions": "Cần thông thủy lớn, xe đẩy hoặc xe nâng qua lại; có đủ chiều dài vách cho hành trình cánh.",
+          "preliminaryConfiguration": "Cửa trượt tay hoặc tự động; đồng bộ ray, bánh xe, tai treo, dẫn hướng, chặn và cơ cấu ép gioăng khi đóng.",
+          "confirm": "Tải cánh, khoảng trượt, cao độ ray, kết cấu đỡ, vật cản, lưu lượng qua cửa và phương án khi mất điện."
         },
         {
-          "title": "Cửa song gài EPS",
-          "summary": "Phương án kinh tế cho kho nhiệt độ dương hoặc ứng dụng có tải nhiệt phù hợp sau khi đối chiếu cấu hình.",
-          "check": "Mức nhiệt, chiều dày lõi, tần suất mở và yêu cầu giữ lạnh thực tế"
+          "need": "Tần suất mở cao hoặc có người vào kho",
+          "operatingConditions": "Mỗi lần mở làm không khí nóng ẩm xâm nhập; cửa mở lâu hoặc liên tục có thể tạo tải lạnh và băng tuyết lớn hơn phần truyền qua cánh.",
+          "preliminaryConfiguration": "Cân nhắc cửa trượt/tự động hoặc cửa nhanh kết hợp màn PVC hay phòng đệm; mọi kho người có thể đi vào phải có tay thoát trong độc lập với khóa ngoài.",
+          "confirm": "Lượt mở mỗi giờ, thời gian mở, loại xe/hàng, chênh áp, chiều thoát nạn, nguồn điện, cách mở khi mất điện và phép thử an toàn bàn giao."
         }
       ],
       "detailSections": [
@@ -893,7 +977,8 @@
           "summary": "Ba hạng mục này quyết định cửa có vận hành ổn định sau lắp đặt hay không và cần được chọn theo điều kiện thật của kho.",
           "paragraphs": [
             "Gioăng phải tiếp xúc liên tục quanh chu vi cánh. Nếu xuất hiện đọng sương, đóng tuyết, khe sáng hoặc cửa khó đóng, cần kiểm tra độ phẳng khung, lực ép và tình trạng gioăng trước khi kết luận do lõi cách nhiệt.",
-            "Điện trở sưởi chỉ được bố trí khi có nguy cơ đóng băng tại mép cửa; công suất, nguồn điện và khả năng thay thế phải được thể hiện trong cấu hình. Cửa có người đi vào cần cơ cấu mở từ trong, dễ nhận biết trong điều kiện ánh sáng yếu."
+            "Nhiệt truyền qua cánh có thể ước tính bằng Q = U × A × ΔT, nhưng khi cửa mở, tải lọt khí còn phụ thuộc kích thước ô, chênh áp, số lượt và thời gian mở. Với luồng hàng cao cần xem cửa nhanh, màn PVC hoặc phòng đệm như giải pháp phụ trợ thay vì chỉ tăng chiều dày cánh.",
+            "Điện trở sưởi được bố trí theo điểm sương và nguy cơ đóng băng tại mép cửa; công suất, nguồn điện, điều khiển và khả năng thay thế phải có trong cấu hình. Cửa có người đi vào cần cơ cấu mở từ trong, dễ nhận biết trong điều kiện ánh sáng yếu và vẫn hoạt động khi cửa khóa bên ngoài."
           ],
           "specifications": [
             {
@@ -902,11 +987,15 @@
             },
             {
               "label": "Sưởi khung",
-              "value": "Chọn theo nhiệt độ, độ ẩm và nguy cơ đóng băng; không mặc định cho mọi cửa"
+              "value": "Chọn theo nhiệt độ, độ ẩm ngoài–trong, điểm sương và nguy cơ đóng băng; không mặc định cho mọi cửa"
+            },
+            {
+              "label": "Tải do mở cửa",
+              "value": "Đối chiếu diện tích thông thủy, lượt mở mỗi giờ, thời gian mở, chênh áp và luồng người hoặc xe hàng"
             },
             {
               "label": "Mở an toàn",
-              "value": "Tay/chốt mở phía trong, dễ nhận biết và thử hoạt động trước khi bàn giao"
+              "value": "Tay/chốt mở phía trong hoạt động độc lập với khóa ngoài, dễ nhận biết và thử trước khi bàn giao"
             },
             {
               "label": "Bảo trì",
@@ -918,6 +1007,16 @@
             "Không tự tăng lực ép khóa khi khung hoặc cánh đang lệch",
             "Kiểm tra dây sưởi và nguồn điện bởi người có chuyên môn",
             "Ghi lại model phụ kiện để thuận tiện thay thế về sau"
+          ],
+          "references": [
+            {
+              "label": "U.S. DOE — Thiết kế cửa kho lạnh và sưởi chống đọng sương",
+              "url": "https://www.energy.gov/sites/default/files/2023-08/Walk-In%20Coolers%20and%20Freezers%20ECS%20NOPR.pdf"
+            },
+            {
+              "label": "OSHA — Lối thoát phía trong kho lạnh",
+              "url": "https://www.osha.gov/etools/young-workers-restaurant-safety/delivery"
+            }
           ]
         }
       ],
@@ -1006,26 +1105,41 @@
           "value": "Tiếp nhận yêu cầu toàn quốc; đóng gói và vận chuyển theo chiều dài, số lượng"
         }
       ],
+      "advantages": [
+        "Cung cấp theo từng nhóm chức năng giúp đồng bộ mối nối, góc, chân vách và các vị trí xuyên hệ panel.",
+        "Nẹp U, V trong và V ngoài có thể chọn vật liệu, màu và quy cách phù hợp bề mặt panel.",
+        "Cho phép mua lẻ hoặc gom theo khối lượng công trình để giảm thiếu hụt khi thi công."
+      ],
+      "limitations": [
+        "Nẹp hoàn thiện không tự thay thế lớp keo, lớp cản ẩm hoặc giải pháp làm kín tại mối nối.",
+        "Thanh T và bulong dù phải được chọn từ tải, nhịp và kết cấu phía trên; không suy từ diện tích trần đơn thuần.",
+        "Van cân bằng áp và ống cách nhiệt cần đúng model, nhiệt độ, kích thước lắp cùng tài liệu kỹ thuật; không thể chọn theo tên chung.",
+        "Quy cách không khớp độ dày panel có thể gây hở, móp bề mặt hoặc khó cố định."
+      ],
       "selectionGuide": [
         {
-          "title": "Chân và đầu vách",
-          "summary": "Nẹp U định vị chân vách, đầu tấm hoặc mép tại ô cửa; lòng nẹp cần khớp độ dày panel.",
-          "check": "Độ dày tấm, chiều rộng lòng U, cạnh nẹp, vật liệu và tổng chiều dài"
+          "need": "Định vị chân, đầu vách và mép panel",
+          "operatingConditions": "Vị trí cần giữ thẳng mép tấm, hoàn thiện chân vách, ô cửa hoặc đầu vách trong môi trường phù hợp vật liệu nẹp.",
+          "preliminaryConfiguration": "Nẹp U có lòng khớp độ dày panel; chọn tôn mạ màu, Inox hoặc nhôm theo bề mặt và điều kiện vệ sinh.",
+          "confirm": "Độ dày tấm, chiều rộng lòng U, kích thước cạnh, độ dày vật liệu, chiều dài thanh và cách cố định."
         },
         {
-          "title": "Góc trong và góc ngoài",
-          "summary": "V trong hoàn thiện góc lõm; V ngoài che và bảo vệ góc lồi của hệ panel.",
-          "check": "Loại góc, kích thước cánh V, vật liệu, màu và cách cố định"
+          "need": "Hoàn thiện góc trong và góc ngoài",
+          "operatingConditions": "Góc lõm vách–vách hoặc vách–trần dùng V trong; góc lồi và mép ngoài cần bảo vệ bằng V ngoài.",
+          "preliminaryConfiguration": "Chọn đúng loại V, kích thước cánh, góc chấn và bề mặt đồng bộ với panel; bổ sung làm kín phía sau khi cần.",
+          "confirm": "Hình học góc, kích thước hai cánh V, vật liệu, màu, tổng mét dài, keo và liên kết."
         },
         {
-          "title": "Hệ treo trần",
-          "summary": "Thanh T và bulong dù chỉ được chọn sau khi đối chiếu sơ đồ trần, điểm treo và kết cấu chịu lực.",
-          "check": "Nhịp, cao độ, tải thiết kế, số điểm treo và khả năng cung cấp"
+          "need": "Treo trần panel",
+          "operatingConditions": "Trần có nhịp, tải bản thân, thiết bị treo hoặc tải bảo trì và kết cấu chịu lực phía trên.",
+          "preliminaryConfiguration": "Thanh T, bulong dù và điểm treo được bố trí theo sơ đồ tải; không dùng một khoảng cách mặc định cho mọi công trình.",
+          "confirm": "Nhịp trần, cao độ, tải thiết kế, số điểm treo, tiết diện, vật liệu và khả năng cung cấp."
         },
         {
-          "title": "Phụ trợ vận hành",
-          "summary": "Van cân bằng áp và ống cách nhiệt có tiêu chí chọn riêng theo kho và hệ đường ống.",
-          "check": "Nhiệt độ, chênh áp, kích thước lắp, nguồn điện hoặc đường kính ống"
+          "need": "Cân bằng áp và cách nhiệt đường ống",
+          "operatingConditions": "Kho thay đổi nhiệt độ hoặc áp suất, hay đường ống có nguy cơ ngưng tụ và thất thoát nhiệt tại điểm xuyên vách.",
+          "preliminaryConfiguration": "Chọn van theo thể tích và chế độ vận hành; chọn ống cách nhiệt theo đường kính, nhiệt độ và chiều dày chống ngưng tụ.",
+          "confirm": "Nhiệt độ, độ ẩm, chênh áp, model van, nguồn điện, đường kính ống, chiều dày và lớp bọc."
         }
       ],
       "detailSections": [
@@ -1289,26 +1403,41 @@
           "value": "Model, vật liệu, số lượng và thời gian giao được xác nhận trước khi báo giá"
         }
       ],
+      "advantages": [
+        "Có thể thay từng nhóm phụ kiện theo chức năng thay vì thay toàn bộ bộ cửa khi cấu tạo còn phù hợp.",
+        "Bản lề, ray, gioăng, khóa, sưởi và màn PVC được đối chiếu theo kiểu cửa cùng điều kiện vận hành.",
+        "Ảnh và kích thước phụ kiện cũ giúp sàng lọc nhanh cấu hình thay thế, giảm nguy cơ khoan sửa lại cửa."
+      ],
+      "limitations": [
+        "Phụ kiện cùng tên nhưng khác tải, lỗ bắt, hành trình hoặc chiều dày cánh có thể không lắp thay thế cho nhau.",
+        "Thay gioăng không khắc phục được cánh xệ, khung cong, khóa lệch hoặc lực ép không đều.",
+        "Điện trở sưởi cần thiết kế điện, bảo vệ và điều khiển đúng model; không đấu trực tiếp theo phỏng đoán.",
+        "Màn PVC chỉ giảm trao đổi không khí khi cửa mở, không thay thế cánh cửa cách nhiệt chính."
+      ],
       "selectionGuide": [
         {
-          "title": "Cửa bản lề",
-          "summary": "Bộ phụ kiện chính gồm bản lề, khóa, gioăng và cơ cấu mở trong; có thể thêm sưởi theo mức nhiệt.",
-          "check": "Trọng lượng cánh, chiều mở, lỗ bắt, độ dày và nhiệt độ vận hành"
+          "need": "Bộ phụ kiện cửa bản lề",
+          "operatingConditions": "Cánh quay, lối người hoặc xe đẩy nhỏ; tải tập trung lên bản lề và cần ép kín đều khi đóng.",
+          "preliminaryConfiguration": "Đồng bộ bản lề theo tải, tay khóa, gioăng chu vi và cơ cấu mở phía trong; thêm sưởi khi có nguy cơ đọng sương hoặc đóng băng.",
+          "confirm": "Trọng lượng cánh, kích thước, chiều mở, lỗ bắt, độ dày, nhiệt độ, độ ẩm và ảnh hai mặt phụ kiện."
         },
         {
-          "title": "Cửa trượt",
-          "summary": "Cần ray, bánh xe, tai treo, dẫn hướng, chặn hành trình và tay kéo đồng bộ theo tải cánh.",
-          "check": "Chiều trượt, khoảng vách, cao độ ray, tải và kích thước bản mã"
+          "need": "Bộ ray cho cửa trượt",
+          "operatingConditions": "Cánh chạy dọc vách, ô cửa lớn hoặc luồng xe hàng; cần hành trình không vướng và kết cấu đỡ ray ổn định.",
+          "preliminaryConfiguration": "Ray, bánh xe, tai treo, dẫn hướng, chặn hành trình và tay kéo được chọn như một bộ theo tải cánh.",
+          "confirm": "Chiều trượt, khoảng vách, cao độ ray, tải cánh, kích thước bản mã, dẫn hướng và vật cản."
         },
         {
-          "title": "Thay phụ kiện cũ",
-          "summary": "Không chọn theo tên gọi chung; ảnh mặt trước, mặt sau, lỗ bắt và kích thước giúp tìm đúng cấu hình.",
-          "check": "Model nếu còn, khoảng cách lỗ, kích thước, chiều mở và ảnh phụ kiện trên cửa"
+          "need": "Thay phụ kiện cửa hiện hữu",
+          "operatingConditions": "Không còn mã hàng rõ ràng hoặc cần thay tương đương mà không gia công lại quá nhiều trên cánh và khung.",
+          "preliminaryConfiguration": "Đối chiếu ảnh mặt trước, mặt sau, tiết diện, khoảng cách lỗ và hành trình trước khi chọn mẫu thay thế.",
+          "confirm": "Model nếu còn, vật liệu, kích thước tổng, tâm lỗ, chiều mở, độ dày cánh và tình trạng cánh/khung."
         },
         {
-          "title": "Kho nhiệt độ thấp",
-          "summary": "Gioăng, sưởi và cơ cấu an toàn cần được kiểm tra cùng hiện tượng đọng sương hoặc đóng băng thực tế.",
-          "check": "Nhiệt độ, độ ẩm, nguồn điện, cấu tạo khung và khả năng thay thế bảo trì"
+          "need": "Kho nhiệt độ thấp hoặc tần suất mở cao",
+          "operatingConditions": "Gioăng chịu chênh nhiệt lớn, mép cửa có nguy cơ băng/đọng sương hoặc cửa mở thường xuyên gây thất thoát lạnh.",
+          "preliminaryConfiguration": "Kiểm tra gioăng, sưởi khung/ngưỡng và tay thoát; xem màn PVC như lớp ngăn phụ khi cửa mở.",
+          "confirm": "Nhiệt độ, độ ẩm, điểm sương, nguồn điện, số lượt mở, cấu tạo khung, an toàn và kế hoạch bảo trì."
         }
       ],
       "detailSections": [
@@ -1606,26 +1735,41 @@
           "value": "CO/CQ, datasheet hoặc phiếu thử nghiệm chỉ cam kết khi có tài liệu của đúng lô hàng"
         }
       ],
+      "advantages": [
+        "Có thể chọn vật tư rời, chi tiết gia công hoặc đồng bộ sẵn trong panel và cửa theo đúng phạm vi công việc.",
+        "Inox 304, EPS, tôn mạ màu và PU đáp ứng các vai trò khác nhau từ bề mặt vệ sinh đến lõi và xử lý khe.",
+        "Bản vẽ cùng bảng quy cách giúp kiểm soát mác vật liệu, kích thước, dung sai và yêu cầu hoàn thiện."
+      ],
+      "limitations": [
+        "Không thể thay thế lẫn nhau chỉ vì cùng được gọi là vật tư cách nhiệt; mỗi nhóm có chức năng và điều kiện thi công riêng.",
+        "Chỉ tiêu nhiệt, cháy, hóa chất hoặc độ bền chỉ được công bố theo datasheet và thử nghiệm của đúng sản phẩm/lô hàng.",
+        "PU foam là hóa chất thi công, cần SDS, tỷ lệ phối trộn, thông gió và bảo hộ; không dùng từ mô tả chung.",
+        "Sai mác Inox, lớp mạ, chiều dày hoặc bề mặt có thể làm chi tiết không đồng bộ với công trình."
+      ],
       "selectionGuide": [
         {
-          "title": "Gia công cửa Inox 304",
-          "summary": "Chọn Inox theo mác, chiều dày, kiểu bề mặt và chi tiết cần chấn hoặc hàn; hiện là nhóm ứng dụng đã xác nhận trên cửa.",
-          "check": "Bản vẽ, kích thước, chiều dày, bề mặt, số lượng và yêu cầu hoàn thiện"
+          "need": "Bề mặt vệ sinh và chi tiết cửa",
+          "operatingConditions": "Khu chế biến, kho hoặc cửa cần lau rửa thường xuyên và bề mặt kim loại hoàn thiện rõ ràng.",
+          "preliminaryConfiguration": "Inox 304 theo đúng mác, chiều dày, kiểu bề mặt và dạng gia công chấn/hàn trong bản duyệt.",
+          "confirm": "Bản vẽ, kích thước, chiều dày, bề mặt, hướng xước, màng bảo vệ, số lượng và chứng từ vật liệu."
         },
         {
-          "title": "Panel và xốp EPS",
-          "summary": "Phân biệt panel hoàn chỉnh với xốp EPS rời; hai loại có quy cách, cách báo giá và điều kiện sử dụng khác nhau.",
-          "check": "Dạng tấm/khối/panel, kích thước, tỷ trọng, dung sai và khả năng bán rời"
+          "need": "Lõi hoặc tấm EPS",
+          "operatingConditions": "Cần vật liệu nhẹ, dễ gia công cho lõi hoặc chi tiết; phải phân biệt EPS rời với panel hoàn chỉnh.",
+          "preliminaryConfiguration": "Chọn dạng tấm/khối, kích thước và tỷ trọng theo công năng; chỉ dùng thông số nhiệt của đúng mẫu vật liệu.",
+          "confirm": "Dài × rộng × dày, tỷ trọng, dung sai, bề mặt, số lượng, mục đích dùng và khả năng bán rời."
         },
         {
-          "title": "Tôn mạ màu",
-          "summary": "Dùng làm bề mặt panel hoặc chi tiết bọc; cần đồng bộ nền tôn, lớp mạ, hệ sơn, màu và độ dày.",
-          "check": "Mã màu, chiều dày, khổ, dạng phẳng/gân và yêu cầu cắt chấn"
+          "need": "Bề mặt panel và chi tiết bọc",
+          "operatingConditions": "Cần đồng bộ màu, độ cứng bề mặt, môi trường sử dụng và phương pháp cắt/chấn với hệ panel hiện hữu.",
+          "preliminaryConfiguration": "Tôn mạ màu theo nền tôn, lớp mạ, hệ sơn, màu, chiều dày và dạng phẳng hoặc gân đã duyệt.",
+          "confirm": "Mã màu, mẫu bề mặt, chiều dày, khổ, chiều dài, lớp bảo vệ và yêu cầu gia công."
         },
         {
-          "title": "PU foam thi công",
-          "summary": "Là vật tư hóa chất cần xác nhận đúng bộ sản phẩm và hướng dẫn kỹ thuật, không chọn từ tên PU chung.",
-          "check": "Dạng sản phẩm, tỷ lệ phối trộn, định mức, điều kiện thi công, SDS và khả năng cung cấp"
+          "need": "Điền kín hoặc bảo ôn bằng PU foam",
+          "operatingConditions": "Khe, điểm xuyên hoặc chi tiết cần hệ PU tương thích bề mặt và điều kiện nhiệt/ẩm khi thi công.",
+          "preliminaryConfiguration": "Chỉ chọn sau khi có mã sản phẩm, dạng một/hai thành phần, tỷ lệ và hướng dẫn của nhà sản xuất.",
+          "confirm": "Định mức, nhiệt độ bề mặt, thời gian làm việc, đóng gói, hạn dùng, SDS, thông gió và khả năng cung cấp."
         }
       ],
       "detailSections": [
