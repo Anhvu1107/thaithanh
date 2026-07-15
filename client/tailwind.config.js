@@ -1,0 +1,121 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './components/**/*.{js,vue,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './app.vue',
+    './error.vue',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        panel: {
+          black: '#1C211E',
+          white: '#FFFFFF',
+          cream: '#EFECE5',
+          ivory: '#F8F6F1',
+          frost: '#F0F1EC',
+          line: '#D9D6CE',
+          ink: '#242825',
+        },
+        neutral: {
+          50: '#FAFAFA',
+          100: '#F5F5F5',
+          200: '#E5E5E5',
+          300: '#D4D4D4',
+          400: '#A3A3A3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
+        },
+        accent: {
+          lime: '#D66F4A',
+          emerald: '#3F6E5B',
+          forest: '#315847',
+          'forest-dark': '#243C33',
+          olive: '#6B765B',
+          amber: '#C9A66B',
+          ice: '#CADBD3',
+          steel: '#6B7771',
+        },
+      },
+      fontFamily: {
+        serif: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['SFMono-Regular', 'Consolas', 'Liberation Mono', 'monospace'],
+      },
+      fontSize: {
+        'display-1': ['4.5rem', { lineHeight: '1.08', letterSpacing: '0' }],
+        'display-2': ['3.75rem', { lineHeight: '1.12', letterSpacing: '0' }],
+        'heading-1': ['3rem', { lineHeight: '1.14', letterSpacing: '0' }],
+        'heading-2': ['2.25rem', { lineHeight: '1.2', letterSpacing: '0' }],
+        'heading-3': ['1.875rem', { lineHeight: '1.28' }],
+        'heading-4': ['1.5rem', { lineHeight: '1.35' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.6' }],
+        body: ['1rem', { lineHeight: '1.6' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
+        caption: ['0.75rem', { lineHeight: '1.4', letterSpacing: '0' }],
+      },
+      spacing: {
+        18: '4.5rem',
+        22: '5.5rem',
+        30: '7.5rem',
+        34: '8.5rem',
+        38: '9.5rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.125rem',
+        DEFAULT: '0.25rem',
+        lg: '0.5rem',
+      },
+      boxShadow: {
+        soft: '0 2px 8px rgba(15, 33, 27, 0.05)',
+        medium: '0 8px 24px rgba(15, 33, 27, 0.08)',
+        elevated: '0 18px 48px rgba(15, 33, 27, 0.14)',
+        card: '0 1px 3px rgba(15, 33, 27, 0.07), 0 1px 2px rgba(15, 33, 27, 0.05)',
+        'card-hover': '0 16px 42px rgba(15, 33, 27, 0.12)',
+        glow: '0 18px 60px rgba(214, 111, 74, 0.16)',
+      },
+      transitionDuration: {
+        250: '250ms',
+        350: '350ms',
+        400: '400ms',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.4s ease-out',
+        'slide-down': 'slideDown 0.4s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
+      aspectRatio: {
+        product: '3 / 4',
+        hero: '16 / 9',
+        square: '1 / 1',
+      },
+      maxWidth: {
+        container: '1360px',
+        content: '900px',
+        narrow: '600px',
+      },
+    },
+  },
+  plugins: [],
+}

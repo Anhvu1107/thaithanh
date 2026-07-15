@@ -1,0 +1,253 @@
+{
+  "publicNavigation": [
+    {
+      "label": "Giải pháp",
+      "href": "/solutions"
+    },
+    {
+      "label": "Sản phẩm",
+      "href": "/products"
+    },
+    {
+      "label": "Ứng dụng",
+      "href": "/projects"
+    },
+    {
+      "label": "Bài viết",
+      "href": "/posts"
+    },
+    {
+      "label": "Giới thiệu",
+      "href": "/about"
+    },
+    {
+      "label": "Liên hệ",
+      "href": "/contact"
+    }
+  ],
+  "companyContact": {
+    "phoneDisplay": "0363 003 507",
+    "phoneHref": "tel:0363003507",
+    "emailDisplay": "anhvu.nguyen1107@gmail.com",
+    "emailHref": "mailto:anhvu.nguyen1107@gmail.com",
+    "hours": "Thứ 2 - Thứ 7, 08:00 - 17:30",
+    "serviceArea": "Toàn quốc"
+  },
+  "productFamilies": [
+    {
+      "id": "eps",
+      "name": "Panel EPS",
+      "eyebrow": "Nhẹ và thi công nhanh",
+      "image": "/images/insulation/eps-panel-editorial.jpg",
+      "imageSrcset": "/images/insulation/eps-panel-editorial.jpg 1254w",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "imageAlt": "Minh họa mặt cắt tấm panel EPS",
+      "summary": "Panel EPS có bán lẻ theo độ dày, tỷ trọng và số lượng yêu cầu cho vách, mái, kho thường và công trình lắp ghép.",
+      "applications": [
+        "Nhà xưởng",
+        "Văn phòng lắp ghép",
+        "Kho thường",
+        "Vách ngăn",
+        "Bán lẻ theo quy cách"
+      ],
+      "specifications": [
+        {
+          "label": "Hình thức",
+          "value": "Bán lẻ theo quy cách và số lượng yêu cầu"
+        },
+        {
+          "label": "Độ dày",
+          "value": "50–200 mm"
+        },
+        {
+          "label": "Tỷ trọng",
+          "value": "14–16 kg/m³; 18–20 kg/m³; 23–25 kg/m³ (tùy loại panel)"
+        },
+        {
+          "label": "Ưu điểm",
+          "value": "Trọng lượng nhẹ, linh hoạt quy cách"
+        }
+      ]
+    },
+    {
+      "id": "doors-accessories",
+      "name": "Cửa Inox 304 và phụ kiện U/V",
+      "eyebrow": "Có bán lẻ theo quy cách",
+      "image": "/images/insulation/cold-door-editorial.jpg",
+      "imageSrcset": "/images/insulation/cold-door-editorial.jpg 1254w",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "imageAlt": "Minh họa cửa bản lề cho kho lạnh",
+      "summary": "Cửa Inox 304 cùng nẹp U, V trong và V ngoài được cung cấp lẻ theo quy cách và kích thước yêu cầu.",
+      "applications": [
+        "Cửa Inox 304",
+        "Nẹp U",
+        "V trong",
+        "V ngoài"
+      ],
+      "specifications": [
+        {
+          "label": "Hình thức",
+          "value": "Bán lẻ theo quy cách và số lượng yêu cầu"
+        },
+        {
+          "label": "Phụ kiện",
+          "value": "Nẹp U, V trong và V ngoài"
+        },
+        {
+          "label": "Vật liệu cửa",
+          "value": "Inox 304"
+        },
+        {
+          "label": "Kích thước cửa",
+          "value": "600 × 600 × 100 mm; 700 × 700 mm; 800 × 800 mm; 700 × 1700 mm; 800 × 1800 mm; 900 × 1800 mm; 1000 × 1800 mm; 1100 × 1800 mm; 1200 × 1800 mm"
+        },
+        {
+          "label": "Gia công khác",
+          "value": "Nhận theo kích thước yêu cầu thực tế"
+        }
+      ]
+    }
+  ],
+  "solutions": [
+    {
+      "id": "cold-storage",
+      "index": "01",
+      "name": "Kho mát và kho lạnh",
+      "temperature": "10°C đến -18°C",
+      "summary": "Lớp vỏ được chọn từ nhiệt độ, loại hàng, tần suất mở cửa và điều kiện nền thay vì chỉ theo đơn giá tấm.",
+      "recommendedSystem": "Panel EPS theo độ dày và tỷ trọng phù hợp, cửa kín ron, phụ kiện kín mạch và xử lý nền theo tải lạnh.",
+      "checklist": [
+        "Nhiệt độ mục tiêu",
+        "Kích thước kho",
+        "Loại hàng lưu trữ",
+        "Tần suất xuất nhập"
+      ]
+    },
+    {
+      "id": "freezer",
+      "index": "02",
+      "name": "Kho đông",
+      "temperature": "-18°C trở xuống",
+      "summary": "Ưu tiên độ dày panel, độ kín cửa, cầu nhiệt ở nền và phòng đệm để giảm tải vận hành dài hạn.",
+      "recommendedSystem": "Cửa kho đông, phụ kiện kín mạch, giải pháp cách nhiệt nền và cấu hình panel theo yêu cầu đã xác nhận.",
+      "checklist": [
+        "Tải lạnh",
+        "Cửa và sưởi ron",
+        "Cách nhiệt nền",
+        "Tần suất xuất nhập"
+      ]
+    },
+    {
+      "id": "clean-room",
+      "index": "03",
+      "name": "Phòng sạch và khu sơ chế",
+      "temperature": "Theo HVAC công trình",
+      "summary": "Bề mặt phẳng, dễ vệ sinh và các chi tiết bo góc được xem như một hệ hoàn thiện đồng bộ.",
+      "recommendedSystem": "Panel bề mặt sạch, cửa panel, kính quan sát và phụ kiện bo góc vệ sinh.",
+      "checklist": [
+        "Cấp độ sạch",
+        "Bề mặt hoàn thiện",
+        "Cửa và kính",
+        "Hệ HVAC liên quan"
+      ]
+    },
+    {
+      "id": "industrial",
+      "index": "04",
+      "name": "Nhà xưởng và công trình lắp ghép",
+      "temperature": "Chống nóng / kho thường",
+      "summary": "Tập trung vào nhịp kết cấu, khổ tấm, vận chuyển và tốc độ lắp dựng cho diện tích lớn.",
+      "recommendedSystem": "Panel EPS theo yêu cầu cách nhiệt, khổ tấm và điều kiện lắp dựng thực tế.",
+      "checklist": [
+        "Nhịp kết cấu",
+        "Diện tích mái/vách",
+        "Điều kiện vận chuyển",
+        "Tiến độ lắp dựng"
+      ]
+    }
+  ],
+  "referenceApplications": [
+    {
+      "id": "seafood-freezer",
+      "sector": "Thủy sản",
+      "title": "Vỏ kho đông có tần suất xuất nhập cao",
+      "brief": "Cấu hình cần kiểm soát thất thoát tại cửa, nền và các mối nối bên cạnh độ dày panel.",
+      "system": [
+        "Cửa trượt kho đông",
+        "Cách nhiệt nền",
+        "Phụ kiện kín mạch",
+        "Cấu hình panel theo yêu cầu"
+      ],
+      "note": "Cấu hình tham khảo; thông số cuối cùng phụ thuộc tải lạnh và mặt bằng thực tế."
+    },
+    {
+      "id": "produce-cooler",
+      "sector": "Nông sản",
+      "title": "Kho mát bảo quản rau củ và trái cây",
+      "brief": "Ưu tiên độ ổn định nhiệt, khả năng vệ sinh và kiểm soát luồng ra vào hàng hóa.",
+      "system": [
+        "Panel EPS",
+        "Cửa bản lề",
+        "Màn PVC",
+        "Bo góc hoàn thiện"
+      ],
+      "note": "Cần chốt nhiệt độ, độ ẩm và tần suất mở cửa trước khi chọn độ dày."
+    },
+    {
+      "id": "food-clean-room",
+      "sector": "Thực phẩm",
+      "title": "Phòng sơ chế có yêu cầu bề mặt sạch",
+      "brief": "Hệ vách, trần, cửa và bo góc phối hợp để giảm khe bám bẩn và thuận tiện vệ sinh.",
+      "system": [
+        "Panel bề mặt phẳng",
+        "Cửa panel",
+        "Kính quan sát",
+        "Bo góc vệ sinh"
+      ],
+      "note": "Cấp độ sạch và vật liệu bề mặt cần đối chiếu yêu cầu vận hành cụ thể."
+    },
+    {
+      "id": "factory-envelope",
+      "sector": "Công nghiệp",
+      "title": "Vách và mái nhà xưởng lắp ghép",
+      "brief": "Tối ưu khổ tấm, nhịp kết cấu và kế hoạch vận chuyển để rút ngắn thời gian lắp dựng.",
+      "system": [
+        "Panel EPS",
+        "Nẹp hoàn thiện",
+        "Vít liên kết",
+        "Xử lý chống dột"
+      ],
+      "note": "Độ dày panel được chọn theo yêu cầu chống nóng, tải sử dụng và điều kiện công trình."
+    }
+  ],
+  "posts": [
+    {
+      "id": "prepare-cold-room-brief",
+      "slug": "chuan-bi-thong-tin-kho-lanh",
+      "title": "Chuẩn bị thông tin gì trước khi trao đổi cấu hình kho lạnh?",
+      "eyebrow": "Gợi ý tư vấn",
+      "date": "2026-07-09",
+      "image": "/images/insulation/eps-panel.webp",
+      "imageSrcset": "/images/insulation/eps-panel-640.webp 640w, /images/insulation/eps-panel.webp 1200w",
+      "imageWidth": 1200,
+      "imageHeight": 1200,
+      "imageAlt": "Minh họa mặt cắt tấm panel EPS",
+      "summary": "Một bản mô tả ngắn về kích thước, nhiệt độ, hàng lưu trữ và cửa ra vào giúp đội kỹ thuật trao đổi nhanh hơn.",
+      "body": "Trước khi chọn panel, hãy chuẩn bị kích thước dài, rộng, cao hoặc bản vẽ mặt bằng nếu có.\n\nNhiệt độ vận hành, loại hàng lưu trữ, tần suất mở cửa và vị trí công trình là các dữ liệu ảnh hưởng trực tiếp đến độ dày panel, loại cửa và phụ kiện kín mạch.\n\nNếu chưa có đủ thông tin, vẫn có thể bắt đầu bằng nhu cầu sơ bộ. Nội dung này mang tính tham khảo; phương án cuối cùng cần được xác nhận theo điều kiện thực tế của công trình.",
+      "tags": [
+        "Kho lạnh",
+        "Tư vấn",
+        "Panel"
+      ],
+      "published": true
+    }
+  ],
+  "consultationChecklist": [
+    "Kích thước dài x rộng x cao hoặc diện tích vách/trần",
+    "Nhiệt độ vận hành và loại hàng lưu trữ",
+    "Số lượng, kích thước và tần suất sử dụng cửa",
+    "Vị trí công trình, điều kiện vận chuyển và tiến độ dự kiến"
+  ]
+}

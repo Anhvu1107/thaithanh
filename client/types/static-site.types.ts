@@ -1,0 +1,89 @@
+export type StaticRoute =
+  | '/'
+  | '/solutions'
+  | '/products'
+  | '/projects'
+  | '/posts'
+  | '/about'
+  | '/contact'
+  | '/privacy'
+
+export type PrimaryNavigationRoute = Exclude<StaticRoute, '/' | '/privacy'>
+
+export interface PublicNavigationItem {
+  label: string
+  href: PrimaryNavigationRoute
+}
+
+export interface ProductSpecification {
+  label: string
+  value: string
+}
+
+export interface ResponsiveImage {
+  image: string
+  imageSrcset?: string
+  imageWidth: number
+  imageHeight: number
+  imageAlt: string
+}
+
+export interface ProductFamily extends ResponsiveImage {
+  id: string
+  name: string
+  eyebrow: string
+  summary: string
+  applications: string[]
+  specifications: ProductSpecification[]
+}
+
+export interface StaticSolution {
+  id: string
+  index: string
+  name: string
+  temperature: string
+  summary: string
+  recommendedSystem: string
+  checklist: string[]
+}
+
+export interface ReferenceApplication {
+  id: string
+  sector: string
+  title: string
+  brief: string
+  system: string[]
+  note: string
+}
+
+export interface ContentPost extends ResponsiveImage {
+  id: string
+  slug: string
+  title: string
+  eyebrow: string
+  date: string
+  summary: string
+  body: string
+  tags: string[]
+  published: boolean
+}
+
+export interface CompanyContact {
+  phoneDisplay: string
+  phoneHref: string
+  emailDisplay?: string
+  emailHref?: string
+  zaloHref?: string
+  hours: string
+  serviceArea: string
+}
+
+export interface SiteContent {
+  publicNavigation: PublicNavigationItem[]
+  companyContact: CompanyContact
+  productFamilies: ProductFamily[]
+  solutions: StaticSolution[]
+  referenceApplications: ReferenceApplication[]
+  posts: ContentPost[]
+  consultationChecklist: string[]
+}

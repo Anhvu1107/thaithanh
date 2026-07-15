@@ -1,0 +1,19 @@
+{
+  "id": "https://thaithanhpanel.shop/",
+  "name": "Thái Thành Panel",
+  "short_name": "Thái Thành",
+  "description": "Panel cách nhiệt, kho lạnh, cửa Inox 304 và phụ kiện công trình.",
+  "lang": "vi",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f3ee",
+  "theme_color": "#17201c",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

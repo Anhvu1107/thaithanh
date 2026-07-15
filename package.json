@@ -1,0 +1,20 @@
+{
+  "name": "thaithanh-panel-static-site",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0",
+    "npm": ">=10 <12"
+  },
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "audit": "npm --prefix client audit --audit-level=high",
+    "lint": "npm --prefix client run lint",
+    "typecheck": "npm --prefix client run typecheck",
+    "test": "npm --prefix client run test",
+    "test:e2e": "npm --prefix client run test:e2e",
+    "build": "npm --prefix client run generate",
+    "verify": "npm run audit && npm run lint && npm run typecheck && npm run test && npm run build && npm run test:e2e"
+  }
+}

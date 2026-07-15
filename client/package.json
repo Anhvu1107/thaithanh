@@ -1,0 +1,44 @@
+{
+  "name": "thaithanh-panel-static-site",
+  "version": "1.0.0",
+  "description": "Thái Thanh Panel - Static company website",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0",
+    "npm": ">=10 <12"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "test:e2e": "node e2e/static-site.e2e.mjs",
+    "test:e2e:install": "playwright install chromium"
+  },
+  "dependencies": {
+    "nuxt": "^3.21.8",
+    "vue": "^3.5.39"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@types/node": "^22.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.13.0",
+    "@typescript-eslint/parser": "^8.13.0",
+    "eslint": "^9.14.0",
+    "eslint-plugin-vue": "^9.30.0",
+    "globals": "^16.5.0",
+    "playwright": "^1.59.1",
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.9",
+    "vue-eslint-parser": "^9.4.3",
+    "vue-tsc": "3.3.7"
+  }
+}
