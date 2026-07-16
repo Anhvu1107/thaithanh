@@ -777,6 +777,17 @@ try {
   assert.equal(await siteHeader.getAttribute('data-header-mode'), 'hero', 'homepage header must blend into the hero at the top')
   assert.equal(await siteHeader.evaluate(element => getComputedStyle(element).position), 'fixed', 'homepage header must overlay the hero')
   assert.ok(await page.locator('.home-hero').evaluate(element => Math.abs(element.getBoundingClientRect().top) <= 1), 'homepage hero must begin behind the overlay header')
+  const primaryHeroImage = page.locator('.home-hero-slide').first()
+  assert.equal(
+    await primaryHeroImage.getAttribute('src'),
+    '/images/insulation/cold-room-installation-documentary.jpg',
+    'homepage must open with the real cold-room installation team image',
+  )
+  assert.match(
+    await primaryHeroImage.getAttribute('alt'),
+    /đội ngũ kỹ thuật.*lắp đặt kho lạnh/i,
+    'primary hero image must describe the real installation scene',
+  )
   const activeHeroNavigation = page.locator('[data-desktop-navigation] a[aria-current="page"]')
   assert.equal(await activeHeroNavigation.count(), 1, 'homepage navigation must expose exactly one current page')
   assert.equal(await activeHeroNavigation.getAttribute('href'), '/', 'homepage navigation must visibly identify Trang chủ')
