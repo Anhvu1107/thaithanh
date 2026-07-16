@@ -531,6 +531,20 @@ try {
       `${href} must not expose products outside the confirmed scope in copy, metadata or anchors`,
     )
     assert.ok(await page.locator('[data-product-specification]').count() >= 4, `${href} must expose at least four top specifications`)
+    const productContactCta = page.locator('[data-product-contact-cta]')
+    const productContactHeading = productContactCta.locator('h2')
+    const productContactLink = productContactCta.locator('[data-product-contact-link]')
+    assert.equal(await productContactCta.count(), 1, `${href} must expose one closing contact call-to-action`)
+    assert.equal(
+      await productContactHeading.evaluate(element => getComputedStyle(element).color),
+      'rgb(247, 243, 237)',
+      `${href} closing contact heading must remain readable on the dark background`,
+    )
+    assert.equal(
+      await productContactLink.evaluate(element => getComputedStyle(element).backgroundColor),
+      'rgb(159, 87, 55)',
+      `${href} closing contact button must retain its higher-contrast background`,
+    )
     assert.equal(await page.locator('[data-product-engineering-guide]').count(), 1, `${href} must expose one engineering selection guide`)
     const engineeringGuideRows = page.locator('[data-product-selection-guide]')
     assert.ok(await engineeringGuideRows.count() >= 4, `${href} must expose at least four engineering selection rows`)

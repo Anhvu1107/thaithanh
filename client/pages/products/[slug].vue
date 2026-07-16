@@ -587,7 +587,7 @@ usePageSeo({
       </div>
     </section>
 
-    <section class="bg-[#262724] text-white">
+    <section class="product-contact-cta border-y border-white/10 bg-[#262724] text-white" data-product-contact-cta>
       <div data-reveal class="container-site grid gap-8 py-12 md:grid-cols-[1fr_auto] md:items-center lg:py-16">
         <div>
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#d99a73]">Cần xác nhận quy cách?</p>
@@ -595,7 +595,8 @@ usePageSeo({
         </div>
         <NuxtLink
           to="/contact#quick-contact-form"
-          class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#b46d47] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#cf8358]"
+          class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#9f5737] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#87462d] focus-visible:outline-white"
+          data-product-contact-link
         >
           Gửi yêu cầu nhanh
         </NuxtLink>

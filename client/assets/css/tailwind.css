@@ -96,6 +96,10 @@
     @apply py-16 md:py-20 lg:py-28;
   }
 
+  .product-contact-cta h2 {
+    color: #f7f3ed;
+  }
+
   .section-kicker {
     @apply inline-flex items-center gap-2 text-caption font-bold uppercase tracking-[0.18em] text-emerald-700;
   }
