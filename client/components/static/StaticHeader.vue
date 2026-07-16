@@ -760,6 +760,16 @@ onBeforeUnmount(() => {
   transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.product-dropdown-toggle {
+  transition:
+    opacity 180ms ease,
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .product-dropdown-toggle:active {
   transform: scale(0.94);
 }
@@ -783,6 +793,20 @@ onBeforeUnmount(() => {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .product-navigation-item .product-dropdown-toggle {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-0.2rem) scale(0.78);
+  }
+
+  .product-navigation-item:hover .product-dropdown-toggle,
+  .product-navigation-item:focus-within .product-dropdown-toggle,
+  .product-navigation-item[data-open='true'] .product-dropdown-toggle {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
   .product-navigation-item:not([data-hover-suppressed='true']):hover .product-dropdown {
     visibility: visible;
     opacity: 1;
@@ -815,6 +839,7 @@ onBeforeUnmount(() => {
   .liquid-nav-indicator,
   .liquid-nav-surface,
   .product-dropdown,
+  .product-dropdown-toggle,
   .product-dropdown-chevron,
   .menu-line,
   .warm-header a,

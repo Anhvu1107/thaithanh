@@ -808,7 +808,7 @@ try {
   assert.equal(await liquidNavigationSurface.count(), 1, 'liquid indicator must expose one deformable surface')
   assert.equal(await liquidNavigationIndicator.getAttribute('aria-hidden'), 'true', 'liquid indicator must remain decorative')
   assert.equal(await productDropdown.count(), 1, 'desktop header must expose one quick product dropdown')
-  assert.equal(await productDropdownCue.count(), 1, 'desktop product navigation must expose one obvious dropdown cue')
+  assert.equal(await productDropdownCue.count(), 1, 'desktop product navigation must retain an accessible dropdown control')
   assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'desktop product dropdown must start collapsed')
   assert.equal(await productDropdownToggle.getAttribute('aria-haspopup'), 'true', 'desktop product dropdown cue must announce that it opens a popup')
   assert.equal(await productDropdownToggle.getAttribute('aria-label'), 'Mở danh mục sản phẩm', 'desktop product dropdown cue must explain its action')
@@ -822,19 +822,19 @@ try {
 
     return {
       borderWidth: Number.parseFloat(cueStyle.borderTopWidth),
-      cueHeight: cueBox.height,
-      cueWidth: cueBox.width,
+      cueHeight: cue instanceof HTMLElement ? cue.offsetHeight : cueBox.height,
+      cueWidth: cue instanceof HTMLElement ? cue.offsetWidth : cueBox.width,
       gap: cueBox.left - label.right,
       opacity: Number.parseFloat(cueStyle.opacity),
       visibility: cueStyle.visibility,
     }
   })
-  assert.notEqual(productDropdownCueContract, null, 'desktop product dropdown cue must render beside the product label')
-  assert.ok(productDropdownCueContract.cueWidth >= 36 && productDropdownCueContract.cueHeight >= 36, 'desktop product dropdown cue must provide an obvious 36px target')
+  assert.notEqual(productDropdownCueContract, null, 'desktop product dropdown control must render beside the product label')
+  assert.ok(productDropdownCueContract.cueWidth >= 36 && productDropdownCueContract.cueHeight >= 36, 'desktop product dropdown control must retain a 36px target')
   assert.ok(productDropdownCueContract.gap >= 5, 'desktop product dropdown cue must not overlap the product label')
   assert.ok(productDropdownCueContract.borderWidth >= 1, 'desktop product dropdown cue must retain a visible outline')
-  assert.equal(productDropdownCueContract.visibility, 'visible', 'desktop product dropdown cue must remain visible when the menu is closed')
-  assert.ok(productDropdownCueContract.opacity >= 0.95, 'desktop product dropdown cue must not fade into the header')
+  assert.equal(productDropdownCueContract.visibility, 'visible', 'desktop product dropdown control must remain keyboard-accessible when visually hidden')
+  assert.ok(productDropdownCueContract.opacity <= 0.05, 'desktop product dropdown arrow must stay hidden while the navigation is idle')
   assert.equal(await productDropdownLinks.count(), 5, 'desktop product dropdown must link to every confirmed product group')
   assert.deepEqual(
     await productDropdownLinks.evaluateAll(links => links.map(link => link.getAttribute('href'))),
@@ -884,6 +884,15 @@ try {
   const reducedMotionProductsNavigation = page.locator('[data-desktop-nav-link][href="/products"]')
   await reducedMotionProductsNavigation.hover()
   await productDropdown.waitFor({ state: 'visible' })
+  assert.ok(
+    Number.parseFloat(await productDropdownCue.evaluate(element => getComputedStyle(element).opacity)) >= 0.95,
+    'hovering Sản phẩm must reveal the dropdown arrow',
+  )
+  assert.equal(
+    await productDropdownCue.evaluate(element => getComputedStyle(element).pointerEvents),
+    'auto',
+    'the revealed dropdown arrow must become interactive',
+  )
   assert.equal(await productDropdown.isVisible(), true, 'hovering Sản phẩm must reveal the quick product dropdown')
   const productDropdownLayout = await productDropdown.evaluate((element) => {
     const box = element.getBoundingClientRect()
@@ -939,6 +948,11 @@ try {
   assert.notEqual(productLiquidAlignment, null, 'liquid navigation indicator must render on inner pages')
   assert.ok(productLiquidAlignment <= 1, 'liquid navigation indicator must follow the current inner page')
 
+  await productDropdownToggle.focus()
+  assert.ok(
+    Number.parseFloat(await productDropdownCue.evaluate(element => getComputedStyle(element).opacity)) >= 0.95,
+    'keyboard focus must reveal the desktop product dropdown arrow',
+  )
   await productDropdownToggle.click()
   assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'true', 'clicking the desktop product toggle must expose its open state')
   await productDropdown.waitFor({ state: 'visible' })
