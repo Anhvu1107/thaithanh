@@ -171,6 +171,7 @@ async function openProductMenuAndFocusFirstLink() {
   suppressProductMenuHover.value = false
   isProductMenuOpen.value = true
   await nextTick()
+  await new Promise<void>(resolve => window.requestAnimationFrame(() => resolve()))
   getProductNavigationItem()?.querySelector<HTMLElement>('[data-product-dropdown-link]')?.focus()
 }
 
@@ -322,28 +323,31 @@ onBeforeUnmount(() => {
               :aria-current="isActiveRoute(item.href) ? 'page' : undefined"
               :data-nav-active="isActiveRoute(item.href) ? 'true' : 'false'"
               data-desktop-nav-link
-              class="desktop-nav-link group relative z-10 flex min-h-11 items-center rounded-full py-2 pl-4 pr-10 text-sm font-semibold"
+              class="desktop-nav-link group relative z-10 flex min-h-11 items-center rounded-full py-2 pl-4 pr-[3.35rem] text-sm font-semibold"
               :class="usesHeroHeader
                 ? (isActiveRoute(item.href) ? 'text-white' : 'text-white/[0.72] hover:text-white')
                 : (isActiveRoute(item.href) ? 'text-panel-black' : 'text-neutral-600 hover:text-panel-black')"
             >
-              <span class="relative z-10">{{ item.label }}</span>
+              <span class="relative z-10" data-product-navigation-label>{{ item.label }}</span>
             </NuxtLink>
 
             <button
               type="button"
-              class="product-dropdown-toggle absolute right-1 z-20 grid h-8 w-8 place-items-center rounded-full transition-colors"
-              :class="usesHeroHeader ? 'text-white/70 hover:text-white' : 'text-neutral-500 hover:text-[#874a2d]'"
+              class="product-dropdown-toggle absolute right-1 z-20 grid h-9 w-9 place-items-center rounded-full border shadow-[0_4px_14px_rgba(44,40,35,0.08)] transition-[color,background-color,border-color,box-shadow,transform]"
+              :class="usesHeroHeader
+                ? 'border-white/45 bg-black/15 text-white hover:border-white/75 hover:bg-white/15'
+                : 'border-[#bfa998] bg-white/75 text-[#874a2d] hover:border-[#9f5f42] hover:bg-[#f3e9e1]'"
               :aria-expanded="isProductMenuOpen"
               aria-controls="desktop-product-dropdown"
               aria-haspopup="true"
               :aria-label="isProductMenuOpen ? 'Đóng danh mục sản phẩm' : 'Mở danh mục sản phẩm'"
               data-product-dropdown-toggle
+              data-product-dropdown-cue
               @click.stop="toggleProductMenu"
               @keydown.down.prevent="openProductMenuAndFocusFirstLink"
             >
-              <svg class="product-dropdown-chevron h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              <svg class="product-dropdown-chevron h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="m3.5 5.75 4.5 4.5 4.5-4.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
 
@@ -732,6 +736,24 @@ onBeforeUnmount(() => {
 
 .product-dropdown-chevron {
   transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-dropdown-toggle:active {
+  transform: scale(0.94);
+}
+
+.header-light .product-navigation-item[data-open='true'] .product-dropdown-toggle {
+  border-color: #874a2d;
+  background: #874a2d;
+  color: #fffaf6;
+  box-shadow: 0 7px 20px rgba(126, 66, 47, 0.24);
+}
+
+.header-hero .product-navigation-item[data-open='true'] .product-dropdown-toggle {
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.94);
+  color: #7e422f;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
 }
 
 .product-navigation-item[data-open='true'] .product-dropdown-chevron {

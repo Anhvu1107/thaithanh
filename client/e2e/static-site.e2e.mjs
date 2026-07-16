@@ -758,6 +758,7 @@ try {
   const liquidNavigationSurface = page.locator('[data-nav-liquid-surface]')
   const productDropdown = page.locator('[data-product-dropdown]')
   const productDropdownToggle = page.locator('[data-product-dropdown-toggle]')
+  const productDropdownCue = page.locator('[data-product-dropdown-cue]')
   const productDropdownLinks = productDropdown.locator('[data-product-dropdown-link]')
   const expectedProductDropdownHrefs = [
     '/products/panel-eps',
@@ -770,7 +771,33 @@ try {
   assert.equal(await liquidNavigationSurface.count(), 1, 'liquid indicator must expose one deformable surface')
   assert.equal(await liquidNavigationIndicator.getAttribute('aria-hidden'), 'true', 'liquid indicator must remain decorative')
   assert.equal(await productDropdown.count(), 1, 'desktop header must expose one quick product dropdown')
+  assert.equal(await productDropdownCue.count(), 1, 'desktop product navigation must expose one obvious dropdown cue')
   assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'desktop product dropdown must start collapsed')
+  assert.equal(await productDropdownToggle.getAttribute('aria-haspopup'), 'true', 'desktop product dropdown cue must announce that it opens a popup')
+  assert.equal(await productDropdownToggle.getAttribute('aria-label'), 'Mở danh mục sản phẩm', 'desktop product dropdown cue must explain its action')
+  const productDropdownCueContract = await page.locator('[data-product-navigation-item]').evaluate((item) => {
+    const label = item.querySelector('[data-product-navigation-label]')?.getBoundingClientRect()
+    const cue = item.querySelector('[data-product-dropdown-cue]')
+    const cueBox = cue?.getBoundingClientRect()
+    const cueStyle = cue ? getComputedStyle(cue) : null
+
+    if (!label || !cueBox || !cueStyle) return null
+
+    return {
+      borderWidth: Number.parseFloat(cueStyle.borderTopWidth),
+      cueHeight: cueBox.height,
+      cueWidth: cueBox.width,
+      gap: cueBox.left - label.right,
+      opacity: Number.parseFloat(cueStyle.opacity),
+      visibility: cueStyle.visibility,
+    }
+  })
+  assert.notEqual(productDropdownCueContract, null, 'desktop product dropdown cue must render beside the product label')
+  assert.ok(productDropdownCueContract.cueWidth >= 36 && productDropdownCueContract.cueHeight >= 36, 'desktop product dropdown cue must provide an obvious 36px target')
+  assert.ok(productDropdownCueContract.gap >= 5, 'desktop product dropdown cue must not overlap the product label')
+  assert.ok(productDropdownCueContract.borderWidth >= 1, 'desktop product dropdown cue must retain a visible outline')
+  assert.equal(productDropdownCueContract.visibility, 'visible', 'desktop product dropdown cue must remain visible when the menu is closed')
+  assert.ok(productDropdownCueContract.opacity >= 0.95, 'desktop product dropdown cue must not fade into the header')
   assert.equal(await productDropdownLinks.count(), 5, 'desktop product dropdown must link to every confirmed product group')
   assert.deepEqual(
     await productDropdownLinks.evaluateAll(links => links.map(link => link.getAttribute('href'))),
@@ -887,12 +914,12 @@ try {
   await page.keyboard.press('ArrowDown')
   assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'true', 'ArrowDown must expose the desktop product dropdown state')
   await productDropdown.waitFor({ state: 'visible' })
-  await page.waitForFunction(expectedHref => document.activeElement?.getAttribute('href') === expectedHref, expectedProductDropdownHrefs[0])
+  await page.locator('[data-product-dropdown-link]:focus').waitFor({ state: 'attached' })
   assert.equal(await page.locator(':focus').getAttribute('href'), expectedProductDropdownHrefs[0], 'ArrowDown must focus the first quick product link')
   await page.keyboard.press('Escape')
   await productDropdown.waitFor({ state: 'hidden' })
   assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'Escape must collapse the desktop product dropdown')
-  await page.waitForFunction(() => document.activeElement?.matches('[data-product-dropdown-toggle]'))
+  await page.locator('[data-product-dropdown-toggle]:focus').waitFor({ state: 'attached' })
   assert.equal(await page.locator(':focus').getAttribute('data-product-dropdown-toggle'), '', 'Escape must return focus to the product dropdown button')
 
   await page.setViewportSize({ width: 390, height: 844 })
