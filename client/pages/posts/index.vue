@@ -23,7 +23,7 @@ usePageSeo({
       eyebrow="Bài viết"
       title="Thông tin kỹ thuật giúp chuẩn bị yêu cầu công trình."
       description="Tham khảo cách chuẩn bị thông tin về panel, kho lạnh, phòng sạch và công trình lắp ghép. Thông số cuối cùng cần được xác nhận theo điều kiện vận hành thực tế."
-      image="/images/insulation/eps-panel-editorial.jpg"
+      image="/images/insulation/eps-panel-step-joint-editorial.jpg"
       image-alt="Cấu tạo panel cách nhiệt"
     />
 

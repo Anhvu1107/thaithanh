@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Ngàm và nẹp hoàn thiện cho hệ panel</title>
-  <desc id="desc">Sơ đồ minh họa ngàm âm dương, lớp làm kín, nẹp U, V trong và V ngoài, không theo tỷ lệ.</desc>
+  <title id="title">Ngàm bậc âm–dương và nẹp hoàn thiện cho hệ panel EPS</title>
+  <desc id="desc">Sơ đồ minh họa ngàm bậc âm–dương của panel EPS Thái Thành: hai bậc lõi bổ sung nhau, mặt tôn mỏng có mí gấp ngắn, không tạo hốc rỗng; kèm nẹp U, V trong và V ngoài. Không theo tỷ lệ.</desc>
   <defs>
     <pattern id="eps" width="22" height="20" patternUnits="userSpaceOnUse">
       <rect width="22" height="20" fill="#e8dfcf"/>
@@ -38,34 +38,43 @@
   <g filter="url(#softShadow)">
     <rect x="72" y="204" width="1056" height="256" rx="26" fill="#fbf8f2" stroke="#d6cdbf"/>
   </g>
-  <text x="104" y="245" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Ghép ngàm âm–dương</text>
-  <text x="104" y="270" fill="#716d66" font-family="Arial, Helvetica, sans-serif" font-size="14">Mặt cắt giản lược — biên dạng thực tế được đối chiếu theo lô panel.</text>
+  <text x="104" y="245" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Ghép ngàm bậc âm–dương</text>
+  <text x="104" y="270" fill="#716d66" font-family="Arial, Helvetica, sans-serif" font-size="14">Lõi EPS ghép bậc bổ sung; mí tôn ngắn, không phải lưỡi giữa hoặc rãnh U sâu.</text>
 
-  <!-- Left panel with tongue -->
-  <path d="M112 305H430V328H486V354H430V377H112Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
-  <path d="M112 305H430V318H486" fill="none" stroke="url(#metal)" stroke-width="9" stroke-linecap="square"/>
-  <path d="M112 377H430V364H486" fill="none" stroke="url(#metal)" stroke-width="9" stroke-linecap="square"/>
-  <text x="386" y="414" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">NGÀM DƯƠNG</text>
-  <path d="M439 401L463 360" fill="none" stroke="#a95335" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Separated step joint. The two EPS profiles complement each other after a 90 px assembly shift. -->
+  <g id="eps-step-joint" data-joint-version="thai-thanh-step-v2">
+    <g id="male-step-core">
+      <path d="M112 305H410V341H360V377H112Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+      <path d="M112 305H410V313" fill="none" stroke="url(#metal)" stroke-width="6" stroke-linecap="square"/>
+      <path d="M112 377H360V369" fill="none" stroke="url(#metal)" stroke-width="6" stroke-linecap="square"/>
+      <text x="218" y="414" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.35">NGÀM DƯƠNG · BẬC NỔI</text>
+      <path d="M350 399L390 340" fill="none" stroke="#a95335" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
 
-  <!-- Right panel with groove -->
-  <path d="M536 305H939V377H536V358H500V324H536Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
-  <path d="M536 305H939M536 377H939" fill="none" stroke="url(#metal)" stroke-width="9"/>
-  <path d="M536 305V324H500M536 377V358H500" fill="none" stroke="#9e9c96" stroke-width="7" stroke-linecap="square"/>
-  <text x="545" y="414" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">NGÀM ÂM</text>
-  <path d="M550 398L523 353" fill="none" stroke="#a95335" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <g id="female-step-core">
+      <path d="M500 305H740V377H450V341H500Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+      <path d="M500 313V305H740" fill="none" stroke="url(#metal)" stroke-width="6" stroke-linecap="square"/>
+      <path d="M450 369V377H740" fill="none" stroke="url(#metal)" stroke-width="6" stroke-linecap="square"/>
+      <text x="500" y="414" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.35">NGÀM ÂM · BẬC NHẬN</text>
+      <path d="M520 398L478 345" fill="none" stroke="#a95335" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
 
-  <!-- Assembly direction -->
-  <path d="M306 287H424" fill="none" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
-  <path d="M714 287H596" fill="none" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="510" y="291" text-anchor="middle" fill="#7a756d" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.3">HƯỚNG GHÉP</text>
+    <!-- Assembly direction -->
+    <path d="M290 287H386" fill="none" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M645 287H549" fill="none" stroke="#a95335" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="467" y="291" text-anchor="middle" fill="#7a756d" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.3">HƯỚNG GHÉP</text>
 
-  <!-- Sealant indication -->
-  <path d="M506 328Q518 341 506 354" fill="none" stroke="#a95335" stroke-width="7" stroke-linecap="round"/>
-  <path d="M760 342H1011" fill="none" stroke="#7a756d" stroke-width="1.5"/>
-  <circle cx="760" cy="342" r="5" fill="#a95335"/>
-  <text x="790" y="330" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">XỬ LÝ KÍN MỐI NỐI</text>
-  <text x="790" y="354" fill="#64625d" font-family="Arial, Helvetica, sans-serif" font-size="14">Vị trí và vật liệu theo thiết kế thi công.</text>
+    <!-- Assembled inset: continuous core with a Z-shaped interface and narrow staggered skin seams. -->
+    <g id="assembled-step-joint">
+      <text x="820" y="291" fill="#a95335" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">SAU KHI GHÉP</text>
+      <path d="M820 305H960V341H910V377H820Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+      <path d="M960 305H1090V377H910V341H960Z" fill="url(#eps)" stroke="#292e2b" stroke-width="2"/>
+      <path d="M820 305H1090M820 377H1090" fill="none" stroke="url(#metal)" stroke-width="6"/>
+      <path d="M960 302V311M910 371V380" fill="none" stroke="#a95335" stroke-width="2"/>
+      <text x="820" y="407" fill="#252a27" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Lõi khớp kín · mặt tôn gần phẳng</text>
+      <text x="820" y="430" fill="#64625d" font-family="Arial, Helvetica, sans-serif" font-size="12">Làm kín bổ sung nếu cấu hình thi công yêu cầu.</text>
+    </g>
+  </g>
 
   <!-- Three accessory cards -->
   <g filter="url(#softShadow)" fill="#fbf8f2" stroke="#d6cdbf">

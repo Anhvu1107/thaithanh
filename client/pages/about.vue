@@ -18,7 +18,7 @@ usePageSeo({
       eyebrow="Giới thiệu"
       title="Giải pháp panel bắt đầu từ yêu cầu thực tế của công trình."
       description="Thái Thanh Panel tập trung vào panel cách nhiệt, cửa và phụ kiện cho kho lạnh, phòng sạch, nhà xưởng và công trình lắp ghép."
-      image="/images/insulation/eps-panel-editorial.jpg"
+      image="/images/insulation/eps-panel-step-joint-editorial.jpg"
       image-alt="Cấu tạo panel EPS cách nhiệt"
     />
 

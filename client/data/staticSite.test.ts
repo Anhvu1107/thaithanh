@@ -119,7 +119,7 @@ describe('static site scope', () => {
     ])
     const panelCopy = JSON.stringify(panel)
     expect(panelCopy).toMatch(/sandwich ba lớp.*50.*75.*100.*125.*150.*175.*200.*14.*16.*18.*20.*23.*25/is)
-    expect(panelCopy).toMatch(/Tôn mạ màu.*Inox 304.*ngàm âm–dương.*Nẹp U.*V trong.*V ngoài/is)
+    expect(panelCopy).toMatch(/Tôn mạ màu.*Inox 304.*ngàm bậc âm–dương.*Nẹp U.*V trong.*V ngoài/is)
     expect(panelCopy).toMatch(/λ.*Uc\/U.*R.*Q = U × A × ΔT/is)
     expect(panelCopy).toMatch(/\+4.*\+10.*4,4.*−4.*\+2.*4,2–5,6.*−23.*−29.*6,2–7,0.*−40.*−46.*7,9–8,8/is)
     expect(panelCopy).toMatch(/ưu điểm|Khối lượng nhẹ/is)
@@ -252,6 +252,39 @@ describe('static site scope', () => {
       expect(item.imageAlt.trim().length).toBeGreaterThan(0)
     }
   })
+
+  it('locks the approved Thai Thanh EPS step-joint geometry and versioned visuals', () => {
+    const panel = retailProducts.find(product => product.slug === 'panel-eps')
+    const specificationMedia = panel?.detailSections.find(section => section.id === 'quy-cach-panel')?.media
+    const installationMedia = panel?.detailSections.find(section => section.id === 'thi-cong-va-phu-kien')?.media
+
+    expect(panel?.image).toBe('/images/insulation/eps-panel-step-joint-editorial.jpg')
+    expect(specificationMedia).toMatchObject({
+      image: '/images/insulation/eps-panel-step-joint.webp',
+      imageSrcset: '/images/insulation/eps-panel-step-joint-640.webp 640w, /images/insulation/eps-panel-step-joint.webp 1200w',
+      imageWidth: 1200,
+      imageHeight: 1200,
+    })
+    expect(specificationMedia?.caption).toMatch(/không phải rãnh U sâu hoặc khung chữ C/i)
+    expect(installationMedia).toMatchObject({
+      image: '/images/insulation/panel-step-joint-diagram.svg',
+      imageWidth: 1200,
+      imageHeight: 760,
+    })
+    expect(installationMedia?.imageAlt).toMatch(/ngàm bậc âm–dương/i)
+
+    const jointDiagramPath = path.resolve(publicDirectory, 'images', 'insulation', 'panel-step-joint-diagram.svg')
+    const jointDiagram = fs.readFileSync(jointDiagramPath, 'utf8')
+    expect(jointDiagram).toMatch(/id="eps-step-joint"[^>]+data-joint-version="thai-thanh-step-v2"/)
+    expect(jointDiagram).toContain('id="male-step-core"')
+    expect(jointDiagram).toContain('id="female-step-core"')
+    expect(jointDiagram).toContain('id="assembled-step-joint"')
+    expect(jointDiagram).toContain('M112 305H410V341H360V377H112Z')
+    expect(jointDiagram).toContain('M500 305H740V377H450V341H500Z')
+    expect(jointDiagram).not.toContain('M112 305H430V328H486V354H430V377H112Z')
+    expect(jointDiagram).not.toContain('M536 305H939V377H536V358H500V324H536Z')
+    expect(jointDiagram).not.toMatch(/\b(?:PU|PUR|PIR)\b|polyurethane|pu[-\s]?foam/i)
+  })
 })
 
 describe('site content validation', () => {
@@ -310,7 +343,7 @@ describe('site content validation', () => {
     expect(() => parseSiteContent(invalidImage)).toThrow(/posts\[0\]\.image: must reference an image below \/images/)
 
     const invalidSrcset = structuredClone(siteContentJson)
-    invalidSrcset.productFamilies[0].imageSrcset = '/images/insulation/eps-panel-640.webp 0w'
+    invalidSrcset.productFamilies[0].imageSrcset = '/images/insulation/eps-panel-step-joint-640.webp 0w'
     expect(() => parseSiteContent(invalidSrcset)).toThrow(/productFamilies\[0\]\.imageSrcset: width descriptors must be positive integers/)
 
     const unknownField = structuredClone(siteContentJson) as typeof siteContentJson & { admin?: boolean }

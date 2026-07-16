@@ -38,11 +38,11 @@
       "id": "eps",
       "name": "Panel EPS",
       "eyebrow": "Nhẹ và thi công nhanh",
-      "image": "/images/insulation/eps-panel-editorial.jpg",
-      "imageSrcset": "/images/insulation/eps-panel-editorial.jpg 1254w",
+      "image": "/images/insulation/eps-panel-step-joint-editorial.jpg",
+      "imageSrcset": "/images/insulation/eps-panel-step-joint-editorial.jpg 1254w",
       "imageWidth": 1254,
       "imageHeight": 1254,
-      "imageAlt": "Minh họa mặt cắt tấm panel EPS",
+      "imageAlt": "Panel EPS với cạnh tấm gần phẳng và mí ngàm tôn ngắn",
       "summary": "Panel EPS có bán lẻ theo độ dày, tỷ trọng và số lượng yêu cầu cho vách, mái, kho thường và công trình lắp ghép.",
       "applications": [
         "Nhà xưởng",
@@ -116,11 +116,11 @@
       "familyId": "eps",
       "name": "Panel EPS cách nhiệt 50–200 mm",
       "eyebrow": "Kết cấu ba lớp · nhẹ · linh hoạt quy cách",
-      "image": "/images/insulation/eps-panel-editorial.jpg",
-      "imageSrcset": "/images/insulation/eps-panel-editorial.jpg 1254w",
+      "image": "/images/insulation/eps-panel-step-joint-editorial.jpg",
+      "imageSrcset": "/images/insulation/eps-panel-step-joint-editorial.jpg 1254w",
       "imageWidth": 1254,
       "imageHeight": 1254,
-      "imageAlt": "Ảnh minh họa mặt cắt tấm panel EPS cách nhiệt",
+      "imageAlt": "Panel EPS với cạnh tấm gần phẳng và mí ngàm tôn ngắn",
       "summary": "Panel EPS gồm hai bề mặt kim loại và lõi xốp EPS ở giữa, dùng cho vách, trần, kho bảo quản và công trình lắp ghép. Thái Thành cung cấp độ dày 50–200 mm cùng nhiều mức tỷ trọng; cấu hình cuối cùng được đối chiếu theo nhiệt độ, vị trí lắp và điều kiện vận hành.",
       "applications": [
         "Kho mát và kho lạnh",
@@ -148,7 +148,7 @@
         },
         {
           "label": "Liên kết",
-          "value": "Ngàm âm–dương; kích thước ngàm và cách làm kín xác nhận theo lô panel"
+          "value": "Ngàm bậc âm–dương; hai bậc lõi bổ sung nhau, mí tôn gấp ngắn; kích thước và cách làm kín xác nhận theo lô panel"
         },
         {
           "label": "Khổ và chiều dài",
@@ -210,7 +210,7 @@
             "imageWidth": 1200,
             "imageHeight": 760,
             "imageAlt": "Sơ đồ cấu tạo panel EPS gồm hai bề mặt kim loại, lớp liên kết và lõi EPS",
-            "caption": "Panel EPS tạo thành từ hai bề mặt kim loại và lõi EPS liên kết ở giữa. Sơ đồ minh họa, không theo tỷ lệ."
+            "caption": "Panel EPS tạo thành từ hai bề mặt kim loại và lõi EPS liên kết ở giữa. Sơ đồ này chỉ minh họa các lớp, không đại diện biên dạng ngàm và không theo tỷ lệ."
           },
           "title": "Cấu tạo sandwich ba lớp",
           "summary": "Hai bề mặt kim loại bảo vệ lõi EPS và cùng lớp liên kết tạo thành một tấm lắp ghép hoàn chỉnh.",
@@ -237,7 +237,7 @@
             },
             {
               "label": "Hệ ngàm",
-              "value": "Ngàm âm–dương hỗ trợ căn tấm và hạn chế khe hở; chi tiết theo lô panel"
+              "value": "Ngàm bậc âm–dương hỗ trợ căn tấm và hạn chế khe hở; hai bậc lõi bổ sung nhau, chi tiết theo lô panel"
             }
           ],
           "points": [
@@ -250,12 +250,12 @@
         {
           "id": "quy-cach-panel",
           "media": {
-            "image": "/images/insulation/eps-panel.webp",
-            "imageSrcset": "/images/insulation/eps-panel-640.webp 640w, /images/insulation/eps-panel.webp 1200w",
+            "image": "/images/insulation/eps-panel-step-joint.webp",
+            "imageSrcset": "/images/insulation/eps-panel-step-joint-640.webp 640w, /images/insulation/eps-panel-step-joint.webp 1200w",
             "imageWidth": 1200,
             "imageHeight": 1200,
-            "imageAlt": "Các tấm panel EPS thành phẩm xếp chồng để minh họa bề mặt và cạnh tấm",
-            "caption": "Ảnh minh họa panel EPS thành phẩm; chiều dài, độ dày và kiểu bề mặt được xác nhận theo đơn hàng."
+            "imageAlt": "Các tấm panel EPS xếp chồng với cạnh gần phẳng và mí ngàm tôn ngắn",
+            "caption": "Ảnh minh họa panel EPS đúng dạng cạnh gần phẳng, không phải rãnh U sâu hoặc khung chữ C; kích thước ngàm được xác nhận theo lô panel."
           },
           "title": "Bảng quy cách cần đối chiếu",
           "summary": "Độ dày và tỷ trọng là hai thông số chính, nhưng chưa đủ để xác định đúng tấm cần mua.",
@@ -438,11 +438,11 @@
         {
           "id": "thi-cong-va-phu-kien",
           "media": {
-            "image": "/images/insulation/panel-profiles-diagram.svg",
+            "image": "/images/insulation/panel-step-joint-diagram.svg",
             "imageWidth": 1200,
             "imageHeight": 760,
-            "imageAlt": "Sơ đồ ngàm panel, nẹp U, V trong và V ngoài tại các mối nối",
-            "caption": "Ngàm, nẹp U, V trong, V ngoài và vật liệu làm kín cần được chọn đồng bộ với vị trí lắp."
+            "imageAlt": "Sơ đồ ngàm bậc âm–dương panel EPS, nẹp U, V trong và V ngoài",
+            "caption": "Ngàm bậc âm–dương có hai bậc lõi bổ sung nhau và mí tôn ngắn; nẹp cùng vật liệu làm kín được chọn đồng bộ theo vị trí lắp."
           },
           "title": "Thi công và phụ kiện đồng bộ",
           "summary": "Độ kín và độ thẳng của hệ panel phụ thuộc cách chia tấm, xử lý ngàm, liên kết và hoàn thiện từng vị trí giao nhau.",
@@ -1170,7 +1170,7 @@
             "image": "/images/insulation/accessory-u-profile.svg",
             "imageWidth": 1200,
             "imageHeight": 760,
-            "imageAlt": "Sơ đồ nhận biết nẹp U, V trong, V ngoài và ngàm nối panel",
+            "imageAlt": "Sơ đồ nhận biết hình dạng và vị trí lắp nẹp U panel",
             "caption": "Sơ đồ giúp nhận biết hình dạng và vị trí dùng của nẹp U, V trong, V ngoài; kích thước thực tế cần khớp với panel."
           },
           "title": "Nẹp U panel",
@@ -1766,8 +1766,8 @@
       "familyId": "doors-accessories",
       "name": "Vật tư cho hệ panel cách nhiệt",
       "eyebrow": "Inox 304 · EPS · tôn mạ màu",
-      "image": "/images/insulation/eps-panel.webp",
-      "imageSrcset": "/images/insulation/eps-panel-640.webp 640w, /images/insulation/eps-panel.webp 1200w",
+      "image": "/images/insulation/eps-panel-step-joint.webp",
+      "imageSrcset": "/images/insulation/eps-panel-step-joint-640.webp 640w, /images/insulation/eps-panel-step-joint.webp 1200w",
       "imageWidth": 1200,
       "imageHeight": 1200,
       "imageAlt": "Bề mặt và lõi của hệ panel cách nhiệt",
@@ -1922,11 +1922,11 @@
         {
           "id": "chi-tiet-gia-cong",
           "media": {
-            "image": "/images/insulation/panel-profiles-diagram.svg",
+            "image": "/images/insulation/panel-step-joint-diagram.svg",
             "imageWidth": 1200,
             "imageHeight": 760,
-            "imageAlt": "Sơ đồ các dạng nẹp và chi tiết gia công đồng bộ với panel",
-            "caption": "Kích thước, góc chấn và bề mặt của chi tiết được duyệt trước khi gia công."
+            "imageAlt": "Sơ đồ ngàm bậc panel EPS cùng nẹp U, V trong và V ngoài",
+            "caption": "Biên dạng ngàm bậc, kích thước nẹp, góc chấn và bề mặt được duyệt trước khi gia công."
           },
           "title": "Chi tiết gia công theo bản vẽ",
           "summary": "Nẹp, tấm bọc và chi tiết hoàn thiện được cắt hoặc chấn theo kích thước đã duyệt để đồng bộ với hệ panel.",
@@ -2197,11 +2197,11 @@
       "title": "Chuẩn bị thông tin gì trước khi trao đổi cấu hình kho lạnh?",
       "eyebrow": "Gợi ý tư vấn",
       "date": "2026-07-09",
-      "image": "/images/insulation/eps-panel.webp",
-      "imageSrcset": "/images/insulation/eps-panel-640.webp 640w, /images/insulation/eps-panel.webp 1200w",
+      "image": "/images/insulation/eps-panel-step-joint.webp",
+      "imageSrcset": "/images/insulation/eps-panel-step-joint-640.webp 640w, /images/insulation/eps-panel-step-joint.webp 1200w",
       "imageWidth": 1200,
       "imageHeight": 1200,
-      "imageAlt": "Minh họa mặt cắt tấm panel EPS",
+      "imageAlt": "Panel EPS với cạnh tấm gần phẳng và mí ngàm tôn ngắn",
       "summary": "Một bản mô tả ngắn về kích thước, nhiệt độ, hàng lưu trữ và cửa ra vào giúp đội kỹ thuật trao đổi nhanh hơn.",
       "body": "Trước khi chọn panel, hãy chuẩn bị kích thước dài, rộng, cao hoặc bản vẽ mặt bằng nếu có.\n\nNhiệt độ vận hành, loại hàng lưu trữ, tần suất mở cửa và vị trí công trình là các dữ liệu ảnh hưởng trực tiếp đến độ dày panel, loại cửa và phụ kiện kín mạch.\n\nNếu chưa có đủ thông tin, vẫn có thể bắt đầu bằng nhu cầu sơ bộ. Nội dung này mang tính tham khảo; phương án cuối cùng cần được xác nhận theo điều kiện thực tế của công trình.",
       "tags": [

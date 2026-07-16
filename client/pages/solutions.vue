@@ -15,7 +15,7 @@ usePageSeo({
       eyebrow="Giải pháp"
       title="Mỗi dải nhiệt cần một cách tiếp cận khác nhau."
       description="Các cấu hình dưới đây là cơ sở trao đổi ban đầu. Độ dày, vật liệu lõi, cửa, nền và phụ kiện sẽ được xác định theo dữ liệu công trình."
-      image="/images/insulation/eps-panel-editorial.jpg"
+      image="/images/insulation/eps-panel-step-joint-editorial.jpg"
       image-alt="Cấu tạo panel EPS cách nhiệt"
     />
 

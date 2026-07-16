@@ -389,6 +389,20 @@ try {
   }))
   assert.equal(openedPanelSection.open, true, 'deep product link must open its matching technical section')
   assert.equal(openedPanelSection.focused, true, 'deep product link must focus the opened technical section summary')
+  const panelSpecificationMedia = page.locator('#quy-cach-panel [data-product-section-media]')
+  await panelSpecificationMedia.waitFor({ state: 'visible' })
+  const panelSpecificationImage = panelSpecificationMedia.locator('img')
+  await page.waitForFunction(() => document.querySelector('#quy-cach-panel [data-product-section-media] img')?.naturalWidth > 0)
+  assert.equal(
+    await panelSpecificationImage.getAttribute('src'),
+    '/images/insulation/eps-panel-step-joint.webp',
+    'Panel EPS specification section must use the corrected shallow step-joint product photo',
+  )
+  assert.match(
+    await panelSpecificationMedia.locator('figcaption').innerText(),
+    /không phải rãnh U sâu hoặc khung chữ C/i,
+    'Panel EPS specification caption must explicitly distinguish the approved edge from the old incorrect profile',
+  )
   const panelProductResponse = await page.request.get(`${webUrl}/products/panel-eps`)
   assert.equal(panelProductResponse.status(), 200, 'Panel EPS detail route must render successfully')
   const panelProductHeading = page.locator('article h1')
@@ -412,6 +426,32 @@ try {
     `${productionUrl}/products/panel-eps/`,
     'Panel EPS canonical URL must use the production trailing-slash format',
   )
+
+  await page.goto(`${webUrl}/products/panel-eps#thi-cong-va-phu-kien`, { waitUntil: 'networkidle' })
+  await page.locator('#thi-cong-va-phu-kien[open]').waitFor({ state: 'attached' })
+  const panelJointMedia = page.locator('#thi-cong-va-phu-kien [data-product-section-media]')
+  await panelJointMedia.waitFor({ state: 'visible' })
+  await page.waitForFunction(() => document.querySelector('#thi-cong-va-phu-kien [data-product-section-media] img')?.naturalWidth === 1200)
+  const panelJointContract = await panelJointMedia.evaluate((figure) => {
+    const image = figure.querySelector('img')
+    const box = figure.getBoundingClientRect()
+    return {
+      alt: image?.getAttribute('alt') || '',
+      caption: figure.querySelector('figcaption')?.textContent || '',
+      height: image?.naturalHeight || 0,
+      left: box.left,
+      right: box.right,
+      src: image?.getAttribute('src') || '',
+      viewport: innerWidth,
+      width: image?.naturalWidth || 0,
+    }
+  })
+  assert.equal(panelJointContract.src, '/images/insulation/panel-step-joint-diagram.svg', 'Panel EPS installation section must use the approved versioned step-joint diagram')
+  assert.equal(panelJointContract.width, 1200, 'approved EPS step-joint diagram must retain its full technical width')
+  assert.equal(panelJointContract.height, 760, 'approved EPS step-joint diagram must retain its full technical height')
+  assert.match(panelJointContract.alt, /ngàm bậc âm–dương/i, 'approved EPS step-joint diagram must have technically specific alternative text')
+  assert.match(panelJointContract.caption, /hai bậc lõi bổ sung nhau.*mí tôn ngắn/i, 'approved EPS step-joint caption must explain the complementary core steps and short metal seam')
+  assert.ok(panelJointContract.left >= 0 && panelJointContract.right <= panelJointContract.viewport, 'desktop EPS step-joint diagram must stay inside the viewport')
 
   const inoxDoorResponse = await page.goto(`${webUrl}/products/cua-kho-lanh`, { waitUntil: 'networkidle' })
   assert.equal(inoxDoorResponse?.status(), 200, 'cold-room door detail route must render successfully')
@@ -928,6 +968,27 @@ try {
   assert.ok(metrics.scrollWidth <= metrics.viewport, 'mobile static site must not overflow horizontally')
   assert.ok(metrics.mainWidth >= metrics.viewport - 10, 'mobile content must use the available width')
 
+  await page.goto(`${webUrl}/products/panel-eps#thi-cong-va-phu-kien`, { waitUntil: 'networkidle' })
+  await page.locator('#thi-cong-va-phu-kien[open]').waitFor({ state: 'attached' })
+  const mobilePanelJointMedia = page.locator('#thi-cong-va-phu-kien [data-product-section-media]')
+  await mobilePanelJointMedia.waitFor({ state: 'visible' })
+  const mobilePanelJointLayout = await mobilePanelJointMedia.evaluate((figure) => {
+    const box = figure.getBoundingClientRect()
+    const image = figure.querySelector('img')
+    return {
+      left: box.left,
+      right: box.right,
+      src: image?.getAttribute('src') || '',
+      viewport: innerWidth,
+      width: box.width,
+    }
+  })
+  assert.equal(mobilePanelJointLayout.src, '/images/insulation/panel-step-joint-diagram.svg', 'mobile Panel EPS page must use the approved step-joint diagram')
+  assert.ok(mobilePanelJointLayout.width >= 300, 'mobile EPS step-joint diagram must retain a readable width')
+  assert.ok(mobilePanelJointLayout.left >= 0 && mobilePanelJointLayout.right <= mobilePanelJointLayout.viewport, 'mobile EPS step-joint diagram must stay inside the viewport')
+  const mobilePanelMetrics = await page.evaluate(() => ({ viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth }))
+  assert.ok(mobilePanelMetrics.scrollWidth <= mobilePanelMetrics.viewport, 'mobile EPS step-joint section must not overflow horizontally')
+
   for (const viewport of [
     { width: 320, height: 800, label: 'minimum mobile' },
     { width: 768, height: 1024, label: 'tablet' },
@@ -1162,9 +1223,21 @@ try {
   assert.match(noScriptPanelText, /Cấu tạo sandwich ba lớp.*Đọc λ, U, R và chọn theo nhu cầu nhiệt.*Thi công và phụ kiện đồng bộ/s, 'Panel EPS technical guidance must remain readable without JavaScript')
   assert.match(noScriptPanelText, /Panel EPS có phải panel chống cháy không\?/i, 'Panel EPS safety FAQ must remain readable without JavaScript')
   assert.ok(await noScriptPage.locator('[data-product-section-media]').count() >= 1, 'Panel EPS visuals must render without JavaScript')
-  const firstPanelDisclosure = noScriptPage.locator('[data-product-detail-disclosure]').nth(0)
-  await firstPanelDisclosure.locator('summary').click()
-  assert.ok((await noScriptPage.locator('[data-product-section-media] figcaption').first().innerText()).trim().length >= 24, 'Panel EPS visual caption must remain readable without JavaScript')
+  const noScriptJointDisclosure = noScriptPage.locator('#thi-cong-va-phu-kien')
+  assert.equal(await noScriptJointDisclosure.getAttribute('open'), null, 'EPS step-joint disclosure must start collapsed without JavaScript')
+  await noScriptJointDisclosure.locator('summary').click()
+  assert.notEqual(await noScriptJointDisclosure.getAttribute('open'), null, 'EPS step-joint disclosure must open natively without JavaScript')
+  const noScriptJointMedia = noScriptJointDisclosure.locator('[data-product-section-media]')
+  assert.equal(
+    await noScriptJointMedia.locator('img').getAttribute('src'),
+    '/images/insulation/panel-step-joint-diagram.svg',
+    'no-JavaScript Panel EPS guidance must retain the approved step-joint diagram',
+  )
+  assert.match(
+    await noScriptJointMedia.locator('figcaption').innerText(),
+    /hai bậc lõi bổ sung nhau.*mí tôn ngắn/i,
+    'no-JavaScript Panel EPS guidance must retain the approved joint explanation',
+  )
 
   const noScriptContactResponse = await noScriptPage.goto(`${webUrl}/contact`, { waitUntil: 'load' })
   assert.equal(noScriptContactResponse?.status(), 200, 'contact page must render without JavaScript')

@@ -11,7 +11,7 @@ const heroSlides = [
     label: 'Hệ kho lạnh đồng bộ',
   },
   {
-    image: '/images/insulation/eps-panel-editorial.jpg',
+    image: '/images/insulation/eps-panel-step-joint-editorial.jpg',
     alt: 'Minh họa cấu tạo tấm panel EPS',
     label: 'Panel EPS theo quy cách',
   },

@@ -53,7 +53,7 @@ const categoryPresentation: ProductCategoryPresentation[] = [
     title: 'Vật tư cách nhiệt',
     summary: 'Vật liệu và chi tiết gia công được tách khỏi panel thành phẩm và phụ kiện.',
     highlights: ['Inox 304', 'Xốp EPS', 'Tôn mạ màu', 'Cắt chấn'],
-    image: '/images/insulation/panel-profiles-diagram.svg',
+    image: '/images/insulation/panel-step-joint-diagram.svg',
     imageAlt: 'Sơ đồ các dạng nẹp, tấm bọc và chi tiết vật tư gia công cho hệ panel',
     imageWidth: 1200,
     imageHeight: 760,
@@ -79,8 +79,8 @@ usePageSeo({
   title: 'Panel, cửa kho lạnh và phụ kiện',
   description: 'Panel EPS, cửa kho lạnh Inox 304 và phụ kiện U/V bán lẻ; xem nhanh bằng hình và mở thông số chi tiết theo từng sản phẩm.',
   path: '/products',
-  image: '/images/insulation/eps-panel.webp',
-  imageAlt: 'Minh họa mặt cắt tấm panel EPS',
+  image: '/images/insulation/eps-panel-step-joint.webp',
+  imageAlt: 'Panel EPS với cạnh tấm gần phẳng và mí ngàm tôn ngắn',
 })
 </script>
 

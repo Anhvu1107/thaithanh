@@ -20,8 +20,8 @@ interface PageSeoOptions {
 }
 
 const SITE_NAME = 'Thái Thanh Panel'
-const DEFAULT_SOCIAL_IMAGE = '/images/insulation/eps-panel.webp'
-const DEFAULT_SOCIAL_IMAGE_ALT = 'Minh họa mặt cắt tấm panel EPS'
+const DEFAULT_SOCIAL_IMAGE = '/images/insulation/eps-panel-step-joint.webp'
+const DEFAULT_SOCIAL_IMAGE_ALT = 'Panel EPS với mép ngàm bậc âm–dương và mí tôn ngắn'
 
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c')
 
