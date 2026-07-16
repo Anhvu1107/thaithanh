@@ -69,6 +69,15 @@ usePageSeo({
   path: () => `/products/${product.value!.slug}`,
   image: () => product.value!.image,
   imageAlt: () => product.value!.imageAlt,
+  breadcrumbs: [
+    { name: 'Sản phẩm', path: '/products' },
+    { name: () => product.value!.name, path: () => `/products/${product.value!.slug}` },
+  ],
+  product: {
+    category: () => family.value?.name || 'Panel cách nhiệt và kho lạnh',
+    applications: () => product.value!.applications,
+    specifications: () => product.value!.specifications,
+  },
 })
 </script>
 

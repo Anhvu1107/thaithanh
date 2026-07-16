@@ -11,9 +11,13 @@ const formatPostDate = (date: string) => new Intl.DateTimeFormat('vi-VN', {
 }).format(new Date(`${date}T00:00:00Z`))
 
 usePageSeo({
-  title: 'Bài viết',
-  description: 'Bài viết kỹ thuật về panel cách nhiệt, kho lạnh, phòng sạch và công trình lắp ghép.',
+  title: 'Kiến thức panel cách nhiệt và kho lạnh',
+  description: 'Bài viết kỹ thuật từ Thái Thanh Panel về tấm panel EPS cách nhiệt, cửa kho lạnh, lựa chọn độ dày và chuẩn bị thông tin công trình.',
   path: '/posts',
+  webPageType: 'CollectionPage',
+  breadcrumbs: [
+    { name: 'Bài viết', path: '/posts' },
+  ],
 })
 </script>
 

@@ -167,12 +167,34 @@ function toggleProductMenu() {
   isProductMenuOpen.value = true
 }
 
-async function openProductMenuAndFocusFirstLink() {
+const focusFirstProductLink = () => {
+  if (!isProductMenuOpen.value) return
+
+  const navigationItem = getProductNavigationItem()
+  const activeElement = document.activeElement
+  const menuButton = getProductMenuButton()
+
+  if (activeElement !== menuButton && activeElement instanceof Node && !navigationItem?.contains(activeElement)) return
+
+  navigationItem
+    ?.querySelector<HTMLElement>('[data-product-dropdown-link]')
+    ?.focus({ preventScroll: true })
+}
+
+function openProductMenuAndFocusFirstLink() {
   suppressProductMenuHover.value = false
   isProductMenuOpen.value = true
-  await nextTick()
-  await new Promise<void>(resolve => window.requestAnimationFrame(() => resolve()))
-  getProductNavigationItem()?.querySelector<HTMLElement>('[data-product-dropdown-link]')?.focus()
+  const navigationItem = getProductNavigationItem()
+
+  // Apply the open state before moving focus so keyboard users never focus an
+  // element that is still visibility:hidden during Vue's next render tick.
+  navigationItem?.setAttribute('data-open', 'true')
+  focusFirstProductLink()
+
+  void nextTick().then(() => {
+    focusFirstProductLink()
+    window.setTimeout(focusFirstProductLink, 50)
+  })
 }
 
 function handleProductMenuFocusOut(event: FocusEvent) {
@@ -258,7 +280,7 @@ onBeforeUnmount(() => {
       <NuxtLink
         to="/"
         class="group flex min-h-12 shrink-0 items-center gap-3 justify-self-start"
-        aria-label="Thái Thanh Co., Ltd - Trang chủ"
+        aria-label="Thái Thanh Panel - Trang chủ"
       >
         <span
           class="grid h-14 w-[5.75rem] shrink-0 place-items-center"
@@ -269,7 +291,7 @@ onBeforeUnmount(() => {
             sizes="84px"
             width="479"
             height="325"
-            alt="Logo Thái Thanh Co., Ltd"
+            alt="Logo Thái Thanh Panel"
             class="h-14 w-auto object-contain"
             fetchpriority="high"
           >

@@ -76,11 +76,15 @@ const productCategories = computed(() => categoryPresentation.flatMap((presentat
 }))
 
 usePageSeo({
-  title: 'Panel, cửa kho lạnh và phụ kiện',
-  description: 'Panel EPS, cửa kho lạnh Inox 304 và phụ kiện U/V bán lẻ; xem nhanh bằng hình và mở thông số chi tiết theo từng sản phẩm.',
+  title: 'Tấm panel cách nhiệt, cửa và phụ kiện kho lạnh',
+  description: 'Danh mục tấm panel EPS cách nhiệt, cửa kho lạnh Inox 304, phụ kiện U/V, phụ kiện cửa và vật tư bán lẻ từ Thái Thanh Panel.',
   path: '/products',
   image: '/images/insulation/eps-panel-step-joint.webp',
   imageAlt: 'Panel EPS với cạnh tấm gần phẳng và mí ngàm tôn ngắn',
+  webPageType: 'CollectionPage',
+  breadcrumbs: [
+    { name: 'Sản phẩm', path: '/products' },
+  ],
 })
 </script>
 
@@ -100,7 +104,7 @@ usePageSeo({
 
       <div class="container-site flex min-h-[29rem] flex-col justify-between py-10 sm:py-12 lg:py-14">
         <div class="page-hero-marker flex items-center justify-between gap-6 border-b border-white/[0.16] pb-5">
-          <p class="text-xs font-bold uppercase tracking-[0.24em] text-white/[0.7]">Thái Thành / Sản phẩm</p>
+          <p class="text-xs font-bold uppercase tracking-[0.24em] text-white/[0.7]">Thái Thanh / Sản phẩm</p>
           <p class="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-white/[0.5] sm:block">5 nhóm rõ ràng · Không trộn danh mục</p>
         </div>
 
@@ -207,7 +211,7 @@ usePageSeo({
             Gửi ảnh, kích thước và số lượng cần mua.
           </h2>
           <p class="mt-4 max-w-2xl text-sm leading-7 text-[#d8cfc4]">
-            Thái Thành kiểm tra khả năng cung cấp và phản hồi cấu hình phù hợp với công trình.
+            Thái Thanh kiểm tra khả năng cung cấp và phản hồi cấu hình phù hợp với công trình.
           </p>
         </div>
         <div class="grid gap-3 sm:grid-cols-2">

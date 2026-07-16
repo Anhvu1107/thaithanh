@@ -35,6 +35,10 @@ usePageSeo({
     section: () => post.value!.eyebrow,
     tags: () => post.value!.tags,
   },
+  breadcrumbs: [
+    { name: 'Bài viết', path: '/posts' },
+    { name: () => post.value!.title, path: () => `/posts/${post.value!.slug}` },
+  ],
 })
 </script>
 
@@ -76,8 +80,28 @@ usePageSeo({
               </span>
             </div>
           </aside>
-          <div class="text-lg leading-9 text-neutral-700">
-            <p v-for="paragraph in paragraphs" :key="paragraph" class="mb-6">{{ paragraph }}</p>
+          <div>
+            <div class="text-lg leading-9 text-neutral-700">
+              <p v-for="paragraph in paragraphs" :key="paragraph" class="mb-6">{{ paragraph }}</p>
+            </div>
+
+            <nav aria-label="Nội dung sản phẩm liên quan" class="mt-10 border-t border-panel-line pt-8">
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Xem thông tin sản phẩm</p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                <NuxtLink to="/products/panel-eps" class="inline-flex min-h-12 items-center justify-between rounded-xl border border-panel-line bg-panel-ivory px-4 text-sm font-semibold text-panel-black transition-colors hover:border-[#874a2d] hover:text-[#874a2d]">
+                  Panel EPS cách nhiệt
+                  <span aria-hidden="true">→</span>
+                </NuxtLink>
+                <NuxtLink to="/products/cua-kho-lanh" class="inline-flex min-h-12 items-center justify-between rounded-xl border border-panel-line bg-panel-ivory px-4 text-sm font-semibold text-panel-black transition-colors hover:border-[#874a2d] hover:text-[#874a2d]">
+                  Cửa kho lạnh Inox 304
+                  <span aria-hidden="true">→</span>
+                </NuxtLink>
+                <NuxtLink to="/products" class="inline-flex min-h-12 items-center justify-between rounded-xl border border-panel-line bg-panel-ivory px-4 text-sm font-semibold text-panel-black transition-colors hover:border-[#874a2d] hover:text-[#874a2d]">
+                  Toàn bộ sản phẩm
+                  <span aria-hidden="true">→</span>
+                </NuxtLink>
+              </div>
+            </nav>
           </div>
         </div>
       </section>

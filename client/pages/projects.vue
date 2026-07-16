@@ -6,6 +6,9 @@ usePageSeo({
   title: 'Ứng dụng',
   description: 'Các cấu hình ứng dụng tham khảo cho kho đông, kho mát, phòng sơ chế và nhà xưởng.',
   path: '/projects',
+  breadcrumbs: [
+    { name: 'Ứng dụng', path: '/projects' },
+  ],
 })
 </script>
 

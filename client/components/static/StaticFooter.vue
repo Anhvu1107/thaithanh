@@ -12,7 +12,7 @@ const companyContact = computed(() => content.value.companyContact)
           <NuxtLink
             to="/"
             class="group inline-flex items-center"
-            aria-label="Thái Thanh Co., Ltd - Trang chủ"
+            aria-label="Thái Thanh Panel - Trang chủ"
           >
             <img
               src="/images/brand/thai-thanh-logo-transparent-480.png"
@@ -20,14 +20,14 @@ const companyContact = computed(() => content.value.companyContact)
               sizes="144px"
               width="479"
               height="325"
-              alt="Logo Thái Thanh Co., Ltd"
+              alt="Logo Thái Thanh Panel"
               class="h-auto w-36 object-contain transition duration-300 group-hover:scale-[1.02]"
               loading="lazy"
             >
           </NuxtLink>
 
           <h2 class="mt-9 max-w-2xl text-3xl font-semibold leading-[1.12] text-white sm:text-4xl lg:text-[2.6rem]">
-            Hệ panel và vật tư hoàn thiện cho công trình cần kiểm soát nhiệt.
+            Tấm panel cách nhiệt và vật tư hoàn thiện cho công trình cần kiểm soát nhiệt.
           </h2>
           <p class="mt-6 max-w-xl text-sm leading-7 text-[#c9cbc5] sm:text-base sm:leading-8">
             Cấu hình panel, cửa và phụ kiện được xác nhận theo mặt bằng, nhiệt độ và yêu cầu vận hành thực tế.

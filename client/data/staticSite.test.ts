@@ -26,6 +26,12 @@ const expectUnique = (values: readonly string[]) => {
 }
 
 describe('static site scope', () => {
+  it('uses one consistent Thai Thanh brand name in public content', () => {
+    const serializedContent = JSON.stringify(defaultSiteContent)
+    expect(serializedContent).toContain('Thái Thanh')
+    expect(serializedContent).not.toContain('Thái Thành')
+  })
+
   it('exposes one complete set of canonical company website routes', () => {
     expect(staticRoutes).toEqual([
       '/',

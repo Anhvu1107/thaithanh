@@ -6,6 +6,9 @@ usePageSeo({
   title: 'Giải pháp',
   description: 'Các hướng cấu hình panel cho kho mát, kho lạnh, kho đông, phòng sạch và nhà xưởng.',
   path: '/solutions',
+  breadcrumbs: [
+    { name: 'Giải pháp', path: '/solutions' },
+  ],
 })
 </script>
 

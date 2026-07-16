@@ -6,6 +6,9 @@ usePageSeo({
   title: 'Chính sách quyền riêng tư',
   description: 'Thông tin về dữ liệu được thu thập qua website Thái Thanh Panel, mục đích sử dụng, thời gian lưu giữ và quyền của người liên hệ.',
   path: '/privacy',
+  breadcrumbs: [
+    { name: 'Chính sách quyền riêng tư', path: '/privacy' },
+  ],
 })
 </script>
 

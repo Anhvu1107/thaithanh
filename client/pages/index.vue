@@ -96,8 +96,8 @@ const principles = [
 ]
 
 usePageSeo({
-  title: 'Giải pháp panel cách nhiệt',
-  description: 'Panel EPS, cửa Inox 304 và phụ kiện U/V cho công trình hoặc nhu cầu mua lẻ từ Thái Thanh Panel.',
+  title: 'Panel cách nhiệt EPS, cửa kho lạnh',
+  description: 'Thái Thanh Panel cung cấp tấm panel EPS cách nhiệt 50–200 mm, cửa kho lạnh Inox 304, phụ kiện U/V và vật tư cho công trình trên toàn quốc.',
   path: '/',
 })
 </script>
@@ -135,7 +135,7 @@ usePageSeo({
             Panel cách nhiệt Thái Thanh.
           </h1>
           <p class="mt-7 max-w-xl text-base leading-8 text-white/76 sm:text-lg">
-            Panel EPS, cửa Inox 304 và phụ kiện U/V được lựa chọn theo điều kiện vận hành — không chỉ theo tên gọi hay đơn giá từng tấm.
+            Tấm panel cách nhiệt EPS, cửa kho lạnh Inox 304 và phụ kiện U/V được lựa chọn theo điều kiện vận hành — không chỉ theo tên gọi hay đơn giá từng tấm.
           </p>
 
           <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -237,7 +237,7 @@ usePageSeo({
             Chọn ít hơn. Hiểu kỹ hơn.
           </h2>
           <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-neutral-600">
-            Thái Thanh tập trung vào những nhóm sản phẩm có thể trao đổi rõ về quy cách và nhu cầu sử dụng.
+            Thái Thanh Panel tập trung vào những nhóm sản phẩm có thể trao đổi rõ về quy cách và nhu cầu sử dụng.
           </p>
         </div>
 

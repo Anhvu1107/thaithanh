@@ -239,6 +239,21 @@ try {
     assert.match(ogImage.pathname, /^\/images\/.+\.webp$/, `${route} must expose an optimized social image`)
     assert.ok(pageMetadata.jsonLd.length > 0, `${route} must include structured data`)
     pageMetadata.jsonLd.forEach(value => assert.doesNotThrow(() => JSON.parse(value), `${route} JSON-LD must be valid JSON`))
+    const structuredNodes = pageMetadata.jsonLd.flatMap((value) => {
+      const document = JSON.parse(value)
+      return Array.isArray(document['@graph']) ? document['@graph'] : [document]
+    })
+    assert.ok(structuredNodes.some(node => node['@type'] === 'Organization'), `${route} must identify Thái Thanh Panel as the organization`)
+    assert.ok(structuredNodes.some(node => ['WebPage', 'CollectionPage', 'AboutPage', 'ContactPage'].includes(node['@type'])), `${route} must describe the current web page`)
+    if (route === '/') {
+      const website = structuredNodes.find(node => node['@type'] === 'WebSite')
+      assert.equal(website?.name, 'Thái Thanh Panel', 'homepage must publish the preferred Google site name')
+      assert.ok(website?.alternateName?.includes('Thai Thanh Panel'), 'homepage must publish the unaccented brand alternative')
+      assert.ok(website?.alternateName?.includes('thaithanhpanel.shop'), 'homepage must publish the domain fallback site name')
+    }
+    else {
+      assert.ok(structuredNodes.some(node => node['@type'] === 'BreadcrumbList'), `${route} must expose breadcrumb structured data`)
+    }
     pageMetadata.images.forEach((image) => {
       assert.ok(image.src.startsWith('/images/'), `${route} image must use a local optimized asset: ${image.src}`)
       assert.ok(image.alt.trim(), `${route} image must have meaningful alt text: ${image.src}`)
@@ -426,6 +441,14 @@ try {
     `${productionUrl}/products/panel-eps/`,
     'Panel EPS canonical URL must use the production trailing-slash format',
   )
+  const panelStructuredNodes = await page.locator('script[type="application/ld+json"]').evaluateAll(scripts => scripts.flatMap((script) => {
+    const document = JSON.parse(script.textContent || '{}')
+    return Array.isArray(document['@graph']) ? document['@graph'] : [document]
+  }))
+  const panelProductSchema = panelStructuredNodes.find(node => node['@type'] === 'Product')
+  assert.match(panelProductSchema?.name || '', /Panel EPS cách nhiệt/i, 'Panel EPS detail must expose Product structured data')
+  assert.equal(panelProductSchema?.brand?.['@id'], `${productionUrl}/#organization`, 'Product schema must link to the Thái Thanh Panel organization')
+  assert.ok(panelProductSchema?.additionalProperty?.some(property => property.name === 'Độ dày'), 'Product schema must include technical specifications')
 
   await page.goto(`${webUrl}/products/panel-eps#thi-cong-va-phu-kien`, { waitUntil: 'networkidle' })
   await page.locator('#thi-cong-va-phu-kien[open]').waitFor({ state: 'attached' })
@@ -674,6 +697,9 @@ try {
   assert.ok(sitemapLocations.includes(`${productionUrl}/`), 'sitemap must include the configured production homepage')
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/`), 'sitemap must include the posts index')
   assert.ok(sitemapLocations.some(location => location.startsWith(`${productionUrl}/posts/`) && location !== `${productionUrl}/posts/`), 'sitemap must include published posts')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/posts/tam-panel-cach-nhiet-eps-la-gi/`), 'sitemap must include the EPS keyword guide')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/posts/chon-do-day-panel-kho-lanh/`), 'sitemap must include the panel thickness guide')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/posts/cua-kho-lanh-inox-304/`), 'sitemap must include the cold-room door guide')
   assert.ok(sitemapLocations.includes(`${productionUrl}/privacy/`), 'sitemap must include the privacy policy')
   for (const href of productDetailRoutes) {
     assert.ok(
@@ -914,7 +940,7 @@ try {
   await page.keyboard.press('ArrowDown')
   assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'true', 'ArrowDown must expose the desktop product dropdown state')
   await productDropdown.waitFor({ state: 'visible' })
-  await page.locator('[data-product-dropdown-link]:focus').waitFor({ state: 'attached' })
+  await page.waitForFunction(() => document.activeElement?.matches('[data-product-dropdown-link]'))
   assert.equal(await page.locator(':focus').getAttribute('href'), expectedProductDropdownHrefs[0], 'ArrowDown must focus the first quick product link')
   await page.keyboard.press('Escape')
   await productDropdown.waitFor({ state: 'hidden' })

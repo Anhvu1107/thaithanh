@@ -121,7 +121,7 @@
       "imageWidth": 1254,
       "imageHeight": 1254,
       "imageAlt": "Panel EPS với cạnh tấm gần phẳng và mí ngàm tôn ngắn",
-      "summary": "Panel EPS gồm hai bề mặt kim loại và lõi xốp EPS ở giữa, dùng cho vách, trần, kho bảo quản và công trình lắp ghép. Thái Thành cung cấp độ dày 50–200 mm cùng nhiều mức tỷ trọng; cấu hình cuối cùng được đối chiếu theo nhiệt độ, vị trí lắp và điều kiện vận hành.",
+      "summary": "Panel EPS gồm hai bề mặt kim loại và lõi xốp EPS ở giữa, dùng cho vách, trần, kho bảo quản và công trình lắp ghép. Thái Thanh cung cấp độ dày 50–200 mm cùng nhiều mức tỷ trọng; cấu hình cuối cùng được đối chiếu theo nhiệt độ, vị trí lắp và điều kiện vận hành.",
       "applications": [
         "Kho mát và kho lạnh",
         "Vách và trần panel",
@@ -303,7 +303,7 @@
           "paragraphs": [
             "λ biểu thị mức dẫn nhiệt của vật liệu lõi; Uc/U biểu thị lượng nhiệt truyền qua cả tấm hoàn chỉnh; R biểu thị khả năng cản nhiệt và có thể ước tính bằng 1/U. Trong cùng điều kiện, λ và U càng thấp hoặc R càng cao thì cách nhiệt càng tốt. Không được lấy tỷ trọng thay cho λ, U hoặc R.",
             "Tải truyền qua một mặt được ước tính bằng Q = U × A × ΔT. Đây mới là một phần của tải lạnh; thiết kế còn phải cộng nhiệt do không khí lọt qua cửa, hàng nhập kho, người, đèn, quạt, xả đá và cầu nhiệt. Vì vậy danh sách 50–200 mm chỉ là khả năng cung cấp, không phải bảng quy đổi nhiệt độ tự động.",
-            "Các mốc R bên dưới là giá trị tham khảo cho thiết kế kho lạnh từ ASHRAE, không phải chứng nhận sản phẩm Thái Thành hay yêu cầu pháp lý thay thế hồ sơ công trình. Cấu hình được chốt khi có Uc/U của đúng panel và phép tính tải nhiệt."
+            "Các mốc R bên dưới là giá trị tham khảo cho thiết kế kho lạnh từ ASHRAE, không phải chứng nhận sản phẩm Thái Thanh hay yêu cầu pháp lý thay thế hồ sơ công trình. Cấu hình được chốt khi có Uc/U của đúng panel và phép tính tải nhiệt."
           ],
           "specifications": [
             {
@@ -618,7 +618,7 @@
       "imageWidth": 1254,
       "imageHeight": 1254,
       "imageAlt": "Cửa kho lạnh bản lề trong hệ panel cách nhiệt",
-      "summary": "Cửa kho lạnh Inox 304 được gia công theo ô chờ, độ dày vách và nhiệt độ vận hành. Thái Thành cung cấp cửa bản lề, cửa trượt, song gài Inox và song gài EPS với cấu hình phụ kiện theo từng công trình.",
+      "summary": "Cửa kho lạnh Inox 304 được gia công theo ô chờ, độ dày vách và nhiệt độ vận hành. Thái Thanh cung cấp cửa bản lề, cửa trượt, song gài Inox và song gài EPS với cấu hình phụ kiện theo từng công trình.",
       "applications": [
         "Kho lạnh",
         "Kho đông",
@@ -757,7 +757,7 @@
           "summary": "Phân biệt ô chờ, thông thủy và kích thước cánh giúp tránh sai số khi gia công khung, khe kỹ thuật và hướng vận hành.",
           "paragraphs": [
             "Kích thước thường dùng gồm 600 × 600 × 100 mm và các mức rộng × cao 700 × 700, 800 × 800, 700 × 1700, 800 × 1800, 900 × 1800, 1000 × 1800, 1100 × 1800, 1200 × 1800 mm. Đây là danh sách tham khảo khả năng gia công, không phải kích thước cánh mặc định cho mọi ô chờ.",
-            "Khi đo cần ghi rộng × cao tại nhiều vị trí, độ dày vách, độ vuông và cao độ nền hoàn thiện. Thái Thành sẽ xác nhận kích thước sản xuất từ ô chờ để tính khung bao, khe hở, gioăng và kích thước thông thủy."
+            "Khi đo cần ghi rộng × cao tại nhiều vị trí, độ dày vách, độ vuông và cao độ nền hoàn thiện. Thái Thanh sẽ xác nhận kích thước sản xuất từ ô chờ để tính khung bao, khe hở, gioăng và kích thước thông thủy."
           ],
           "specifications": [
             {
@@ -1066,7 +1066,7 @@
         },
         {
           "question": "Cửa Inox 304 có đặt theo kích thước riêng được không?",
-          "answer": "Có. Thái Thành nhận gia công theo ô chờ. Khách hàng cần cung cấp rộng × cao, độ dày vách, kiểu mở, nhiệt độ và hướng vận hành để lập quy cách duyệt."
+          "answer": "Có. Thái Thanh nhận gia công theo ô chờ. Khách hàng cần cung cấp rộng × cao, độ dày vách, kiểu mở, nhiệt độ và hướng vận hành để lập quy cách duyệt."
         },
         {
           "question": "Chọn chiều dày lõi EPS của cửa như thế nào?",
@@ -1257,7 +1257,7 @@
           "summary": "Nhóm phụ kiện liên kết và treo trần phải được chọn từ sơ đồ tải, điểm treo và kết cấu phía trên, không chỉ từ diện tích.",
           "paragraphs": [
             "Thanh T có thể tạo đường đỡ hoặc liên kết tại mối ghép trần; bulong dù truyền tải từ hệ trần lên kết cấu chịu lực. Hình dạng, vật liệu và cách bố trí phải theo bản vẽ thi công.",
-            "Thái Thành chỉ xác nhận khả năng cung cấp sau khi nhận thông tin dự án. Không công bố khả năng chịu tải chung khi chưa có mã hàng, vật liệu, tiết diện, khoảng treo và hồ sơ tính toán."
+            "Thái Thanh chỉ xác nhận khả năng cung cấp sau khi nhận thông tin dự án. Không công bố khả năng chịu tải chung khi chưa có mã hàng, vật liệu, tiết diện, khoảng treo và hồ sơ tính toán."
           ],
           "specifications": [
             {
@@ -1337,7 +1337,7 @@
           "summary": "Ống hoặc vỏ cách nhiệt được chọn theo đường kính ống, chiều dày lớp cách nhiệt, nhiệt độ và điều kiện ngưng tụ.",
           "paragraphs": [
             "Đường kính trong phải khớp ống cần bọc, còn chiều dày lớp cách nhiệt phụ thuộc nhiệt độ môi chất, môi trường xung quanh và yêu cầu kiểm soát đọng sương. Các mối nối phải được làm kín liên tục.",
-            "Nếu dùng EPS hoặc vật liệu khác, cần xác nhận dạng sản phẩm, tỷ trọng, lớp bọc bảo vệ và phạm vi nhiệt từ tài liệu kỹ thuật. Thái Thành kiểm tra khả năng cung cấp sau khi nhận đủ quy cách."
+            "Nếu dùng EPS hoặc vật liệu khác, cần xác nhận dạng sản phẩm, tỷ trọng, lớp bọc bảo vệ và phạm vi nhiệt từ tài liệu kỹ thuật. Thái Thanh kiểm tra khả năng cung cấp sau khi nhận đủ quy cách."
           ],
           "specifications": [
             {
@@ -1393,7 +1393,7 @@
         },
         {
           "question": "Thanh T, bulong dù và van cân bằng áp có luôn sẵn không?",
-          "answer": "Không nên mặc định. Thái Thành cần kiểm tra quy cách, khối lượng, model và tiến độ trước khi xác nhận khả năng cung cấp các nhóm này."
+          "answer": "Không nên mặc định. Thái Thanh cần kiểm tra quy cách, khối lượng, model và tiến độ trước khi xác nhận khả năng cung cấp các nhóm này."
         },
         {
           "question": "Có nhận yêu cầu và giao phụ kiện toàn quốc không?",
@@ -2013,7 +2013,7 @@
           "summary": "Một chi tiết hoàn chỉnh có thể dùng nhiều vật liệu; bản vẽ và bảng quy cách giúp tránh đặt đúng tên nhưng sai cấu hình.",
           "paragraphs": [
             "Trước khi báo giá cần tách rõ vật tư rời, vật tư dùng trong sản phẩm gia công và phụ kiện hoàn thiện. Ví dụ Inox 304 dùng làm cửa không mặc định đồng nghĩa luôn có tấm Inox bán rời cùng mọi độ dày.",
-            "Các yêu cầu về dẫn nhiệt, cháy, hóa chất, CO/CQ hoặc bảo hành phải gắn với tài liệu của đúng vật liệu và lô hàng. Nếu chưa có tài liệu, Thái Thành sẽ ghi rõ phần cần xác nhận thay vì đưa ra cam kết chung."
+            "Các yêu cầu về dẫn nhiệt, cháy, hóa chất, CO/CQ hoặc bảo hành phải gắn với tài liệu của đúng vật liệu và lô hàng. Nếu chưa có tài liệu, Thái Thanh sẽ ghi rõ phần cần xác nhận thay vì đưa ra cam kết chung."
           ],
           "specifications": [
             {
@@ -2208,6 +2208,66 @@
         "Kho lạnh",
         "Tư vấn",
         "Panel"
+      ],
+      "published": true
+    },
+    {
+      "id": "eps-panel-guide",
+      "slug": "tam-panel-cach-nhiet-eps-la-gi",
+      "title": "Tấm panel cách nhiệt EPS là gì? Cấu tạo, độ dày và ứng dụng",
+      "eyebrow": "Kiến thức panel EPS",
+      "date": "2026-07-16",
+      "image": "/images/insulation/eps-panel-step-joint-editorial.jpg",
+      "imageSrcset": "/images/insulation/eps-panel-step-joint-editorial.jpg 1254w",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "imageAlt": "Tấm panel cách nhiệt EPS với hai bề mặt kim loại và lõi xốp EPS ở giữa",
+      "summary": "Tìm hiểu cấu tạo tấm panel EPS, dải độ dày 50–200 mm, tỷ trọng lựa chọn và những thông tin cần xác nhận trước khi đặt hàng.",
+      "body": "Tấm panel cách nhiệt EPS là cấu kiện dạng tấm gồm hai bề mặt kim loại và lớp lõi xốp EPS ở giữa. Sản phẩm thường được dùng để tạo vách, trần hoặc lớp bao che cho kho bảo quản, khu sơ chế, nhà xưởng và công trình lắp ghép cần kiểm soát nhiệt tốt hơn tường hoặc mái thông thường.\n\nHai mặt kim loại đảm nhiệm vai trò bảo vệ, tạo bề mặt hoàn thiện và hỗ trợ độ cứng cho tấm. Lõi EPS làm nhiệm vụ cách nhiệt; mép tấm được tạo ngàm để các tấm liên kết liên tục. Hiệu quả của hệ hoàn chỉnh còn phụ thuộc khe nối, nẹp U/V, vị trí góc, cửa, nền và cách thi công chứ không chỉ phụ thuộc riêng phần lõi.\n\nThái Thanh Panel cung cấp dải độ dày từ 50 đến 200 mm và nhiều mức tỷ trọng từ 14 đến 25 kg/m³ tùy loại. Độ dày hoặc tỷ trọng cao hơn không tự động là lựa chọn tốt nhất cho mọi công trình. Cần đối chiếu nhiệt độ mục tiêu, kích thước phòng, nhịp đỡ, vị trí lắp vách hay trần, tải sử dụng và yêu cầu bề mặt.\n\nPanel EPS có thể dùng cho vách ngăn cách nhiệt, trần panel, kho mát, một số cấu hình kho lạnh, phòng sơ chế và nhà xưởng chống nóng. Với kho đông sâu, công trình có yêu cầu cháy riêng hoặc môi trường vệ sinh đặc biệt, cấu hình vật liệu phải được kiểm tra theo hồ sơ thiết kế và tài liệu kỹ thuật của đúng sản phẩm.\n\nKhi hỏi giá, nên gửi chiều dài, chiều rộng, chiều cao công trình hoặc tổng diện tích; độ dày dự kiến; tỷ trọng cần dùng nếu đã có thiết kế; màu và bề mặt tôn; số lượng; vị trí giao hàng. Nếu chưa có cấu hình, hãy cung cấp nhiệt độ vận hành và loại hàng lưu trữ để đội kỹ thuật trao đổi phương án sơ bộ.\n\nMột báo giá có thể chỉ so sánh đúng khi các bên cùng đối chiếu độ dày, tỷ trọng, bề mặt, khổ hữu dụng, chiều dài tấm, phụ kiện đi kèm và điều kiện giao hàng. Không nên chọn tấm panel chỉ từ một mức giá theo mét vuông mà chưa làm rõ các thông tin này.",
+      "tags": [
+        "Tấm panel cách nhiệt",
+        "Panel EPS",
+        "Vật liệu cách nhiệt"
+      ],
+      "published": true
+    },
+    {
+      "id": "panel-thickness-guide",
+      "slug": "chon-do-day-panel-kho-lanh",
+      "title": "Chọn độ dày panel kho lạnh theo nhu cầu nhiệt như thế nào?",
+      "eyebrow": "Hướng dẫn lựa chọn",
+      "date": "2026-07-16",
+      "image": "/images/insulation/cold-room-system-cutaway.jpg",
+      "imageSrcset": "/images/insulation/cold-room-system-cutaway-768.jpg 768w, /images/insulation/cold-room-system-cutaway.jpg 1536w",
+      "imageWidth": 1536,
+      "imageHeight": 1024,
+      "imageAlt": "Sơ đồ hệ vách, trần, nền và cửa của kho lạnh sử dụng panel cách nhiệt",
+      "summary": "Độ dày panel kho lạnh phải được đối chiếu cùng nhiệt độ, kích thước kho, tần suất mở cửa, nền và điều kiện vận hành.",
+      "body": "Không nên chọn độ dày panel kho lạnh chỉ từ một bảng nhiệt độ chung. Nhiệt độ mục tiêu là thông tin đầu tiên, nhưng tải nhiệt thực tế còn chịu ảnh hưởng của kích thước kho, nhiệt độ môi trường, loại hàng, lượng hàng nhập mỗi ngày, số người làm việc, thiết bị bên trong và tần suất mở cửa.\n\nVách, trần, nền và cửa tạo thành một lớp vỏ liên tục. Nếu chỉ tăng độ dày vách nhưng để khe cửa hở, nền thiếu cách nhiệt hoặc mối nối thi công không kín, hệ thống lạnh vẫn phải làm việc nhiều. Vì vậy việc lựa chọn phải xem đồng thời panel, cửa kho lạnh, phụ kiện kín mạch và xử lý các vị trí xuyên qua vỏ kho.\n\nDải panel EPS 50–200 mm của Thái Thanh cho phép trao đổi nhiều cấu hình khác nhau. Mức phù hợp phải dựa trên hệ số truyền nhiệt của đúng loại tấm, chiều dài nhịp, vị trí lắp, điều kiện đỡ và phép tính tải lạnh. Các bảng tham khảo chỉ nên dùng để sàng lọc ban đầu, không thay thế hồ sơ thiết kế hoặc xác nhận kỹ thuật.\n\nĐối với kho mát hoặc khu sơ chế, cần chú ý độ ẩm, vệ sinh bề mặt và số lần xuất nhập hàng. Với kho lạnh và kho đông, các vị trí cửa, khung cửa, sưởi ron nếu có, phòng đệm và cách nhiệt nền trở nên quan trọng hơn. Kho có xe đẩy hoặc pallet còn cần xem tải nền và giải pháp bảo vệ bề mặt.\n\nThông tin nên chuẩn bị gồm kích thước dài × rộng × cao, nhiệt độ trong kho, nhiệt độ môi trường dự kiến, loại và khối lượng hàng, nhiệt độ hàng khi nhập, số lượng cửa, kích thước ô chờ, tần suất mở cửa, vị trí lắp đặt và nguồn điện của hệ thống lạnh. Bản vẽ mặt bằng hoặc ảnh hiện trạng sẽ giúp hạn chế sai sót.\n\nSau khi có dữ liệu đầu vào, đội kỹ thuật mới có thể so sánh cấu hình panel, cửa và phụ kiện, sau đó ghi rõ phần nào đã xác nhận và phần nào còn cần thiết kế chuyên ngành. Cách làm này giúp tránh chọn thiếu gây tốn điện hoặc chọn dư nhưng không xử lý đúng điểm thất thoát nhiệt.",
+      "tags": [
+        "Độ dày panel",
+        "Kho lạnh",
+        "Panel cách nhiệt"
+      ],
+      "published": true
+    },
+    {
+      "id": "cold-room-door-guide",
+      "slug": "cua-kho-lanh-inox-304",
+      "title": "Cửa kho lạnh Inox 304: loại cửa, kích thước và cách đo ô chờ",
+      "eyebrow": "Kiến thức cửa kho lạnh",
+      "date": "2026-07-15",
+      "image": "/images/insulation/cold-door-editorial.jpg",
+      "imageSrcset": "/images/insulation/cold-door-editorial.jpg 1254w",
+      "imageWidth": 1254,
+      "imageHeight": 1254,
+      "imageAlt": "Cửa kho lạnh Inox 304 lắp trong hệ vách panel cách nhiệt",
+      "summary": "Phân biệt cửa bản lề, cửa trượt, cửa song gài và những kích thước cần cung cấp để gia công cửa kho lạnh.",
+      "body": "Cửa kho lạnh là vị trí đóng mở thường xuyên trên lớp vỏ cách nhiệt, vì vậy phải được chọn đồng bộ với độ dày panel, nhiệt độ vận hành, kích thước lối đi và tần suất sử dụng. Chỉ ghi một kích thước rộng × cao chưa đủ để gia công chính xác.\n\nCửa bản lề phù hợp nhiều lối đi bộ hoặc xe đẩy nhỏ, có cấu tạo gọn và thao tác trực tiếp. Cửa trượt giúp tiết kiệm khoảng mở cánh nhưng cần đủ không gian dọc vách cho ray và cánh trượt. Cửa song gài dùng cho các vị trí và thói quen vận hành riêng; kiểu khóa, bản lề, tay mở trong và phụ kiện an toàn phải được xác nhận theo từng bộ cửa.\n\nBề mặt Inox 304 dễ vệ sinh và phù hợp nhiều môi trường thực phẩm, nhưng không nên mặc định phù hợp với mọi hóa chất hoặc môi trường muối. Nếu khu vực có hóa chất tẩy rửa, độ ẩm cao hoặc yêu cầu vệ sinh đặc biệt, cần nêu rõ điều kiện tiếp xúc và kiểu hoàn thiện bề mặt.\n\nKhi đo ô chờ, hãy ghi chiều rộng và chiều cao tại nhiều vị trí, độ dày vách panel, độ vuông của ô, cao độ nền hoàn thiện và hướng mở hoặc hướng trượt. Cũng cần xác định kích thước thông thủy mong muốn, khoảng trống phía trên và hai bên, vị trí tay khóa, phía thao tác chính và các vật cản gần cửa.\n\nThái Thanh nhận trao đổi các kích thước phổ biến như 600 × 600 × 100 mm, 700 × 700 mm, 800 × 800 mm và các cửa đi từ 700 × 1700 đến 1200 × 1800 mm. Đây là các mốc tham khảo; kích thước sản xuất cuối cùng phải được duyệt từ ô chờ, độ dày vách và kiểu khung bao thực tế.\n\nTrước khi đặt hàng, nên gửi ảnh hai mặt ô chờ, kích thước đo, nhiệt độ kho, kiểu cửa mong muốn, số lượng và địa điểm giao. Bản duyệt cần thể hiện kích thước sản xuất, kích thước thông thủy, hướng vận hành, bề mặt, phụ kiện, gioăng và yêu cầu sưởi ron nếu có.",
+      "tags": [
+        "Cửa kho lạnh",
+        "Inox 304",
+        "Kích thước cửa"
       ],
       "published": true
     }

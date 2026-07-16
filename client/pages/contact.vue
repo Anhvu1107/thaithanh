@@ -37,6 +37,10 @@ usePageSeo({
   title: 'Liên hệ',
   description: contactDescription,
   path: '/contact',
+  webPageType: 'ContactPage',
+  breadcrumbs: [
+    { name: 'Liên hệ', path: '/contact' },
+  ],
 })
 </script>
 

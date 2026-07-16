@@ -9,6 +9,10 @@ usePageSeo({
   title: 'Giới thiệu',
   description: 'Định hướng và cách Thái Thanh Panel cung cấp thông tin giải pháp panel cách nhiệt cho công trình.',
   path: '/about',
+  webPageType: 'AboutPage',
+  breadcrumbs: [
+    { name: 'Giới thiệu', path: '/about' },
+  ],
 })
 </script>
 

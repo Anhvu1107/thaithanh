@@ -29,14 +29,14 @@ const returnHome = () => clearError({ redirect: '/' })
   <div class="min-h-screen bg-panel-ivory text-panel-black">
     <header class="border-b border-panel-line">
       <div class="container-site flex min-h-[4.75rem] items-center">
-        <button type="button" class="group flex items-center text-left" aria-label="Về trang chủ Thái Thanh Co., Ltd" @click="returnHome">
+        <button type="button" class="group flex items-center text-left" aria-label="Về trang chủ Thái Thanh Panel" @click="returnHome">
           <img
             src="/images/brand/thai-thanh-logo-transparent-480.png"
             srcset="/images/brand/thai-thanh-logo-transparent-480.png 479w, /images/brand/thai-thanh-logo-transparent.png 898w"
             sizes="128px"
             width="479"
             height="325"
-            alt="Logo Thái Thanh Co., Ltd"
+            alt="Logo Thái Thanh Panel"
             class="h-auto w-32 transition group-hover:opacity-85"
           >
         </button>
