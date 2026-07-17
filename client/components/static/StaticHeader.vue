@@ -25,7 +25,6 @@ const productNavigation = computed(() => content.value.retailProducts.map(produc
 const companyContact = computed(() => content.value.companyContact)
 const hasScrolled = ref(false)
 const isProductMenuOpen = ref(false)
-const suppressProductMenuHover = ref(false)
 const isMobileProductMenuOpen = ref(false)
 const isHomePage = computed(() => route.path === '/')
 const usesHeroHeader = computed(() => isHomePage.value && !hasScrolled.value && !isMenuOpen.value)
@@ -56,7 +55,7 @@ const isActiveRoute = (href: string) => href === '/'
   : route.path === href || route.path.startsWith(`${href}/`)
 
 const getProductNavigationItem = () => desktopNavigation.value?.querySelector<HTMLElement>('[data-product-navigation-item]') ?? null
-const getProductMenuButton = () => desktopNavigation.value?.querySelector<HTMLButtonElement>('[data-product-dropdown-toggle]') ?? null
+const getProductNavigationLink = () => desktopNavigation.value?.querySelector<HTMLElement>('[data-product-navigation-link]') ?? null
 
 const updateLiquidIndicator = () => {
   const navigation = desktopNavigation.value
@@ -134,7 +133,6 @@ const blurLiquidIndicator = () => {
 watch(() => route.fullPath, async () => {
   isMenuOpen.value = false
   isProductMenuOpen.value = false
-  suppressProductMenuHover.value = false
   isMobileProductMenuOpen.value = false
   liquidIndicatorHoverIndex.value = null
   liquidIndicatorFocusIndex.value = null
@@ -156,25 +154,13 @@ async function toggleMenu() {
   }
 }
 
-function toggleProductMenu() {
-  if (isProductMenuOpen.value) {
-    isProductMenuOpen.value = false
-    suppressProductMenuHover.value = true
-    return
-  }
-
-  suppressProductMenuHover.value = false
-  isProductMenuOpen.value = true
-}
-
 const focusFirstProductLink = () => {
   if (!isProductMenuOpen.value) return
 
   const navigationItem = getProductNavigationItem()
   const activeElement = document.activeElement
-  const menuButton = getProductMenuButton()
 
-  if (activeElement !== menuButton && activeElement instanceof Node && !navigationItem?.contains(activeElement)) return
+  if (activeElement instanceof Node && !navigationItem?.contains(activeElement)) return
 
   navigationItem
     ?.querySelector<HTMLElement>('[data-product-dropdown-link]')
@@ -182,7 +168,6 @@ const focusFirstProductLink = () => {
 }
 
 function openProductMenuAndFocusFirstLink() {
-  suppressProductMenuHover.value = false
   isProductMenuOpen.value = true
   const navigationItem = getProductNavigationItem()
 
@@ -197,6 +182,11 @@ function openProductMenuAndFocusFirstLink() {
   })
 }
 
+function handleProductMenuPointerEnter(index: number) {
+  isProductMenuOpen.value = true
+  previewLiquidIndicator(index)
+}
+
 function handleProductMenuFocusOut(event: FocusEvent) {
   const nextTarget = event.relatedTarget
   if (nextTarget instanceof Node && getProductNavigationItem()?.contains(nextTarget)) return
@@ -207,7 +197,6 @@ function handleProductMenuFocusOut(event: FocusEvent) {
 
 function handleProductMenuPointerLeave() {
   isProductMenuOpen.value = false
-  suppressProductMenuHover.value = false
   restoreLiquidIndicator()
 }
 
@@ -216,7 +205,6 @@ function handleDocumentPointerDown(event: PointerEvent) {
   if (!(target instanceof Node) || getProductNavigationItem()?.contains(target)) return
 
   isProductMenuOpen.value = false
-  suppressProductMenuHover.value = false
 }
 
 async function handleEscape(event: KeyboardEvent) {
@@ -232,9 +220,8 @@ async function handleEscape(event: KeyboardEvent) {
 
   if (isProductMenuOpen.value) {
     isProductMenuOpen.value = false
-    suppressProductMenuHover.value = true
     await nextTick()
-    getProductMenuButton()?.focus()
+    getProductNavigationLink()?.focus()
   }
 }
 
@@ -333,9 +320,8 @@ onBeforeUnmount(() => {
             v-if="item.href === '/products'"
             class="product-navigation-item relative flex self-stretch items-center"
             :data-open="isProductMenuOpen ? 'true' : 'false'"
-            :data-hover-suppressed="suppressProductMenuHover ? 'true' : 'false'"
             data-product-navigation-item
-            @pointerenter="previewLiquidIndicator(index)"
+            @pointerenter="handleProductMenuPointerEnter(index)"
             @pointerleave="handleProductMenuPointerLeave"
             @focusin="focusLiquidIndicator(index)"
             @focusout="handleProductMenuFocusOut"
@@ -343,35 +329,20 @@ onBeforeUnmount(() => {
             <NuxtLink
               :to="item.href"
               :aria-current="isActiveRoute(item.href) ? 'page' : undefined"
+              :aria-expanded="isProductMenuOpen"
+              aria-controls="desktop-product-dropdown"
+              aria-haspopup="true"
               :data-nav-active="isActiveRoute(item.href) ? 'true' : 'false'"
               data-desktop-nav-link
+              data-product-navigation-link
               class="desktop-nav-link group relative z-10 flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold"
               :class="usesHeroHeader
                 ? (isActiveRoute(item.href) ? 'text-white' : 'text-white/[0.72] hover:text-white')
                 : (isActiveRoute(item.href) ? 'text-panel-black' : 'text-neutral-600 hover:text-panel-black')"
+              @keydown.down.prevent="openProductMenuAndFocusFirstLink"
             >
               <span class="relative z-10" data-product-navigation-label>{{ item.label }}</span>
             </NuxtLink>
-
-            <button
-              type="button"
-              class="product-dropdown-toggle absolute -right-4 z-20 grid h-7 w-7 place-items-center rounded-full border shadow-[0_4px_14px_rgba(44,40,35,0.08)] transition-[color,background-color,border-color,box-shadow,transform]"
-              :class="usesHeroHeader
-                ? 'border-white/45 bg-black/15 text-white hover:border-white/75 hover:bg-white/15'
-                : 'border-[#bfa998] bg-white/75 text-[#874a2d] hover:border-[#9f5f42] hover:bg-[#f3e9e1]'"
-              :aria-expanded="isProductMenuOpen"
-              aria-controls="desktop-product-dropdown"
-              aria-haspopup="true"
-              :aria-label="isProductMenuOpen ? 'Đóng danh mục sản phẩm' : 'Mở danh mục sản phẩm'"
-              data-product-dropdown-toggle
-              data-product-dropdown-cue
-              @click.stop="toggleProductMenu"
-              @keydown.down.prevent="openProductMenuAndFocusFirstLink"
-            >
-              <svg class="product-dropdown-chevron h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="m3.5 5.75 4.5 4.5 4.5-4.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
 
             <div
               id="desktop-product-dropdown"
@@ -756,66 +727,12 @@ onBeforeUnmount(() => {
   transform: translate(-50%, 0) scale(1);
 }
 
-.product-dropdown-chevron {
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.product-dropdown-toggle {
-  transition:
-    opacity 180ms ease,
-    color 180ms ease,
-    background-color 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.product-dropdown-toggle:active {
-  transform: scale(0.94);
-}
-
-.header-light .product-navigation-item[data-open='true'] .product-dropdown-toggle {
-  border-color: #874a2d;
-  background: #874a2d;
-  color: #fffaf6;
-  box-shadow: 0 7px 20px rgba(126, 66, 47, 0.24);
-}
-
-.header-hero .product-navigation-item[data-open='true'] .product-dropdown-toggle {
-  border-color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.94);
-  color: #7e422f;
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
-}
-
-.product-navigation-item[data-open='true'] .product-dropdown-chevron {
-  transform: rotate(180deg);
-}
-
 @media (hover: hover) and (pointer: fine) {
-  .product-navigation-item .product-dropdown-toggle {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-0.2rem) scale(0.78);
-  }
-
-  .product-navigation-item:hover .product-dropdown-toggle,
-  .product-navigation-item:focus-within .product-dropdown-toggle,
-  .product-navigation-item[data-open='true'] .product-dropdown-toggle {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0) scale(1);
-  }
-
-  .product-navigation-item:not([data-hover-suppressed='true']):hover .product-dropdown {
+  .product-navigation-item:hover .product-dropdown {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, 0) scale(1);
-  }
-
-  .product-navigation-item:not([data-hover-suppressed='true']):hover .product-dropdown-chevron {
-    transform: rotate(180deg);
   }
 }
 
@@ -839,8 +756,6 @@ onBeforeUnmount(() => {
   .liquid-nav-indicator,
   .liquid-nav-surface,
   .product-dropdown,
-  .product-dropdown-toggle,
-  .product-dropdown-chevron,
   .menu-line,
   .warm-header a,
   .warm-header span {

@@ -808,8 +808,7 @@ try {
   const liquidNavigationIndicator = page.locator('[data-nav-liquid-indicator]')
   const liquidNavigationSurface = page.locator('[data-nav-liquid-surface]')
   const productDropdown = page.locator('[data-product-dropdown]')
-  const productDropdownToggle = page.locator('[data-product-dropdown-toggle]')
-  const productDropdownCue = page.locator('[data-product-dropdown-cue]')
+  const productNavigationLink = page.locator('[data-product-navigation-link]')
   const productDropdownLinks = productDropdown.locator('[data-product-dropdown-link]')
   const expectedProductDropdownHrefs = [
     '/products/panel-eps',
@@ -822,33 +821,10 @@ try {
   assert.equal(await liquidNavigationSurface.count(), 1, 'liquid indicator must expose one deformable surface')
   assert.equal(await liquidNavigationIndicator.getAttribute('aria-hidden'), 'true', 'liquid indicator must remain decorative')
   assert.equal(await productDropdown.count(), 1, 'desktop header must expose one quick product dropdown')
-  assert.equal(await productDropdownCue.count(), 1, 'desktop product navigation must retain an accessible dropdown control')
-  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'desktop product dropdown must start collapsed')
-  assert.equal(await productDropdownToggle.getAttribute('aria-haspopup'), 'true', 'desktop product dropdown cue must announce that it opens a popup')
-  assert.equal(await productDropdownToggle.getAttribute('aria-label'), 'Mở danh mục sản phẩm', 'desktop product dropdown cue must explain its action')
-  const productDropdownCueContract = await page.locator('[data-product-navigation-item]').evaluate((item) => {
-    const label = item.querySelector('[data-product-navigation-label]')?.getBoundingClientRect()
-    const cue = item.querySelector('[data-product-dropdown-cue]')
-    const cueBox = cue?.getBoundingClientRect()
-    const cueStyle = cue ? getComputedStyle(cue) : null
-
-    if (!label || !cueBox || !cueStyle) return null
-
-    return {
-      borderWidth: Number.parseFloat(cueStyle.borderTopWidth),
-      cueHeight: cue instanceof HTMLElement ? cue.offsetHeight : cueBox.height,
-      cueWidth: cue instanceof HTMLElement ? cue.offsetWidth : cueBox.width,
-      gap: cueBox.left - label.right,
-      opacity: Number.parseFloat(cueStyle.opacity),
-      visibility: cueStyle.visibility,
-    }
-  })
-  assert.notEqual(productDropdownCueContract, null, 'desktop product dropdown control must render beside the product label')
-  assert.ok(productDropdownCueContract.cueWidth >= 28 && productDropdownCueContract.cueHeight >= 28, 'desktop product dropdown control must retain a compact 28px target')
-  assert.ok(productDropdownCueContract.gap >= 2, 'desktop product dropdown cue must not overlap the product label')
-  assert.ok(productDropdownCueContract.borderWidth >= 1, 'desktop product dropdown cue must retain a visible outline')
-  assert.equal(productDropdownCueContract.visibility, 'visible', 'desktop product dropdown control must remain keyboard-accessible when visually hidden')
-  assert.ok(productDropdownCueContract.opacity <= 0.05, 'desktop product dropdown arrow must stay hidden while the navigation is idle')
+  assert.equal(await productNavigationLink.getAttribute('aria-expanded'), 'false', 'desktop product dropdown must start collapsed')
+  assert.equal(await productNavigationLink.getAttribute('aria-haspopup'), 'true', 'desktop product navigation link must announce its popup')
+  assert.equal(await page.locator('[data-product-dropdown-toggle]').count(), 0, 'desktop product navigation must not render a separate arrow control')
+  assert.equal(await page.locator('.product-dropdown-chevron').count(), 0, 'desktop product navigation must not render a dropdown arrow icon')
   const desktopNavigationLabelGaps = await page.locator('[data-desktop-nav-link]').evaluateAll((links) => {
     const labels = links.map(link => link.querySelector('span')?.getBoundingClientRect()).filter(Boolean)
     return labels.slice(0, -1).map((label, index) => labels[index + 1].left - label.right)
@@ -907,16 +883,9 @@ try {
   const reducedMotionProductsNavigation = page.locator('[data-desktop-nav-link][href="/products"]')
   await reducedMotionProductsNavigation.hover()
   await productDropdown.waitFor({ state: 'visible' })
-  assert.ok(
-    Number.parseFloat(await productDropdownCue.evaluate(element => getComputedStyle(element).opacity)) >= 0.95,
-    'hovering Sản phẩm must reveal the dropdown arrow',
-  )
-  assert.equal(
-    await productDropdownCue.evaluate(element => getComputedStyle(element).pointerEvents),
-    'auto',
-    'the revealed dropdown arrow must become interactive',
-  )
   assert.equal(await productDropdown.isVisible(), true, 'hovering Sản phẩm must reveal the quick product dropdown')
+  assert.equal(await productNavigationLink.getAttribute('aria-expanded'), 'true', 'hovering Sản phẩm must expose the dropdown state without an arrow control')
+  assert.equal(await page.locator('[data-product-dropdown-toggle]').count(), 0, 'hovering Sản phẩm must reveal only the dropdown list')
   const productDropdownLayout = await productDropdown.evaluate((element) => {
     const box = element.getBoundingClientRect()
     const style = getComputedStyle(element)
@@ -971,30 +940,18 @@ try {
   assert.notEqual(productLiquidAlignment, null, 'liquid navigation indicator must render on inner pages')
   assert.ok(productLiquidAlignment <= 1, 'liquid navigation indicator must follow the current inner page')
 
-  await productDropdownToggle.focus()
-  assert.ok(
-    Number.parseFloat(await productDropdownCue.evaluate(element => getComputedStyle(element).opacity)) >= 0.95,
-    'keyboard focus must reveal the desktop product dropdown arrow',
-  )
-  await productDropdownToggle.click()
-  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'true', 'clicking the desktop product toggle must expose its open state')
-  await productDropdown.waitFor({ state: 'visible' })
-  await productDropdownToggle.click()
-  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'clicking the open desktop product toggle must collapse it')
-  await productDropdown.waitFor({ state: 'hidden' })
-  await page.mouse.move(8, 180)
-
-  await productDropdownToggle.focus()
+  await productNavigationLink.focus()
+  assert.equal(await productNavigationLink.getAttribute('aria-expanded'), 'false', 'keyboard focus alone must not force the product dropdown open')
   await page.keyboard.press('ArrowDown')
-  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'true', 'ArrowDown must expose the desktop product dropdown state')
+  assert.equal(await productNavigationLink.getAttribute('aria-expanded'), 'true', 'ArrowDown on Sản phẩm must expose the desktop product dropdown state')
   await productDropdown.waitFor({ state: 'visible' })
   await page.waitForFunction(() => document.activeElement?.matches('[data-product-dropdown-link]'))
   assert.equal(await page.locator(':focus').getAttribute('href'), expectedProductDropdownHrefs[0], 'ArrowDown must focus the first quick product link')
   await page.keyboard.press('Escape')
   await productDropdown.waitFor({ state: 'hidden' })
-  assert.equal(await productDropdownToggle.getAttribute('aria-expanded'), 'false', 'Escape must collapse the desktop product dropdown')
-  await page.locator('[data-product-dropdown-toggle]:focus').waitFor({ state: 'attached' })
-  assert.equal(await page.locator(':focus').getAttribute('data-product-dropdown-toggle'), '', 'Escape must return focus to the product dropdown button')
+  assert.equal(await productNavigationLink.getAttribute('aria-expanded'), 'false', 'Escape must collapse the desktop product dropdown')
+  await page.locator('[data-product-navigation-link]:focus').waitFor({ state: 'attached' })
+  assert.equal(await page.locator(':focus').getAttribute('data-product-navigation-link'), '', 'Escape must return focus to the Sản phẩm link')
 
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto(webUrl, { waitUntil: 'networkidle' })
