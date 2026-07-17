@@ -288,6 +288,17 @@ try {
   }
 
   await page.goto(webUrl, { waitUntil: 'networkidle' })
+  const quickActions = page.locator('[data-quick-actions]')
+  assert.equal(await quickActions.count(), 1, 'public pages must expose one quick contact dock')
+  const quickPhoneAction = quickActions.locator('[data-quick-action="phone"]')
+  const quickZaloAction = quickActions.locator('[data-quick-action="zalo"]')
+  const quickRequestAction = quickActions.locator('[data-quick-action="request"]')
+  assert.equal(await quickPhoneAction.getAttribute('href'), 'tel:0912255748', 'quick call action must use the current hotline')
+  assert.match(await quickPhoneAction.innerText(), /Gọi ngay/i, 'quick call action must use an explicit action label')
+  assert.equal(await quickZaloAction.getAttribute('href'), 'https://zalo.me/0912255748', 'quick Zalo action must use the current hotline')
+  assert.equal(await quickZaloAction.getAttribute('target'), '_blank', 'quick Zalo action must open outside the current site')
+  assert.match(await quickZaloAction.getAttribute('rel') || '', /noopener/, 'quick Zalo action must isolate the new tab')
+  assert.equal(await quickRequestAction.getAttribute('href'), '/contact#quick-contact-form', 'quick request action must link to the contact form')
   const reducedMotionContract = await page.evaluate(() => {
     const revealElements = [...document.querySelectorAll('[data-reveal]')]
     return {

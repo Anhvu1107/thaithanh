@@ -54,7 +54,7 @@ usePageSeo({
       image-alt="Cửa Inox 304 và hệ panel cách nhiệt"
       primary-label="Gửi yêu cầu nhanh"
       primary-href="#quick-contact-form"
-      secondary-label="Gọi 0363 003 507"
+      :secondary-label="`Gọi ${companyContact.phoneDisplay}`"
       :secondary-href="companyContact.phoneHref"
     />
 

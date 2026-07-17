@@ -214,7 +214,7 @@ const submitContactForm = async () => {
           :aria-invalid="Boolean(errors.phone)"
           :aria-describedby="errors.phone ? 'quick-contact-phone-error' : undefined"
           class="mt-2 min-h-12 w-full border border-panel-line bg-white px-4 py-3 text-base text-panel-black placeholder:text-neutral-400 focus:border-panel-black focus:outline-none focus:ring-2 focus:ring-panel-black/10"
-          placeholder="0363 003 507"
+          placeholder="0912 255 748"
           @input="clearFieldError('phone')"
         >
         <p v-if="errors.phone" id="quick-contact-phone-error" class="mt-2 text-xs leading-5 text-red-700">{{ errors.phone }}</p>
