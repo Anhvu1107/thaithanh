@@ -27,6 +27,13 @@ export const toAbsoluteUrl = (value: string, siteUrl: string): string => {
 export const toCanonicalUrl = (value: string, siteUrl: string): string => {
   const absoluteUrl = new URL(toAbsoluteUrl(value, siteUrl))
 
+  // Canonical URLs describe the page resource, not a particular client-side
+  // view.  Query strings and fragments can create duplicate URLs (for
+  // example, a contact CTA such as `/contact?source=hero#quick-contact`), so
+  // keep them out of canonical and sitemap URLs.
+  absoluteUrl.search = ''
+  absoluteUrl.hash = ''
+
   if (absoluteUrl.pathname !== '/' && !absoluteUrl.pathname.endsWith('/')) {
     absoluteUrl.pathname = `${absoluteUrl.pathname}/`
   }

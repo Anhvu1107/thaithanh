@@ -13,6 +13,11 @@ const publishedPostRoutes = siteContent.posts
 const retailProductRoutes = siteContent.retailProducts
   .map(product => `/products/${product.slug}`)
 
+const solutionLandingRoutes = [
+  '/solutions/panel-kho-lanh',
+  '/solutions/panel-phong-sach',
+]
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
@@ -34,14 +39,14 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      title: 'Tấm cách nhiệt Thái Thanh',
+      title: 'Tấm panel cách nhiệt kho lạnh, phòng sạch',
       htmlAttrs: { lang: 'vi' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'Tấm cách nhiệt Thái Thanh cung cấp panel EPS, cửa Inox 304 và phụ kiện U/V cho công trình hoặc nhu cầu mua lẻ trên toàn quốc.',
+          content: 'Thái Thanh cung cấp tấm panel EPS cách nhiệt 50–200 mm, cửa kho lạnh Inox 304 và phụ kiện cho kho lạnh, phòng sạch, nhà xưởng trên toàn quốc.',
         },
       ],
       link: [
@@ -79,6 +84,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: [
         ...publicRoutes,
+        ...solutionLandingRoutes,
         ...retailProductRoutes,
         ...publishedPostRoutes,
         '/robots.txt',

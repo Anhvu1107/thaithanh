@@ -19,6 +19,12 @@ const productFamilyDestinations: Record<string, string> = {
   'doors-accessories': '/products/cua-kho-lanh',
 }
 
+const solutionDestinations: Record<string, string> = {
+  'cold-storage': '/solutions/panel-kho-lanh',
+  freezer: '/solutions/panel-kho-lanh',
+  'clean-room': '/solutions/panel-phong-sach',
+}
+
 const quickProductChoices = [
   { index: '01', title: 'Panel EPS', note: 'Độ dày 50–200 mm · Có bán lẻ', href: '/products/panel-eps' },
   { index: '02', title: 'Cửa kho lạnh', note: 'Inox 304 · Bản lề hoặc cửa trượt', href: '/products/cua-kho-lanh' },
@@ -140,8 +146,8 @@ const principles = [
 ]
 
 usePageSeo({
-  title: 'Tấm cách nhiệt Thái Thanh',
-  description: 'Tấm cách nhiệt Thái Thanh cung cấp panel EPS cách nhiệt 50–200 mm, cửa kho lạnh Inox 304, phụ kiện U/V và vật tư cho công trình trên toàn quốc.',
+  title: 'Tấm panel cách nhiệt kho lạnh, phòng sạch',
+  description: 'Thái Thanh cung cấp tấm panel EPS cách nhiệt 50–200 mm, cửa kho lạnh Inox 304 và phụ kiện cho kho lạnh, phòng sạch, nhà xưởng trên toàn quốc.',
   path: '/',
 })
 </script>
@@ -396,7 +402,7 @@ usePageSeo({
           <NuxtLink
             v-for="(solution, index) in solutions"
             :key="solution.id"
-            :to="`/solutions#${solution.id}`"
+            :to="solutionDestinations[solution.id] || `/solutions#${solution.id}`"
             data-reveal
             :data-reveal-delay="index * 50"
             class="solution-row group grid grid-cols-[2.25rem_1fr_auto] items-center gap-x-3 gap-y-1 py-5 md:grid-cols-[4rem_1fr_0.75fr_auto] md:gap-7 md:py-7 lg:py-9"

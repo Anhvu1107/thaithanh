@@ -27,4 +27,9 @@ describe('site URL helpers', () => {
     expect(toCanonicalUrl('/products', 'https://www.example.vn')).toBe('https://www.example.vn/products/')
     expect(toCanonicalUrl('/posts/example/', 'https://www.example.vn')).toBe('https://www.example.vn/posts/example/')
   })
+
+  it('removes query strings and fragments from canonical URLs', () => {
+    expect(toCanonicalUrl('/contact?source=hero#quick-contact', 'https://www.example.vn'))
+      .toBe('https://www.example.vn/contact/')
+  })
 })

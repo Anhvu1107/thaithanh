@@ -6,6 +6,11 @@ interface SitemapEntry {
   lastmod?: string
 }
 
+const solutionLandingPaths = [
+  '/solutions/panel-kho-lanh',
+  '/solutions/panel-phong-sach',
+]
+
 const escapeXml = (value: string) => value
   .replace(/&/g, '&amp;')
   .replace(/</g, '&lt;')
@@ -16,7 +21,12 @@ const escapeXml = (value: string) => value
 export default defineEventHandler((event) => {
   const runtimeConfig = useRuntimeConfig(event)
   const siteUrl = normalizeSiteUrl(runtimeConfig.public.siteUrl)
-  const staticPaths = ['/', ...siteContent.publicNavigation.map(item => item.href), '/privacy']
+  const staticPaths = [
+    '/',
+    ...siteContent.publicNavigation.map(item => item.href),
+    ...solutionLandingPaths,
+    '/privacy',
+  ]
   const entries: SitemapEntry[] = [
     ...staticPaths.map(path => ({ path })),
     ...siteContent.retailProducts.map(product => ({ path: `/products/${product.slug}` })),

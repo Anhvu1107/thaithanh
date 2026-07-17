@@ -15,7 +15,18 @@ assert.match(rawWebPort, /^\d+$/, 'E2E_WEB_PORT must be an integer between 1 and
 const webPort = Number(rawWebPort)
 assert.ok(webPort >= 1 && webPort <= 65535, 'E2E_WEB_PORT must be an integer between 1 and 65535')
 const webUrl = `http://${webHost}:${webPort}`
-const canonicalRoutes = ['/', '/solutions', '/products', '/projects', '/posts', '/about', '/contact', '/privacy']
+const canonicalRoutes = [
+  '/',
+  '/solutions',
+  '/solutions/panel-kho-lanh',
+  '/solutions/panel-phong-sach',
+  '/products',
+  '/projects',
+  '/posts',
+  '/about',
+  '/contact',
+  '/privacy',
+]
 const canonicalPath = route => route === '/' ? '/' : `${route.replace(/\/$/, '')}/`
 const removedRoutes = [
   '/api/admin/content',
@@ -230,7 +241,7 @@ try {
       `${route} must not advertise unsupported panel products`,
     )
     if (route === '/') {
-      assert.equal(pageMetadata.title, 'Tấm cách nhiệt Thái Thanh', 'homepage title must use the exact preferred Google title')
+      assert.equal(pageMetadata.title, 'Tấm panel cách nhiệt kho lạnh, phòng sạch | Tấm cách nhiệt Thái Thanh', 'homepage title must target the core commercial search intent')
     }
     else {
       assert.match(pageMetadata.title, / \| Tấm cách nhiệt Thái Thanh$/, `${route} must include the preferred brand in its title`)
@@ -277,6 +288,15 @@ try {
       assert.equal(imageResponse.status(), 200, `${route} image must exist: ${image.src}`)
     }
     assert.deepEqual(pageMetadata.unsafeBlankLinks, [], `${route} target=_blank links must use rel=noopener`)
+
+    if (route === '/solutions/panel-kho-lanh') {
+      assert.match(pageMetadata.bodyText, /Panel kho lạnh/i, 'cold-room landing page must state its target topic')
+      assert.ok(await page.locator('a[href="/products/panel-eps"]').count() >= 1, 'cold-room landing page must link to Panel EPS')
+    }
+    if (route === '/solutions/panel-phong-sach') {
+      assert.match(pageMetadata.bodyText, /Panel phòng sạch/i, 'clean-room landing page must state its target topic')
+      assert.ok(await page.locator('a[href="/products/panel-eps"]').count() >= 1, 'clean-room landing page must link to Panel EPS')
+    }
 
     const routeForbiddenLinks = await page.locator('a').evaluateAll((links, patternSource) => {
       const pattern = new RegExp(patternSource)
@@ -785,6 +805,8 @@ try {
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/quy-cach-kich-thuoc-panel-eps/`), 'sitemap must include the EPS specification guide')
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/tam-cach-nhiet-eps-kho-lanh-nha-xuong-phong-sach/`), 'sitemap must include the EPS application guide')
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/nep-u-v-trong-v-ngoai-phu-kien-panel/`), 'sitemap must include the panel accessory guide')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/solutions/panel-kho-lanh/`), 'sitemap must include the cold-room commercial landing page')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/solutions/panel-phong-sach/`), 'sitemap must include the clean-room commercial landing page')
   assert.ok(sitemapLocations.includes(`${productionUrl}/privacy/`), 'sitemap must include the privacy policy')
   for (const href of productDetailRoutes) {
     assert.ok(
