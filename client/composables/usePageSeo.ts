@@ -39,8 +39,16 @@ interface PageSeoOptions {
 }
 
 const SITE_NAME = 'Thái Thanh Panel'
-const SITE_ALTERNATE_NAMES = ['Thái Thanh', 'Thai Thanh Panel', 'thaithanhpanel.shop']
+const SITE_ALTERNATE_NAMES = ['Tấm cách nhiệt Thái Thanh', 'Thái Thanh', 'Thai Thanh Panel', 'thaithanhpanel.shop']
 const ORGANIZATION_DESCRIPTION = 'Thái Thanh Panel cung cấp panel EPS cách nhiệt, cửa kho lạnh Inox 304, phụ kiện kho lạnh và vật tư hoàn thiện cho công trình trên toàn quốc.'
+const ORGANIZATION_TOPICS = [
+  'Tấm panel EPS cách nhiệt',
+  'Panel kho lạnh',
+  'Cửa kho lạnh Inox 304',
+  'Phụ kiện kho lạnh',
+  'Kho mát và kho đông',
+  'Phòng sạch và nhà xưởng',
+]
 const DEFAULT_SOCIAL_IMAGE = '/images/insulation/eps-panel-step-joint.webp'
 const DEFAULT_SOCIAL_IMAGE_ALT = 'Panel EPS với mép ngàm bậc âm–dương và mí tôn ngắn'
 
@@ -113,6 +121,7 @@ export const usePageSeo = (options: PageSeoOptions) => {
       alternateName: SITE_ALTERNATE_NAMES,
       description: ORGANIZATION_DESCRIPTION,
       url: `${siteUrl.value}/`,
+      knowsAbout: ORGANIZATION_TOPICS,
       logo: {
         '@type': 'ImageObject',
         '@id': organizationLogoId.value,

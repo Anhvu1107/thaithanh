@@ -249,10 +249,12 @@ try {
     assert.equal(organization.logo?.contentUrl, `${productionUrl}/images/brand/thai-thanh-logo-transparent.png`, `${route} must expose the crawlable official logo URL`)
     assert.equal(organization.logo?.width, 898, `${route} must declare the official logo width`)
     assert.equal(organization.logo?.height, 607, `${route} must declare the official logo height`)
+    assert.ok(organization.knowsAbout?.includes('Tấm panel EPS cách nhiệt'), `${route} must describe the organization's core panel expertise`)
     assert.ok(structuredNodes.some(node => ['WebPage', 'CollectionPage', 'AboutPage', 'ContactPage'].includes(node['@type'])), `${route} must describe the current web page`)
     if (route === '/') {
       const website = structuredNodes.find(node => node['@type'] === 'WebSite')
       assert.equal(website?.name, 'Thái Thanh Panel', 'homepage must publish the preferred Google site name')
+      assert.ok(website?.alternateName?.includes('Tấm cách nhiệt Thái Thanh'), 'homepage must connect the established descriptive brand name')
       assert.ok(website?.alternateName?.includes('Thai Thanh Panel'), 'homepage must publish the unaccented brand alternative')
       assert.ok(website?.alternateName?.includes('thaithanhpanel.shop'), 'homepage must publish the domain fallback site name')
     }
@@ -814,6 +816,9 @@ try {
     /đội ngũ kỹ thuật.*lắp đặt kho lạnh/i,
     'primary hero image must describe the real installation scene',
   )
+  assert.match(await page.locator('h1').innerText(), /Tấm panel EPS cách nhiệt Thái Thanh/i, 'homepage h1 must target the precise core product and brand')
+  assert.equal(await page.locator('a[href="/products/panel-eps"][data-reveal]').count(), 1, 'homepage must link directly to the Panel EPS detail page')
+  assert.equal(await page.locator('a[href="/products/cua-kho-lanh"][data-reveal]').count(), 1, 'homepage must link directly to the cold-room door detail page')
   const activeHeroNavigation = page.locator('[data-desktop-navigation] a[aria-current="page"]')
   assert.equal(await activeHeroNavigation.count(), 1, 'homepage navigation must expose exactly one current page')
   assert.equal(await activeHeroNavigation.getAttribute('href'), '/', 'homepage navigation must visibly identify Trang chủ')
@@ -1208,7 +1213,7 @@ try {
   )
   await motionPage.mouse.move(8, 180)
   await motionPage.waitForFunction(() => document.querySelector('[data-nav-liquid-indicator]')?.getAttribute('data-liquid-target') === '/')
-  const motionTarget = motionPage.locator('a[href="/products#eps"][data-reveal]')
+  const motionTarget = motionPage.locator('a[href="/products/panel-eps"][data-reveal]')
   await motionTarget.waitFor({ state: 'attached' })
   assert.equal(await motionTarget.getAttribute('data-reveal-state'), 'waiting', 'below-fold content must wait for its reveal trigger')
   const sizeBeforeReveal = await motionTarget.evaluate(element => ({
