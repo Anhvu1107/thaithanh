@@ -844,11 +844,20 @@ try {
     }
   })
   assert.notEqual(productDropdownCueContract, null, 'desktop product dropdown control must render beside the product label')
-  assert.ok(productDropdownCueContract.cueWidth >= 36 && productDropdownCueContract.cueHeight >= 36, 'desktop product dropdown control must retain a 36px target')
-  assert.ok(productDropdownCueContract.gap >= 5, 'desktop product dropdown cue must not overlap the product label')
+  assert.ok(productDropdownCueContract.cueWidth >= 28 && productDropdownCueContract.cueHeight >= 28, 'desktop product dropdown control must retain a compact 28px target')
+  assert.ok(productDropdownCueContract.gap >= 2, 'desktop product dropdown cue must not overlap the product label')
   assert.ok(productDropdownCueContract.borderWidth >= 1, 'desktop product dropdown cue must retain a visible outline')
   assert.equal(productDropdownCueContract.visibility, 'visible', 'desktop product dropdown control must remain keyboard-accessible when visually hidden')
   assert.ok(productDropdownCueContract.opacity <= 0.05, 'desktop product dropdown arrow must stay hidden while the navigation is idle')
+  const desktopNavigationLabelGaps = await page.locator('[data-desktop-nav-link]').evaluateAll((links) => {
+    const labels = links.map(link => link.querySelector('span')?.getBoundingClientRect()).filter(Boolean)
+    return labels.slice(0, -1).map((label, index) => labels[index + 1].left - label.right)
+  })
+  assert.ok(desktopNavigationLabelGaps.length >= 6, 'desktop navigation must expose measurable spacing between every label')
+  assert.ok(
+    Math.max(...desktopNavigationLabelGaps) - Math.min(...desktopNavigationLabelGaps) <= 2,
+    'desktop navigation labels must keep even spacing without reserving an empty arrow slot',
+  )
   assert.equal(await productDropdownLinks.count(), 5, 'desktop product dropdown must link to every confirmed product group')
   assert.deepEqual(
     await productDropdownLinks.evaluateAll(links => links.map(link => link.getAttribute('href'))),

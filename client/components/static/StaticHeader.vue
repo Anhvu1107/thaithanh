@@ -345,7 +345,7 @@ onBeforeUnmount(() => {
               :aria-current="isActiveRoute(item.href) ? 'page' : undefined"
               :data-nav-active="isActiveRoute(item.href) ? 'true' : 'false'"
               data-desktop-nav-link
-              class="desktop-nav-link group relative z-10 flex min-h-11 items-center rounded-full py-2 pl-4 pr-[3.35rem] text-sm font-semibold"
+              class="desktop-nav-link group relative z-10 flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold"
               :class="usesHeroHeader
                 ? (isActiveRoute(item.href) ? 'text-white' : 'text-white/[0.72] hover:text-white')
                 : (isActiveRoute(item.href) ? 'text-panel-black' : 'text-neutral-600 hover:text-panel-black')"
@@ -355,7 +355,7 @@ onBeforeUnmount(() => {
 
             <button
               type="button"
-              class="product-dropdown-toggle absolute right-1 z-20 grid h-9 w-9 place-items-center rounded-full border shadow-[0_4px_14px_rgba(44,40,35,0.08)] transition-[color,background-color,border-color,box-shadow,transform]"
+              class="product-dropdown-toggle absolute -right-4 z-20 grid h-7 w-7 place-items-center rounded-full border shadow-[0_4px_14px_rgba(44,40,35,0.08)] transition-[color,background-color,border-color,box-shadow,transform]"
               :class="usesHeroHeader
                 ? 'border-white/45 bg-black/15 text-white hover:border-white/75 hover:bg-white/15'
                 : 'border-[#bfa998] bg-white/75 text-[#874a2d] hover:border-[#9f5f42] hover:bg-[#f3e9e1]'"
