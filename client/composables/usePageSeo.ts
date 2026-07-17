@@ -42,10 +42,14 @@ const SITE_NAME = 'Tấm cách nhiệt Thái Thanh'
 const SITE_ALTERNATE_NAMES = ['Thái Thanh Panel', 'Thái Thanh', 'Thai Thanh Panel', 'thaithanhpanel.shop']
 const ORGANIZATION_DESCRIPTION = 'Tấm cách nhiệt Thái Thanh cung cấp panel EPS cách nhiệt, cửa kho lạnh Inox 304, phụ kiện kho lạnh và vật tư hoàn thiện cho công trình trên toàn quốc.'
 const ORGANIZATION_TOPICS = [
+  'Tấm cách nhiệt EPS',
   'Tấm panel EPS cách nhiệt',
+  'Báo giá panel EPS',
+  'Quy cách panel EPS 50–200 mm',
   'Panel kho lạnh',
   'Cửa kho lạnh Inox 304',
   'Phụ kiện kho lạnh',
+  'Nẹp U, V trong và V ngoài',
   'Kho mát và kho đông',
   'Phòng sạch và nhà xưởng',
 ]

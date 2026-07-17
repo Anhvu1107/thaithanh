@@ -2,6 +2,16 @@
 const { content } = useSiteContent()
 const productFamilies = computed(() => content.value.productFamilies)
 const solutions = computed(() => content.value.solutions)
+const featuredPostSlugs = [
+  'tam-panel-cach-nhiet-eps-la-gi',
+  'bao-gia-tam-panel-cach-nhiet-eps',
+  'quy-cach-kich-thuoc-panel-eps',
+  'tam-cach-nhiet-eps-kho-lanh-nha-xuong-phong-sach',
+]
+const featuredPosts = computed(() => featuredPostSlugs.flatMap(slug => {
+  const post = content.value.posts.find(item => item.slug === slug && item.published)
+  return post ? [post] : []
+}))
 
 const productFamilyDestinations: Record<string, string> = {
   eps: '/products/panel-eps',
@@ -342,6 +352,56 @@ usePageSeo({
             <h3 class="mt-20 text-xl font-semibold tracking-[-0.02em] text-panel-black sm:text-2xl">{{ principle.title }}</h3>
             <p class="mt-4 text-sm leading-7 text-neutral-600">{{ principle.text }}</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section border-t border-panel-line bg-white">
+      <div class="container-site">
+        <div data-reveal class="grid gap-7 border-b border-panel-line pb-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div>
+            <p class="section-kicker">Kiến thức tấm cách nhiệt</p>
+            <p class="mt-5 text-sm leading-7 text-neutral-500">Giải đáp theo từng nhu cầu tìm kiếm thực tế.</p>
+          </div>
+          <div>
+            <h2 class="max-w-4xl text-balance text-3xl font-semibold leading-tight tracking-[-0.035em] text-panel-black sm:text-4xl lg:text-5xl">
+              Hiểu cấu tạo, quy cách, ứng dụng và cách nhận báo giá panel EPS.
+            </h2>
+            <NuxtLink to="/posts" class="mt-6 inline-flex min-h-11 items-center gap-3 text-sm font-semibold text-[#874a2d]">
+              Xem toàn bộ bài viết
+              <span aria-hidden="true">→</span>
+            </NuxtLink>
+          </div>
+        </div>
+
+        <div class="mt-8 grid gap-5 md:grid-cols-2">
+          <NuxtLink
+            v-for="(post, index) in featuredPosts"
+            :key="post.slug"
+            :to="`/posts/${post.slug}`"
+            data-reveal
+            :data-reveal-delay="index * 60"
+            class="interactive-card group grid overflow-hidden rounded-2xl border border-panel-line bg-panel-ivory sm:grid-cols-[10rem_1fr]"
+          >
+            <div data-card-media class="aspect-[16/10] overflow-hidden bg-neutral-100 sm:aspect-auto">
+              <img
+                :src="post.image"
+                :srcset="post.imageSrcset"
+                :width="post.imageWidth"
+                :height="post.imageHeight"
+                :alt="post.imageAlt"
+                sizes="(min-width: 768px) 160px, 100vw"
+                class="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="p-5 sm:p-6">
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-700">{{ post.eyebrow }}</p>
+              <h3 class="mt-3 text-xl font-semibold leading-snug tracking-[-0.02em] text-panel-black group-hover:text-[#874a2d]">{{ post.title }}</h3>
+              <p class="mt-3 line-clamp-2 text-sm leading-7 text-neutral-600">{{ post.summary }}</p>
+            </div>
+          </NuxtLink>
         </div>
       </div>
     </section>

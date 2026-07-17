@@ -77,7 +77,7 @@ const productCategories = computed(() => categoryPresentation.flatMap((presentat
 
 usePageSeo({
   title: 'Tấm panel cách nhiệt, cửa và phụ kiện kho lạnh',
-  description: 'Danh mục tấm panel EPS cách nhiệt, cửa kho lạnh Inox 304, phụ kiện U/V, phụ kiện cửa và vật tư bán lẻ từ Thái Thanh Panel.',
+  description: 'Danh mục tấm panel EPS cách nhiệt, cửa kho lạnh Inox 304, phụ kiện U/V, phụ kiện cửa và vật tư bán lẻ từ Tấm cách nhiệt Thái Thanh.',
   path: '/products',
   image: '/images/insulation/eps-panel-step-joint.webp',
   imageAlt: 'Panel EPS với cạnh tấm gần phẳng và mí ngàm tôn ngắn',

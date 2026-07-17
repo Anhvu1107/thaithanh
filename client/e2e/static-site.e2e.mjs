@@ -317,6 +317,12 @@ try {
   assert.equal(postResponse?.status(), 200, 'post detail must render successfully')
   await page.locator('article h1').first().waitFor()
 
+  const priceGuideResponse = await page.goto(`${webUrl}/posts/bao-gia-tam-panel-cach-nhiet-eps`, { waitUntil: 'networkidle' })
+  assert.equal(priceGuideResponse?.status(), 200, 'the EPS price-intent guide must render successfully')
+  assert.equal((await page.locator('article h2').count()) >= 4, true, 'long-form guides must expose semantic section headings')
+  assert.equal(await page.locator('article ol').count(), 1, 'the price guide must expose its seven required inputs as an ordered list')
+  assert.equal((await page.locator('nav[aria-label="Bài viết liên quan"] a[href^="/posts/"]').count()) >= 3, true, 'guides must cross-link to related helpful content')
+
   await page.goto(`${webUrl}/products`, { waitUntil: 'networkidle' })
   const retailProducts = page.locator('#retail-products')
   const retailProductText = await retailProducts.innerText()
@@ -728,6 +734,10 @@ try {
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/tam-panel-cach-nhiet-eps-la-gi/`), 'sitemap must include the EPS keyword guide')
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/chon-do-day-panel-kho-lanh/`), 'sitemap must include the panel thickness guide')
   assert.ok(sitemapLocations.includes(`${productionUrl}/posts/cua-kho-lanh-inox-304/`), 'sitemap must include the cold-room door guide')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/posts/bao-gia-tam-panel-cach-nhiet-eps/`), 'sitemap must include the EPS price-intent guide')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/posts/quy-cach-kich-thuoc-panel-eps/`), 'sitemap must include the EPS specification guide')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/posts/tam-cach-nhiet-eps-kho-lanh-nha-xuong-phong-sach/`), 'sitemap must include the EPS application guide')
+  assert.ok(sitemapLocations.includes(`${productionUrl}/posts/nep-u-v-trong-v-ngoai-phu-kien-panel/`), 'sitemap must include the panel accessory guide')
   assert.ok(sitemapLocations.includes(`${productionUrl}/privacy/`), 'sitemap must include the privacy policy')
   for (const href of productDetailRoutes) {
     assert.ok(
@@ -826,6 +836,8 @@ try {
   assert.equal((await page.locator('h1').innerText()).trim(), 'Tấm cách nhiệt Thái Thanh.', 'homepage h1 must match the preferred Google title')
   assert.equal(await page.locator('a[href="/products/panel-eps"][data-reveal]').count(), 1, 'homepage must link directly to the Panel EPS detail page')
   assert.equal(await page.locator('a[href="/products/cua-kho-lanh"][data-reveal]').count(), 1, 'homepage must link directly to the cold-room door detail page')
+  assert.equal(await page.locator('a[href="/posts/bao-gia-tam-panel-cach-nhiet-eps"][data-reveal]').count(), 1, 'homepage must link directly to the EPS pricing guide')
+  assert.equal(await page.locator('a[href="/posts/quy-cach-kich-thuoc-panel-eps"][data-reveal]').count(), 1, 'homepage must link directly to the EPS specification guide')
   const activeHeroNavigation = page.locator('[data-desktop-navigation] a[aria-current="page"]')
   assert.equal(await activeHeroNavigation.count(), 1, 'homepage navigation must expose exactly one current page')
   assert.equal(await activeHeroNavigation.getAttribute('href'), '/', 'homepage navigation must visibly identify Trang chủ')

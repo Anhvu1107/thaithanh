@@ -11,8 +11,8 @@ const formatPostDate = (date: string) => new Intl.DateTimeFormat('vi-VN', {
 }).format(new Date(`${date}T00:00:00Z`))
 
 usePageSeo({
-  title: 'Kiến thức panel cách nhiệt và kho lạnh',
-  description: 'Bài viết kỹ thuật từ Thái Thanh Panel về tấm panel EPS cách nhiệt, cửa kho lạnh, lựa chọn độ dày và chuẩn bị thông tin công trình.',
+  title: 'Kiến thức tấm cách nhiệt, panel EPS và kho lạnh',
+  description: 'Hướng dẫn từ Tấm cách nhiệt Thái Thanh về panel EPS, báo giá, quy cách, độ dày, kho lạnh, cửa Inox 304 và phụ kiện U/V.',
   path: '/posts',
   webPageType: 'CollectionPage',
   breadcrumbs: [

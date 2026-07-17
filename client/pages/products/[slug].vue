@@ -20,6 +20,22 @@ const relatedProducts = computed(() => content.value.retailProducts
   .filter(item => item.slug !== product.value?.slug)
   .sort((left, right) => Number(right.familyId === product.value?.familyId) - Number(left.familyId === product.value?.familyId))
   .slice(0, 3))
+const relatedGuideSlugs: Record<string, string[]> = {
+  'panel-eps': [
+    'tam-panel-cach-nhiet-eps-la-gi',
+    'bao-gia-tam-panel-cach-nhiet-eps',
+    'quy-cach-kich-thuoc-panel-eps',
+    'tam-cach-nhiet-eps-kho-lanh-nha-xuong-phong-sach',
+  ],
+  'cua-kho-lanh': ['cua-kho-lanh-inox-304', 'chon-do-day-panel-kho-lanh'],
+  'phu-kien-kho-lanh': ['nep-u-v-trong-v-ngoai-phu-kien-panel', 'chuan-bi-thong-tin-kho-lanh'],
+  'phu-kien-cua': ['cua-kho-lanh-inox-304', 'nep-u-v-trong-v-ngoai-phu-kien-panel'],
+  'vat-tu-cach-nhiet': ['quy-cach-kich-thuoc-panel-eps', 'nep-u-v-trong-v-ngoai-phu-kien-panel'],
+}
+const relatedGuides = computed(() => (relatedGuideSlugs[product.value?.slug || ''] || []).flatMap(slug => {
+  const guide = content.value.posts.find(item => item.slug === slug && item.published)
+  return guide ? [guide] : []
+}))
 const formatIndex = (index: number) => String(index + 1).padStart(2, '0')
 
 const openDisclosure = async (id: string) => {
@@ -582,6 +598,39 @@ usePageSeo({
               </div>
               <span class="mt-4 inline-flex text-xs font-bold uppercase tracking-[0.14em] text-[#625a52]">Xem chi tiết</span>
             </div>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <section v-if="relatedGuides.length" class="border-t border-[#d8cfc4] bg-[#f7f3ed]">
+      <div class="container-site py-14 lg:py-20">
+        <div data-reveal class="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#874a2d]">Hướng dẫn liên quan</p>
+            <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#20211f] sm:text-4xl">Đọc trước khi chọn quy cách.</h2>
+          </div>
+          <p class="max-w-2xl text-sm leading-7 text-[#625d56] lg:justify-self-end">
+            Nội dung giải thích cấu tạo, ứng dụng, cách chuẩn bị yêu cầu và những dữ liệu cần có để nhận báo giá rõ ràng.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          <NuxtLink
+            v-for="(guide, index) in relatedGuides"
+            :key="guide.slug"
+            :to="`/posts/${guide.slug}`"
+            data-related-guide
+            data-reveal
+            :data-reveal-delay="index * 55"
+            class="group rounded-[1.35rem] border border-[#ded7cf] bg-white p-6 transition duration-300 hover:border-[#b98b70] hover:shadow-[0_18px_45px_rgba(63,52,42,0.09)]"
+          >
+            <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-700">{{ guide.eyebrow }}</p>
+            <div class="mt-3 flex items-start justify-between gap-5">
+              <h3 class="text-xl font-semibold leading-snug text-[#292926] group-hover:text-[#874a2d]">{{ guide.title }}</h3>
+              <span aria-hidden="true" class="text-lg text-[#874a2d] transition-transform motion-safe:group-hover:translate-x-1">→</span>
+            </div>
+            <p class="mt-4 line-clamp-2 text-sm leading-7 text-[#625d56]">{{ guide.summary }}</p>
           </NuxtLink>
         </div>
       </div>
