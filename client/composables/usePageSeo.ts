@@ -38,9 +38,9 @@ interface PageSeoOptions {
   catalogItem?: CatalogItemSeo
 }
 
-const SITE_NAME = 'Thái Thanh Panel'
-const SITE_ALTERNATE_NAMES = ['Tấm cách nhiệt Thái Thanh', 'Thái Thanh', 'Thai Thanh Panel', 'thaithanhpanel.shop']
-const ORGANIZATION_DESCRIPTION = 'Thái Thanh Panel cung cấp panel EPS cách nhiệt, cửa kho lạnh Inox 304, phụ kiện kho lạnh và vật tư hoàn thiện cho công trình trên toàn quốc.'
+const SITE_NAME = 'Tấm cách nhiệt Thái Thanh'
+const SITE_ALTERNATE_NAMES = ['Thái Thanh Panel', 'Thái Thanh', 'Thai Thanh Panel', 'thaithanhpanel.shop']
+const ORGANIZATION_DESCRIPTION = 'Tấm cách nhiệt Thái Thanh cung cấp panel EPS cách nhiệt, cửa kho lạnh Inox 304, phụ kiện kho lạnh và vật tư hoàn thiện cho công trình trên toàn quốc.'
 const ORGANIZATION_TOPICS = [
   'Tấm panel EPS cách nhiệt',
   'Panel kho lạnh',
@@ -62,7 +62,9 @@ export const usePageSeo = (options: PageSeoOptions) => {
   const siteUrl = computed(() => normalizeSiteUrl(runtimeConfig.public.siteUrl))
   const pageTitle = computed(() => toValue(options.title))
   const description = computed(() => toValue(options.description))
-  const fullTitle = computed(() => `${pageTitle.value} | ${SITE_NAME}`)
+  const fullTitle = computed(() => pageTitle.value === SITE_NAME
+    ? SITE_NAME
+    : `${pageTitle.value} | ${SITE_NAME}`)
   const canonicalUrl = computed(() => toCanonicalUrl(
     options.path ? toValue(options.path) : route.path,
     siteUrl.value,

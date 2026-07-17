@@ -101,8 +101,8 @@ const principles = [
 ]
 
 usePageSeo({
-  title: 'Tấm panel EPS cách nhiệt, cửa kho lạnh',
-  description: 'Thái Thanh Panel cung cấp tấm panel EPS cách nhiệt 50–200 mm, cửa kho lạnh Inox 304, phụ kiện U/V và vật tư cho công trình trên toàn quốc.',
+  title: 'Tấm cách nhiệt Thái Thanh',
+  description: 'Tấm cách nhiệt Thái Thanh cung cấp panel EPS cách nhiệt 50–200 mm, cửa kho lạnh Inox 304, phụ kiện U/V và vật tư cho công trình trên toàn quốc.',
   path: '/',
 })
 </script>
@@ -137,7 +137,7 @@ usePageSeo({
             Uy tín, chất lượng tạo nên sự thành công
           </p>
           <h1 class="mt-7 max-w-[12ch] text-balance text-[3.3rem] font-semibold leading-[0.95] tracking-[-0.055em] text-white sm:text-7xl lg:text-[5.4rem] xl:text-[6.2rem]">
-            Tấm panel EPS cách nhiệt Thái Thanh.
+            Tấm cách nhiệt Thái Thanh.
           </h1>
           <p class="mt-7 max-w-xl text-base leading-8 text-white/76 sm:text-lg">
             Tấm panel cách nhiệt EPS, cửa kho lạnh Inox 304 và phụ kiện U/V được lựa chọn theo điều kiện vận hành — không chỉ theo tên gọi hay đơn giá từng tấm.

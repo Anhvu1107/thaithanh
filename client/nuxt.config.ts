@@ -34,14 +34,14 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      title: 'Thái Thanh Panel',
+      title: 'Tấm cách nhiệt Thái Thanh',
       htmlAttrs: { lang: 'vi' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'Panel EPS, cửa Inox 304 và phụ kiện U/V cho công trình hoặc nhu cầu mua lẻ từ Thái Thanh Panel.',
+          content: 'Tấm cách nhiệt Thái Thanh cung cấp panel EPS, cửa Inox 304 và phụ kiện U/V cho công trình hoặc nhu cầu mua lẻ trên toàn quốc.',
         },
       ],
       link: [

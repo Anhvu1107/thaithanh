@@ -1,6 +1,8 @@
 <script setup lang="ts">
 useHead({
-  titleTemplate: title => title ? `${title} | Thái Thanh Panel` : 'Thái Thanh Panel',
+  titleTemplate: title => title && title !== 'Tấm cách nhiệt Thái Thanh'
+    ? `${title} | Tấm cách nhiệt Thái Thanh`
+    : 'Tấm cách nhiệt Thái Thanh',
   htmlAttrs: { lang: 'vi' },
   meta: [
     { name: 'theme-color', content: '#0F211B' },

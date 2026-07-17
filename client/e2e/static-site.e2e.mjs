@@ -229,8 +229,13 @@ try {
       unsupportedProductPattern,
       `${route} must not advertise unsupported panel products`,
     )
-    assert.match(pageMetadata.title, / \| Thái Thanh Panel$/, `${route} must include the brand in its title`)
-    assert.doesNotMatch(pageMetadata.title, /Thái Thanh Panel \| Thái Thanh Panel$/, `${route} must not repeat the brand in its title`)
+    if (route === '/') {
+      assert.equal(pageMetadata.title, 'Tấm cách nhiệt Thái Thanh', 'homepage title must use the exact preferred Google title')
+    }
+    else {
+      assert.match(pageMetadata.title, / \| Tấm cách nhiệt Thái Thanh$/, `${route} must include the preferred brand in its title`)
+    }
+    assert.doesNotMatch(pageMetadata.title, /Tấm cách nhiệt Thái Thanh \| Tấm cách nhiệt Thái Thanh$/, `${route} must not repeat the brand in its title`)
     const expectedPageUrl = new URL(canonicalPath(route), `${productionUrl}/`).toString()
     assert.equal(pageMetadata.canonical, expectedPageUrl, `${route} canonical URL must be absolute and use the production trailing-slash format`)
     assert.equal(pageMetadata.ogUrl, expectedPageUrl, `${route} og:url must match the canonical URL`)
@@ -253,8 +258,8 @@ try {
     assert.ok(structuredNodes.some(node => ['WebPage', 'CollectionPage', 'AboutPage', 'ContactPage'].includes(node['@type'])), `${route} must describe the current web page`)
     if (route === '/') {
       const website = structuredNodes.find(node => node['@type'] === 'WebSite')
-      assert.equal(website?.name, 'Thái Thanh Panel', 'homepage must publish the preferred Google site name')
-      assert.ok(website?.alternateName?.includes('Tấm cách nhiệt Thái Thanh'), 'homepage must connect the established descriptive brand name')
+      assert.equal(website?.name, 'Tấm cách nhiệt Thái Thanh', 'homepage must publish the preferred Google site name')
+      assert.ok(website?.alternateName?.includes('Thái Thanh Panel'), 'homepage must connect the established panel brand name')
       assert.ok(website?.alternateName?.includes('Thai Thanh Panel'), 'homepage must publish the unaccented brand alternative')
       assert.ok(website?.alternateName?.includes('thaithanhpanel.shop'), 'homepage must publish the domain fallback site name')
     }
@@ -818,7 +823,7 @@ try {
     /đội ngũ kỹ thuật.*lắp đặt kho lạnh/i,
     'primary hero image must describe the real installation scene',
   )
-  assert.match(await page.locator('h1').innerText(), /Tấm panel EPS cách nhiệt Thái Thanh/i, 'homepage h1 must target the precise core product and brand')
+  assert.equal((await page.locator('h1').innerText()).trim(), 'Tấm cách nhiệt Thái Thanh.', 'homepage h1 must match the preferred Google title')
   assert.equal(await page.locator('a[href="/products/panel-eps"][data-reveal]').count(), 1, 'homepage must link directly to the Panel EPS detail page')
   assert.equal(await page.locator('a[href="/products/cua-kho-lanh"][data-reveal]').count(), 1, 'homepage must link directly to the cold-room door detail page')
   const activeHeroNavigation = page.locator('[data-desktop-navigation] a[aria-current="page"]')
