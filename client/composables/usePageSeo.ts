@@ -14,15 +14,15 @@ interface BreadcrumbSeo {
   path: SeoValue
 }
 
-interface ProductSeoSpecification {
+interface CatalogItemSeoSpecification {
   label: string
   value: string
 }
 
-interface ProductSeo {
+interface CatalogItemSeo {
   category?: SeoValue
   applications?: MaybeRefOrGetter<string[]>
-  specifications?: MaybeRefOrGetter<ProductSeoSpecification[]>
+  specifications?: MaybeRefOrGetter<CatalogItemSeoSpecification[]>
 }
 
 interface PageSeoOptions {
@@ -35,7 +35,7 @@ interface PageSeoOptions {
   article?: ArticleSeo
   webPageType?: 'WebPage' | 'CollectionPage' | 'AboutPage' | 'ContactPage'
   breadcrumbs?: BreadcrumbSeo[]
-  product?: ProductSeo
+  catalogItem?: CatalogItemSeo
 }
 
 const SITE_NAME = 'Thái Thanh Panel'
@@ -199,13 +199,13 @@ export const usePageSeo = (options: PageSeoOptions) => {
       webPage.breadcrumb = { '@id': breadcrumbId }
     }
 
-    if (options.product) {
-      const productId = `${canonicalUrl.value}#product`
-      const applications = options.product.applications
-        ? toValue(options.product.applications)
+    if (options.catalogItem) {
+      const serviceId = `${canonicalUrl.value}#supply-service`
+      const applications = options.catalogItem.applications
+        ? toValue(options.catalogItem.applications)
         : []
-      const specifications = options.product.specifications
-        ? toValue(options.product.specifications)
+      const specifications = options.catalogItem.specifications
+        ? toValue(options.catalogItem.specifications)
         : []
       const additionalProperty = [
         ...applications.map(value => ({
@@ -221,18 +221,21 @@ export const usePageSeo = (options: PageSeoOptions) => {
       ]
 
       graph.push({
-        '@type': 'Product',
-        '@id': productId,
+        '@type': 'Service',
+        '@id': serviceId,
         url: canonicalUrl.value,
         name: pageTitle.value,
         description: description.value,
         image: socialImageUrl.value,
-        brand: { '@id': organizationId.value },
-        category: options.product.category ? toValue(options.product.category) : undefined,
+        serviceType: options.catalogItem.category
+          ? `Cung cấp ${toValue(options.catalogItem.category)} theo quy cách`
+          : 'Cung cấp sản phẩm theo quy cách',
+        provider: { '@id': organizationId.value },
+        areaServed: 'VN',
         additionalProperty,
         mainEntityOfPage: { '@id': webpageId.value },
       })
-      webPage.mainEntity = { '@id': productId }
+      webPage.mainEntity = { '@id': serviceId }
     }
 
     graph.push(webPage)

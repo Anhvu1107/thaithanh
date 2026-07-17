@@ -452,10 +452,12 @@ try {
     const document = JSON.parse(script.textContent || '{}')
     return Array.isArray(document['@graph']) ? document['@graph'] : [document]
   }))
-  const panelProductSchema = panelStructuredNodes.find(node => node['@type'] === 'Product')
-  assert.match(panelProductSchema?.name || '', /Panel EPS cách nhiệt/i, 'Panel EPS detail must expose Product structured data')
-  assert.equal(panelProductSchema?.brand?.['@id'], `${productionUrl}/#organization`, 'Product schema must link to the Thái Thanh Panel organization')
-  assert.ok(panelProductSchema?.additionalProperty?.some(property => property.name === 'Độ dày'), 'Product schema must include technical specifications')
+  assert.equal(panelStructuredNodes.some(node => node['@type'] === 'Product'), false, 'quote-only catalog pages must not publish invalid Google Product markup without real offers or reviews')
+  const panelSupplyService = panelStructuredNodes.find(node => node['@type'] === 'Service')
+  assert.match(panelSupplyService?.name || '', /Panel EPS cách nhiệt/i, 'Panel EPS detail must describe its quote-based supply service')
+  assert.equal(panelSupplyService?.provider?.['@id'], `${productionUrl}/#organization`, 'supply service schema must link to the Thái Thanh Panel organization')
+  assert.equal(panelSupplyService?.areaServed, 'VN', 'supply service schema must describe nationwide service')
+  assert.ok(panelSupplyService?.additionalProperty?.some(property => property.name === 'Độ dày'), 'supply service schema must include technical specifications')
 
   await page.goto(`${webUrl}/products/panel-eps#thi-cong-va-phu-kien`, { waitUntil: 'networkidle' })
   await page.locator('#thi-cong-va-phu-kien[open]').waitFor({ state: 'attached' })
