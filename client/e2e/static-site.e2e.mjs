@@ -243,7 +243,12 @@ try {
       const document = JSON.parse(value)
       return Array.isArray(document['@graph']) ? document['@graph'] : [document]
     })
-    assert.ok(structuredNodes.some(node => node['@type'] === 'Organization'), `${route} must identify Thái Thanh Panel as the organization`)
+    const organization = structuredNodes.find(node => node['@type'] === 'Organization')
+    assert.ok(organization, `${route} must identify Thái Thanh Panel as the organization`)
+    assert.equal(organization.logo?.['@type'], 'ImageObject', `${route} must describe the official logo as an ImageObject`)
+    assert.equal(organization.logo?.contentUrl, `${productionUrl}/images/brand/thai-thanh-logo-transparent.png`, `${route} must expose the crawlable official logo URL`)
+    assert.equal(organization.logo?.width, 898, `${route} must declare the official logo width`)
+    assert.equal(organization.logo?.height, 607, `${route} must declare the official logo height`)
     assert.ok(structuredNodes.some(node => ['WebPage', 'CollectionPage', 'AboutPage', 'ContactPage'].includes(node['@type'])), `${route} must describe the current web page`)
     if (route === '/') {
       const website = structuredNodes.find(node => node['@type'] === 'WebSite')
@@ -731,6 +736,11 @@ try {
     'every non-homepage sitemap URL must use a trailing slash',
   )
 
+  const faviconLink = page.locator('link[rel="icon"][href="/favicon.png"]')
+  assert.equal(await faviconLink.count(), 1, 'public pages must expose one stable favicon URL for search engines')
+  assert.equal(await faviconLink.getAttribute('sizes'), '512x512', 'favicon link must declare its real square dimensions')
+  assert.equal(await page.locator('link[rel="shortcut icon"][href="/favicon.png"]').count(), 1, 'public pages must expose a shortcut icon fallback')
+  assert.equal(await page.locator('link[rel="apple-touch-icon"][href="/favicon.png"]').getAttribute('sizes'), '512x512', 'public pages must expose the branded touch icon')
   assert.equal(await page.locator('link[rel="manifest"]').getAttribute('href'), '/site.webmanifest', 'public pages must reference the web app manifest')
   const manifestResponse = await page.request.get(`${webUrl}/site.webmanifest`)
   assert.equal(manifestResponse.status(), 200, 'site.webmanifest must exist')
@@ -738,6 +748,8 @@ try {
   const manifest = await manifestResponse.json()
   assert.equal(manifest.id, `${productionUrl}/`, 'manifest ID must use the configured production origin')
   assert.equal(manifest.start_url, '/', 'manifest must start at the website homepage')
+  assert.equal(manifest.icons?.[0]?.src, '/favicon.png', 'manifest must reference the stable brand favicon URL')
+  assert.equal(manifest.icons?.[0]?.sizes, '512x512', 'manifest must declare the real favicon dimensions')
 
   assert.deepEqual(pageErrors, [], 'public static pages must not throw browser errors')
   assert.deepEqual(consoleErrors, [], 'public static pages must not log console errors')

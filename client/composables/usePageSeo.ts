@@ -98,6 +98,8 @@ export const usePageSeo = (options: PageSeoOptions) => {
   })
 
   const organizationId = computed(() => `${siteUrl.value}/#organization`)
+  const organizationLogoId = computed(() => `${siteUrl.value}/#logo`)
+  const organizationLogoUrl = computed(() => toAbsoluteUrl('/images/brand/thai-thanh-logo-transparent.png', siteUrl.value))
   const websiteId = computed(() => `${siteUrl.value}/#website`)
   const webpageId = computed(() => `${canonicalUrl.value}#webpage`)
   const structuredData = computed(() => {
@@ -111,7 +113,16 @@ export const usePageSeo = (options: PageSeoOptions) => {
       alternateName: SITE_ALTERNATE_NAMES,
       description: ORGANIZATION_DESCRIPTION,
       url: `${siteUrl.value}/`,
-      logo: toAbsoluteUrl('/images/brand/thai-thanh-logo-transparent.png', siteUrl.value),
+      logo: {
+        '@type': 'ImageObject',
+        '@id': organizationLogoId.value,
+        url: organizationLogoUrl.value,
+        contentUrl: organizationLogoUrl.value,
+        width: 898,
+        height: 607,
+        caption: SITE_NAME,
+      },
+      image: { '@id': organizationLogoId.value },
       ...(email ? { email } : {}),
       telephone,
       areaServed: content.value.companyContact.serviceArea,
