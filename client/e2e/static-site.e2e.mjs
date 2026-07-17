@@ -299,6 +299,37 @@ try {
   assert.equal(await quickZaloAction.getAttribute('target'), '_blank', 'quick Zalo action must open outside the current site')
   assert.match(await quickZaloAction.getAttribute('rel') || '', /noopener/, 'quick Zalo action must isolate the new tab')
   assert.equal(await quickRequestAction.getAttribute('href'), '/contact#quick-contact-form', 'quick request action must link to the contact form')
+
+  const heroPhoneAction = page.locator('[data-hero-action="phone"]')
+  const heroZaloAction = page.locator('[data-hero-action="zalo"]')
+  assert.equal(await heroPhoneAction.count(), 1, 'homepage hero must expose one phone CTA')
+  assert.equal(await heroZaloAction.count(), 1, 'homepage hero must expose one Zalo CTA')
+  assert.equal(await heroPhoneAction.getAttribute('href'), 'tel:0912255748', 'homepage hero phone CTA must use the current hotline')
+  assert.match(await heroPhoneAction.innerText(), /Gọi.*0912\s*255\s*748/i, 'homepage hero phone CTA must show the current hotline')
+  assert.equal(await heroZaloAction.getAttribute('href'), 'https://zalo.me/0912255748', 'homepage hero Zalo CTA must use the current hotline')
+  assert.match(await heroZaloAction.innerText(), /Zalo.*báo giá/i, 'homepage hero Zalo CTA must explain the next action')
+  assert.equal(await heroZaloAction.getAttribute('target'), '_blank', 'homepage hero Zalo CTA must open outside the current site')
+  assert.match(await heroZaloAction.getAttribute('rel') || '', /noopener/, 'homepage hero Zalo CTA must isolate the new tab')
+
+  const quickProductGrid = page.locator('[data-quick-product-grid]')
+  const quickProductLinks = quickProductGrid.locator('a')
+  const expectedQuickProductHrefs = [
+    '/products/panel-eps',
+    '/products/cua-kho-lanh',
+    '/products/phu-kien-kho-lanh',
+    '/products/phu-kien-cua',
+  ]
+  assert.equal(await quickProductGrid.count(), 1, 'homepage must expose one quick product selection grid')
+  assert.equal(await quickProductLinks.count(), expectedQuickProductHrefs.length, 'quick product grid must expose four choices')
+  assert.deepEqual(
+    await quickProductLinks.evaluateAll(links => links.map(link => link.getAttribute('href'))),
+    expectedQuickProductHrefs,
+    'quick product grid links must lead to the confirmed product groups',
+  )
+  for (const link of await quickProductLinks.all()) {
+    assert.ok((await link.innerText()).trim().length >= 8, 'quick product choices must have readable labels')
+  }
+
   const reducedMotionContract = await page.evaluate(() => {
     const revealElements = [...document.querySelectorAll('[data-reveal]')]
     return {
@@ -573,8 +604,8 @@ try {
     )
     assert.equal(
       await productContactLink.evaluate(element => getComputedStyle(element).backgroundColor),
-      'rgb(159, 87, 55)',
-      `${href} closing contact button must retain its higher-contrast background`,
+      'rgb(8, 118, 232)',
+      `${href} closing contact button must retain its higher-contrast Zalo-blue background`,
     )
     assert.equal(await page.locator('[data-product-engineering-guide]').count(), 1, `${href} must expose one engineering selection guide`)
     const engineeringGuideRows = page.locator('[data-product-selection-guide]')
@@ -690,7 +721,7 @@ try {
   const formContract = await quickContactForm.evaluate(form => ({
     configured: form.getAttribute('data-configured'),
     noValidate: form.noValidate,
-    fields: [...form.querySelectorAll('input:not([type="hidden"]), textarea')].map(field => ({
+    fields: [...form.querySelectorAll('input:not([type="hidden"]):not([name="botcheck"]), textarea')].map(field => ({
       autocomplete: field.getAttribute('autocomplete'),
       id: field.id,
       maxLength: field.getAttribute('maxlength'),
@@ -708,18 +739,23 @@ try {
   assert.ok(formContract.fields.some(field => field.id === 'quick-contact-email' && field.name === 'email' && field.type === 'email' && !field.required && field.autocomplete === 'email'), 'quick contact form must offer a non-required email field')
   assert.ok(formContract.fields.some(field => field.id === 'quick-contact-message' && field.name === 'message' && field.required && field.minLength === '10'), 'quick contact form must require a message with native constraints')
   assert.ok(formContract.fields.some(field => field.id === 'quick-contact-consent' && field.name === 'consent' && field.required), 'quick contact form must require privacy consent')
+  assert.deepEqual(
+    formContract.fields.map(field => field.id),
+    ['quick-contact-phone', 'quick-contact-name', 'quick-contact-email', 'quick-contact-message', 'quick-contact-consent'],
+    'quick contact form must put the callback phone field first for a fast mobile conversion path',
+  )
   assert.equal(formContract.noValidate, true, 'hydrated form must use the accessible client-side validation enhancement')
   assert.equal(formContract.privacyLink, '/privacy', 'quick contact form must link to the privacy policy')
   assert.equal(await page.locator('footer a[href="/privacy"]').count(), 1, 'footer must link to the privacy policy')
-  assert.equal(formContract.submitText, 'Gửi yêu cầu nhanh', 'quick contact form must expose a clear submit action')
+  assert.equal(formContract.submitText, 'Gửi yêu cầu gọi lại', 'quick contact form must expose a clear callback action')
   assert.match(formContract.configured || '', /^(?:true|false)$/, 'quick contact form must declare whether email delivery is configured')
 
   await quickContactForm.locator('button[type="submit"]').click()
-  assert.equal(await page.locator(':focus').getAttribute('id'), 'quick-contact-name', 'invalid quick contact form must focus the first invalid field')
+  assert.equal(await page.locator(':focus').getAttribute('id'), 'quick-contact-phone', 'invalid quick contact form must focus the callback phone field first')
   assert.match(await quickContactForm.locator('[role="alert"]').innerText(), /kiểm tra lại các trường/i, 'invalid quick contact form must expose accessible feedback')
 
-  await quickContactForm.locator('#quick-contact-name').fill('Khách hàng kiểm thử')
   await quickContactForm.locator('#quick-contact-phone').fill('0363003507')
+  await quickContactForm.locator('#quick-contact-name').fill('Khách hàng kiểm thử')
   await quickContactForm.locator('#quick-contact-message').fill('Cần tư vấn panel cho công trình mới.')
   await quickContactForm.locator('button[type="submit"]').click()
   assert.equal(await quickContactForm.locator('#quick-contact-email-error').count(), 0, 'a blank optional email must not cause a validation error')
@@ -844,11 +880,11 @@ try {
     /đội ngũ kỹ thuật.*lắp đặt kho lạnh/i,
     'primary hero image must describe the real installation scene',
   )
-  assert.equal((await page.locator('h1').innerText()).trim(), 'Tấm cách nhiệt Thái Thanh.', 'homepage h1 must match the preferred Google title')
+  assert.equal((await page.locator('h1').innerText()).trim(), 'Panel cách nhiệt, cửa và phụ kiện kho lạnh.', 'homepage h1 must state the customer-facing product scope')
   assert.equal(await page.locator('a[href="/products/panel-eps"][data-reveal]').count(), 1, 'homepage must link directly to the Panel EPS detail page')
   assert.equal(await page.locator('a[href="/products/cua-kho-lanh"][data-reveal]').count(), 1, 'homepage must link directly to the cold-room door detail page')
   assert.equal(await page.locator('a[href="/posts/bao-gia-tam-panel-cach-nhiet-eps"][data-reveal]').count(), 1, 'homepage must link directly to the EPS pricing guide')
-  assert.equal(await page.locator('a[href="/posts/quy-cach-kich-thuoc-panel-eps"][data-reveal]').count(), 1, 'homepage must link directly to the EPS specification guide')
+  assert.equal(await page.locator('a[href="/posts/tam-panel-cach-nhiet-eps-la-gi"][data-reveal]').count(), 1, 'homepage must link directly to the EPS fundamentals guide')
   const activeHeroNavigation = page.locator('[data-desktop-navigation] a[aria-current="page"]')
   assert.equal(await activeHeroNavigation.count(), 1, 'homepage navigation must expose exactly one current page')
   assert.equal(await activeHeroNavigation.getAttribute('href'), '/', 'homepage navigation must visibly identify Trang chủ')
@@ -1149,6 +1185,79 @@ try {
     }
   }
 
+  // Compact phone contract: conversion CTAs, quick product choices and the
+  // fixed contact dock must remain readable and reachable at a short height.
+  await page.setViewportSize({ width: 360, height: 640 })
+  await page.goto(webUrl, { waitUntil: 'networkidle' })
+  const mobileHeroActions = page.locator('[data-hero-action]')
+  assert.equal(await mobileHeroActions.count(), 2, 'compact homepage hero must expose phone and Zalo CTAs')
+  const mobileHeroActionMetrics = await mobileHeroActions.evaluateAll((actions) => actions.map((action) => {
+    const box = action.getBoundingClientRect()
+    return { bottom: box.bottom, height: box.height, left: box.left, right: box.right, top: box.top, width: box.width }
+  }))
+  for (const [index, metric] of mobileHeroActionMetrics.entries()) {
+    assert.ok(metric.width >= 44 && metric.height >= 44, `compact hero CTA ${index + 1} must provide at least a 44px touch target`)
+    assert.ok(metric.left >= 0 && metric.right <= 360 && metric.top >= 0 && metric.bottom <= 640, `compact hero CTA ${index + 1} must remain inside the viewport`)
+  }
+
+  const mobileQuickProductGrid = page.locator('[data-quick-product-grid]')
+  const mobileQuickProductLinks = mobileQuickProductGrid.locator('a')
+  assert.equal(await mobileQuickProductLinks.count(), expectedQuickProductHrefs.length, 'compact homepage must retain all quick product choices')
+  const mobileQuickProductMetrics = await mobileQuickProductLinks.evaluateAll((links) => links.map((link) => {
+    const box = link.getBoundingClientRect()
+    return { bottom: box.bottom, height: box.height, left: box.left, right: box.right, top: box.top, width: box.width }
+  }))
+  for (const [index, metric] of mobileQuickProductMetrics.entries()) {
+    assert.ok(metric.width >= 44 && metric.height >= 44, `quick product choice ${index + 1} must provide at least a 44px touch target`)
+    assert.ok(metric.left >= 0 && metric.right <= 360, `quick product choice ${index + 1} must stay inside the compact viewport`)
+  }
+  assert.ok(
+    mobileQuickProductMetrics.slice(1).some((metric, index) => metric.top > mobileQuickProductMetrics[index].top),
+    'compact quick product choices must wrap into more than one readable row',
+  )
+
+  const mobileDock = page.locator('[data-quick-actions]')
+  const mobileDockActions = mobileDock.locator('[data-quick-action]')
+  assert.equal(await mobileDockActions.count(), 3, 'compact mobile dock must expose phone, Zalo and quote actions')
+  assert.match(await mobileDockActions.nth(0).innerText(), /Gọi ngay/i, 'compact dock must label the phone action Gọi ngay')
+  assert.match(await mobileDockActions.nth(1).innerText(), /Zalo/i, 'compact dock must label the second action Zalo')
+  assert.match(await mobileDockActions.nth(2).innerText(), /Báo giá/i, 'compact dock must label the quote action Báo giá')
+  const mobileDockMetrics = await mobileDockActions.evaluateAll((actions) => actions.map((action) => {
+    const box = action.getBoundingClientRect()
+    return { bottom: box.bottom, height: box.height, left: box.left, right: box.right, top: box.top, width: box.width }
+  }))
+  for (const [index, metric] of mobileDockMetrics.entries()) {
+    assert.ok(metric.width >= 44 && metric.height >= 44, `compact dock action ${index + 1} must provide at least a 44px touch target`)
+    assert.ok(metric.left >= 0 && metric.right <= 360 && metric.top >= 0 && metric.bottom <= 640, `compact dock action ${index + 1} must remain inside the viewport`)
+  }
+
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+  await page.waitForTimeout(80)
+  const footerDockOverlap = await page.evaluate(() => {
+    const dock = document.querySelector('[data-quick-actions]')?.getBoundingClientRect()
+    const footer = document.querySelector('footer')
+    if (!dock || !footer) return { dock: null, overlaps: [] }
+
+    const overlaps = [...footer.querySelectorAll('a, button, p, dt, dd')]
+      .map((element) => {
+        const box = element.getBoundingClientRect()
+        return {
+          bottom: box.bottom,
+          label: element.textContent?.trim().replace(/\s+/g, ' ').slice(0, 80) || element.tagName,
+          left: box.left,
+          right: box.right,
+          top: box.top,
+        }
+      })
+      .filter((box) => box.right > dock.left && box.left < dock.right && box.bottom > dock.top && box.top < dock.bottom)
+
+    return {
+      dock: { bottom: dock.bottom, left: dock.left, right: dock.right, top: dock.top },
+      overlaps,
+    }
+  })
+  assert.deepEqual(footerDockOverlap.overlaps, [], 'compact mobile contact dock must not cover readable footer content at scroll end')
+
   assert.deepEqual(forbiddenLinks, [], 'public pages must not link to commerce, customer Auth or Admin routes')
   assert.deepEqual(runtimeRequests, [], 'public pages must not request internal APIs or runtime content endpoints during page load')
   assert.deepEqual(pageErrors, [], 'public static pages must not throw browser errors')
@@ -1263,6 +1372,38 @@ try {
   assert.deepEqual(motionErrors, [], 'motion-enabled pages must not throw browser errors')
   await motionContext.close()
 
+  const compactMotionContext = await browser.newContext({
+    viewport: { width: 360, height: 640 },
+    deviceScaleFactor: 2,
+    hasTouch: true,
+    isMobile: true,
+    locale: 'vi-VN',
+    timezoneId: 'Asia/Ho_Chi_Minh',
+    colorScheme: 'light',
+    reducedMotion: 'no-preference',
+  })
+  const compactMotionPage = await compactMotionContext.newPage()
+  const compactMotionErrors = []
+  compactMotionPage.on('pageerror', error => compactMotionErrors.push(error.message))
+  try {
+    await compactMotionPage.goto(webUrl, { waitUntil: 'networkidle' })
+    await compactMotionPage.waitForFunction(() => matchMedia('(max-width: 639px)').matches)
+    await compactMotionPage.waitForFunction(() => document.querySelectorAll('.home-hero-slide-active').length === 1)
+    const compactInitialSlide = await compactMotionPage.evaluate(() => (
+      [...document.querySelectorAll('.home-hero-slide')].findIndex(slide => slide.classList.contains('home-hero-slide-active'))
+    ))
+    assert.equal(compactInitialSlide, 0, 'compact homepage must start on the first hero slide')
+    await compactMotionPage.waitForTimeout(7000)
+    const compactFinalSlide = await compactMotionPage.evaluate(() => (
+      [...document.querySelectorAll('.home-hero-slide')].findIndex(slide => slide.classList.contains('home-hero-slide-active'))
+    ))
+    assert.equal(compactFinalSlide, compactInitialSlide, 'hero autoplay must remain paused on compact touch screens')
+    assert.deepEqual(compactMotionErrors, [], 'compact motion-enabled homepage must not throw browser errors')
+  }
+  finally {
+    await compactMotionContext.close()
+  }
+
   const noScriptContext = await browser.newContext({
     viewport: { width: 390, height: 844 },
     javaScriptEnabled: false,
@@ -1351,9 +1492,9 @@ try {
   assert.equal(await noScriptForm.locator('#quick-contact-email').getAttribute('required'), null, 'email must remain optional without JavaScript')
   assert.notEqual(await noScriptForm.locator('#quick-contact-consent').getAttribute('required'), null, 'consent must remain required without JavaScript')
   await noScriptForm.locator('button[type="submit"]').click()
-  assert.equal(await noScriptPage.locator(':focus').getAttribute('id'), 'quick-contact-name', 'native validation must block an empty no-JavaScript form at the name field')
-  await noScriptForm.locator('#quick-contact-name').fill('Khách hàng kiểm thử')
+  assert.equal(await noScriptPage.locator(':focus').getAttribute('id'), 'quick-contact-phone', 'native validation must block an empty no-JavaScript form at the callback phone field')
   await noScriptForm.locator('#quick-contact-phone').fill('0363003507')
+  await noScriptForm.locator('#quick-contact-name').fill('Khách hàng kiểm thử')
   await noScriptForm.locator('#quick-contact-message').fill('Cần tư vấn panel cho công trình mới.')
   await noScriptForm.locator('button[type="submit"]').click()
   assert.equal(await noScriptPage.locator(':focus').getAttribute('id'), 'quick-contact-consent', 'native validation must not bypass consent when JavaScript is disabled')
@@ -1361,7 +1502,7 @@ try {
   await noScriptContext.close()
 
   const browserSource = executablePath ? `custom executable ${executablePath}` : `Playwright Chromium ${browser.version()}`
-  console.log(`E2E PASS on ${browserSource}, ${webUrl}: public routes, privacy policy, motion preferences, no-JS content and form validation, SEO, 404, keyboard navigation and 320/390/768px layouts`)
+  console.log(`E2E PASS on ${browserSource}, ${webUrl}: public routes, privacy policy, motion preferences, no-JS content and form validation, SEO, 404, keyboard navigation, 320/360/390/768px layouts, mobile CTA/dock bounds and compact hero autoplay`)
 } finally {
   if (browser) await browser.close()
   await new Promise(resolve => web.close(resolve))

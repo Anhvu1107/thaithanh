@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const route = useRoute()
+</script>
+
 <template>
   <div class="flex min-h-screen flex-col bg-panel-ivory">
     <a
@@ -7,10 +11,10 @@
       Đi đến nội dung chính
     </a>
     <StaticHeader />
-    <main id="main-content" tabindex="-1" class="flex-1">
+    <main id="main-content" tabindex="-1" :class="['flex-1', route.path !== '/contact' ? 'pb-[5.5rem] sm:pb-0' : '']">
       <slot />
     </main>
-    <StaticFooter />
+    <StaticFooter :reserve-mobile-dock="route.path !== '/contact'" />
     <StaticQuickActions />
   </div>
 </template>

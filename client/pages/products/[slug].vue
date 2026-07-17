@@ -103,7 +103,7 @@ usePageSeo({
       <section class="border-b border-[#d8cfc4] bg-[#f3eee7]">
         <div class="container-site py-8 sm:py-10 lg:py-14">
           <nav aria-label="Đường dẫn trang" class="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#625a52]">
-            <NuxtLink to="/products" class="inline-flex min-h-10 items-center transition-colors hover:text-[#874a2d]">
+            <NuxtLink to="/products" class="inline-flex min-h-11 items-center transition-colors hover:text-[#874a2d]">
               Sản phẩm
             </NuxtLink>
             <span aria-hidden="true">/</span>
@@ -124,12 +124,15 @@ usePageSeo({
               </p>
 
               <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                <NuxtLink
-                  to="/contact#quick-contact-form"
-                  class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#262724] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#874a2d]"
+                <a
+                  v-if="content.companyContact.zaloHref"
+                  :href="content.companyContact.zaloHref"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0876e8] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0561c2]"
                 >
-                  Gửi quy cách cần mua
-                </NuxtLink>
+                  Nhắn Zalo gửi quy cách
+                </a>
                 <a
                   :href="content.companyContact.phoneHref"
                   class="inline-flex min-h-12 items-center justify-center rounded-full border border-[#bdb2a7] bg-white/55 px-6 py-3 text-sm font-semibold text-[#292926] transition-colors hover:border-[#292926] hover:bg-white"
@@ -137,6 +140,9 @@ usePageSeo({
                   Gọi {{ content.companyContact.phoneDisplay }}
                 </a>
               </div>
+              <p class="mt-4 max-w-xl text-sm leading-6 text-[#625d56]">
+                Để nhận báo giá, hãy gửi sản phẩm cần mua, kích thước hoặc quy cách, số lượng và tỉnh/thành giao hàng.
+              </p>
             </div>
 
             <figure data-reveal data-reveal-delay="90" class="overflow-hidden rounded-[2rem] border border-[#d1c6bb] bg-[#ded5cc] p-2 shadow-[0_24px_70px_rgba(65,53,43,0.12)] sm:p-3">
@@ -172,13 +178,13 @@ usePageSeo({
             </div>
           </dl>
 
-          <nav aria-label="Đi nhanh trong trang sản phẩm" class="mt-5 flex gap-2 overflow-x-auto rounded-full border border-[#d2c8bd] bg-white/50 p-1.5 backdrop-blur-sm">
-            <a href="#hinh-anh" class="inline-flex min-h-10 shrink-0 items-center rounded-full bg-white px-4 text-xs font-bold text-[#8d5437] shadow-sm">Xem bằng hình</a>
-            <a href="#thong-so" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông số</a>
-            <a href="#chon-nhanh" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thiết kế sơ bộ</a>
-            <a href="#cau-hinh" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Chi tiết kỹ thuật</a>
-            <a href="#chuan-bi" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông tin cần gửi</a>
-            <a href="#hoi-dap" class="inline-flex min-h-10 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Hỏi đáp</a>
+          <nav aria-label="Đi nhanh trong trang sản phẩm" class="mt-5 flex gap-2 overflow-x-auto overscroll-x-contain rounded-full border border-[#d2c8bd] bg-white/50 p-1.5 backdrop-blur-sm">
+            <a href="#hinh-anh" class="inline-flex min-h-11 shrink-0 items-center rounded-full bg-white px-4 text-xs font-bold text-[#8d5437] shadow-sm">Xem bằng hình</a>
+            <a href="#thong-so" class="inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông số</a>
+            <a href="#chon-nhanh" class="inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thiết kế sơ bộ</a>
+            <a href="#cau-hinh" class="inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Chi tiết kỹ thuật</a>
+            <a href="#chuan-bi" class="inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Thông tin cần gửi</a>
+            <a href="#hoi-dap" class="inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-xs font-bold text-[#514b45] transition-colors hover:bg-white hover:text-[#8d5437]">Hỏi đáp</a>
           </nav>
         </div>
       </section>
@@ -642,13 +648,16 @@ usePageSeo({
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#d99a73]">Cần xác nhận quy cách?</p>
           <h2 class="mt-4 max-w-3xl text-3xl font-semibold leading-tight sm:text-4xl">Gửi kích thước và số lượng để Thái Thanh kiểm tra.</h2>
         </div>
-        <NuxtLink
-          to="/contact#quick-contact-form"
-          class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#9f5737] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#87462d] focus-visible:outline-white"
+        <a
+          v-if="content.companyContact.zaloHref"
+          :href="content.companyContact.zaloHref"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0876e8] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0561c2] focus-visible:outline-white"
           data-product-contact-link
         >
-          Gửi yêu cầu nhanh
-        </NuxtLink>
+          Nhắn Zalo nhận báo giá
+        </a>
       </div>
     </section>
   </div>

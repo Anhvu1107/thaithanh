@@ -208,19 +208,25 @@ usePageSeo({
         <div>
           <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#d99a73]">Cần chốt đúng quy cách?</p>
           <h2 class="mt-4 max-w-3xl text-3xl font-semibold leading-tight text-white sm:text-4xl">
-            Gửi ảnh, kích thước và số lượng cần mua.
+            Gửi ảnh qua Zalo để đối chiếu nhanh.
           </h2>
           <p class="mt-4 max-w-2xl text-sm leading-7 text-[#d8cfc4]">
-            Thái Thanh kiểm tra khả năng cung cấp và phản hồi cấu hình phù hợp với công trình.
+            Kèm kích thước, số lượng và nơi giao để Thái Thanh kiểm tra quy cách cần mua.
           </p>
         </div>
         <div class="grid gap-3 sm:grid-cols-2">
+          <a
+            v-if="companyContact.zaloHref"
+            :href="companyContact.zaloHref"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0876e8] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#0561c2]"
+          >
+            Nhắn Zalo gửi ảnh
+          </a>
           <a :href="companyContact.phoneHref" class="inline-flex min-h-12 items-center justify-center rounded-full border border-[#81786f] px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-[#262724]">
             Gọi {{ companyContact.phoneDisplay }}
           </a>
-          <NuxtLink to="/contact#quick-contact-form" class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#b46d47] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#cf8358]">
-            Gửi yêu cầu
-          </NuxtLink>
         </div>
       </div>
     </section>

@@ -273,11 +273,11 @@ onBeforeUnmount(() => {
           class="grid h-14 w-[5.75rem] shrink-0 place-items-center"
         >
           <img
-            src="/images/brand/thai-thanh-logo-transparent-480.png"
-            srcset="/images/brand/thai-thanh-logo-transparent-480.png 479w, /images/brand/thai-thanh-logo-transparent.png 898w"
+            src="/images/brand/thai-thanh-logo-transparent-240.png"
+            srcset="/images/brand/thai-thanh-logo-transparent-240.png 240w, /images/brand/thai-thanh-logo-transparent-480.png 479w, /images/brand/thai-thanh-logo-transparent.png 898w"
             sizes="84px"
-            width="479"
-            height="325"
+            width="240"
+            height="163"
             alt="Logo Thái Thanh Panel"
             class="h-14 w-auto object-contain"
             fetchpriority="high"
@@ -444,7 +444,7 @@ onBeforeUnmount(() => {
         v-if="isMenuOpen"
         id="static-mobile-navigation"
         ref="mobileNavigation"
-        class="max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-panel-line bg-panel-ivory shadow-[0_22px_44px_rgba(44,40,35,0.1)] xl:hidden"
+        class="mobile-nav-panel overflow-y-auto overscroll-contain border-t border-panel-line bg-panel-ivory shadow-[0_22px_44px_rgba(44,40,35,0.1)] xl:hidden"
       >
         <nav class="container-site py-3" aria-label="Điều hướng di động">
           <template v-for="item in headerNavigation" :key="item.href">
@@ -471,7 +471,7 @@ onBeforeUnmount(() => {
 
                 <button
                   type="button"
-                  class="absolute right-2 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full text-[#7e422f] transition-colors hover:bg-white/70"
+                  class="absolute right-1.5 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full text-[#7e422f] transition-colors hover:bg-white/70"
                   :aria-expanded="isMobileProductMenuOpen"
                   aria-controls="mobile-product-dropdown"
                   :aria-label="isMobileProductMenuOpen ? 'Thu gọn danh mục sản phẩm' : 'Mở danh mục sản phẩm'"
@@ -531,13 +531,23 @@ onBeforeUnmount(() => {
             </NuxtLink>
           </template>
 
-          <div class="grid gap-3 py-5 sm:grid-cols-2">
+          <div class="grid gap-2.5 py-5 sm:grid-cols-3">
             <a
               :href="companyContact.phoneHref"
-              class="flex min-h-12 items-center justify-between rounded-full border border-[#d8d0c5] bg-white px-5 text-sm font-semibold text-[#20231f] hover:border-[#b77555] hover:text-[#9f5f42]"
+              class="flex min-h-12 items-center justify-between rounded-full border border-[#d8d0c5] bg-white px-4 text-sm font-semibold text-[#20231f] hover:border-[#b77555] hover:text-[#9f5f42]"
             >
               <span>Gọi ngay</span>
-              <span class="text-xs">{{ companyContact.phoneDisplay }}</span>
+              <span class="hidden text-xs sm:inline">{{ companyContact.phoneDisplay }}</span>
+            </a>
+            <a
+              v-if="companyContact.zaloHref"
+              :href="companyContact.zaloHref"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex min-h-12 items-center justify-between rounded-full border border-[#0876e8]/20 bg-[#eaf3ff] px-4 text-sm font-bold text-[#075dc7] hover:border-[#0876e8] hover:bg-[#0876e8] hover:text-white"
+            >
+              <span>Nhắn Zalo</span>
+              <span aria-hidden="true">↗</span>
             </a>
             <NuxtLink to="/contact" class="flex min-h-12 items-center justify-between rounded-full bg-[#20231f] px-5 text-sm font-bold text-white hover:bg-[#9f5f42]">
               <span>Gửi yêu cầu</span>
@@ -577,6 +587,12 @@ onBeforeUnmount(() => {
   background: linear-gradient(180deg, rgba(17, 24, 20, 0.72) 0%, rgba(17, 24, 20, 0.38) 56%, rgba(17, 24, 20, 0) 100%);
   content: '';
   pointer-events: none;
+}
+
+.mobile-nav-panel {
+  max-height: calc(100vh - 5rem);
+  max-height: calc(100dvh - 5rem);
+  -webkit-overflow-scrolling: touch;
 }
 
 .desktop-nav-link {

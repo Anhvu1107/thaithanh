@@ -66,7 +66,7 @@ const focusFirstError = async () => {
     message: messageInput.value,
     consent: consentInput.value,
   }
-  const firstInvalidField = (['name', 'phone', 'email', 'message', 'consent'] as const)
+  const firstInvalidField = (['phone', 'name', 'email', 'message', 'consent'] as const)
     .find(field => errors.value[field])
   if (firstInvalidField) inputByField[firstInvalidField]?.focus()
 }
@@ -95,7 +95,7 @@ const submitContactForm = async () => {
 
   if (!isConfigured.value) {
     submitState.value = 'error'
-    submitMessage.value = `Kênh gửi nhanh đang chờ kích hoạt. Vui lòng gọi ${companyContact.value.phoneDisplay}.`
+    submitMessage.value = `Kênh nhận yêu cầu đang chờ kích hoạt. Vui lòng gọi ${companyContact.value.phoneDisplay}.`
     return
   }
 
@@ -128,10 +128,10 @@ const submitContactForm = async () => {
     consent.value = false
     errors.value = {}
     submitState.value = 'success'
-    submitMessage.value = 'Đã gửi thành công. Thái Thanh sẽ liên hệ lại theo thông tin bạn cung cấp.'
+    submitMessage.value = 'Đã nhận yêu cầu. Thái Thanh sẽ liên hệ lại theo số điện thoại bạn cung cấp.'
   } catch {
     submitState.value = 'error'
-    submitMessage.value = `Chưa thể gửi yêu cầu. Vui lòng thử lại hoặc gọi ${companyContact.value.phoneDisplay}.`
+    submitMessage.value = `Chưa thể gửi yêu cầu gọi lại. Vui lòng thử lại hoặc gọi ${companyContact.value.phoneDisplay}.`
   } finally {
     window.clearTimeout(timeoutId)
   }
@@ -143,24 +143,29 @@ const submitContactForm = async () => {
     aria-labelledby="quick-contact-heading"
     class="relative overflow-hidden rounded-2xl border border-[#ddd6cc] border-t-[#9f5f42] bg-white p-6 text-panel-black shadow-[0_24px_70px_rgba(28,33,30,0.1)] sm:p-8 lg:p-9"
   >
-    <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent-steel">Liên hệ nhanh</p>
+    <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent-steel">Yêu cầu gọi lại</p>
     <h2 id="quick-contact-heading" class="mt-4 text-2xl font-semibold leading-tight text-panel-black sm:text-3xl">
-      Gửi yêu cầu, không cần mở Gmail.
+      Để lại số điện thoại, Thái Thanh sẽ liên hệ lại.
     </h2>
     <p class="mt-4 text-sm leading-7 text-neutral-600">
-      Chỉ cần để lại họ tên, số điện thoại và nội dung. Email có thể để trống nếu bạn không tiện sử dụng.
+      Số điện thoại là thông tin chính. Nếu có, hãy ghi thêm sản phẩm, kích thước, số lượng và nơi giao; email không bắt buộc.
     </p>
+
+    <div class="mt-5 flex items-start gap-3 rounded-xl border border-[#e8b99e] bg-[#fff8f4] px-4 py-3 text-sm leading-6 text-[#6f3925]">
+      <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#d66f4a] text-xs font-black text-white" aria-hidden="true">1</span>
+      <p><strong>Số điện thoại để gọi lại</strong> · Ghi nội dung sơ bộ để Thái Thanh chuẩn bị trước khi trao đổi.</p>
+    </div>
 
     <p
       v-if="!isConfigured"
       class="mt-5 border border-amber-300/50 bg-amber-50 px-4 py-3 text-xs leading-6 text-amber-900"
     >
-      Form đang chờ kích hoạt kênh nhận email. Giao diện có thể kiểm tra ngay nhưng chưa gửi thư thật.
+      Form đang chờ kích hoạt kênh nhận yêu cầu. Nếu cần trao đổi ngay, vui lòng gọi hotline bên cạnh.
     </p>
 
     <form
       id="quick-contact-form"
-      class="mt-7 scroll-mt-48 space-y-5"
+      class="mt-6 scroll-mt-48 space-y-5"
       :data-configured="isConfigured"
       :action="isConfigured ? WEB3FORMS_ENDPOINT : undefined"
       method="POST"
@@ -171,6 +176,31 @@ const submitContactForm = async () => {
       <input type="hidden" name="subject" value="Yêu cầu tư vấn mới từ website Thái Thanh Panel">
       <input type="hidden" name="from_name" value="Website Thái Thanh Panel">
       <input v-model="botcheck" type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div>
+        <label for="quick-contact-phone" class="block text-xs font-bold uppercase tracking-[0.16em] text-neutral-600">
+          Số điện thoại để gọi lại <span class="text-[#b25d3a]" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="quick-contact-phone"
+          ref="phoneInput"
+          v-model="fields.phone"
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          pattern="(?=(?:[^0-9]*[0-9]){8,15}[^0-9]*$)[0-9+().\s-]+"
+          maxlength="24"
+          required
+          title="Nhập số điện thoại gồm 8 đến 15 chữ số."
+          :aria-invalid="Boolean(errors.phone)"
+          :aria-describedby="errors.phone ? 'quick-contact-phone-error' : undefined"
+          class="mt-2 min-h-12 w-full border border-[#d79068] bg-[#fffaf7] px-4 py-3 text-base font-semibold text-panel-black placeholder:font-normal placeholder:text-neutral-400 focus:border-panel-black focus:outline-none focus:ring-2 focus:ring-[#d79068]/20"
+          placeholder="0901 234 567"
+          @input="clearFieldError('phone')"
+        >
+        <p v-if="errors.phone" id="quick-contact-phone-error" class="mt-2 text-xs leading-5 text-red-700">{{ errors.phone }}</p>
+      </div>
 
       <div>
         <label for="quick-contact-name" class="block text-xs font-bold uppercase tracking-[0.16em] text-neutral-600">
@@ -196,33 +226,8 @@ const submitContactForm = async () => {
       </div>
 
       <div>
-        <label for="quick-contact-phone" class="block text-xs font-bold uppercase tracking-[0.16em] text-neutral-600">
-          Số điện thoại <span class="text-[#b25d3a]" aria-hidden="true">*</span>
-        </label>
-        <input
-          id="quick-contact-phone"
-          ref="phoneInput"
-          v-model="fields.phone"
-          name="phone"
-          type="tel"
-          inputmode="tel"
-          autocomplete="tel"
-          pattern="(?=(?:[^0-9]*[0-9]){8,15}[^0-9]*$)[0-9+().\s-]+"
-          maxlength="24"
-          required
-          title="Nhập số điện thoại gồm 8 đến 15 chữ số."
-          :aria-invalid="Boolean(errors.phone)"
-          :aria-describedby="errors.phone ? 'quick-contact-phone-error' : undefined"
-          class="mt-2 min-h-12 w-full border border-panel-line bg-white px-4 py-3 text-base text-panel-black placeholder:text-neutral-400 focus:border-panel-black focus:outline-none focus:ring-2 focus:ring-panel-black/10"
-          placeholder="0912 255 748"
-          @input="clearFieldError('phone')"
-        >
-        <p v-if="errors.phone" id="quick-contact-phone-error" class="mt-2 text-xs leading-5 text-red-700">{{ errors.phone }}</p>
-      </div>
-
-      <div>
         <label for="quick-contact-email" class="block text-xs font-bold uppercase tracking-[0.16em] text-neutral-600">
-          Email / Gmail <span class="normal-case tracking-normal text-neutral-500">(không bắt buộc)</span>
+          Email <span class="normal-case tracking-normal text-neutral-500">(không bắt buộc)</span>
         </label>
         <input
           id="quick-contact-email"
@@ -248,7 +253,7 @@ const submitContactForm = async () => {
 
       <div>
         <label for="quick-contact-message" class="block text-xs font-bold uppercase tracking-[0.16em] text-neutral-600">
-          Nội dung cần trao đổi <span class="text-[#b25d3a]" aria-hidden="true">*</span>
+          Thông tin cần báo giá <span class="text-[#b25d3a]" aria-hidden="true">*</span>
         </label>
         <textarea
           id="quick-contact-message"
@@ -262,7 +267,7 @@ const submitContactForm = async () => {
           :aria-invalid="Boolean(errors.message)"
           :aria-describedby="errors.message ? 'quick-contact-message-error' : undefined"
           class="mt-2 w-full resize-y border border-panel-line bg-white px-4 py-3 text-base text-panel-black placeholder:text-neutral-400 focus:border-panel-black focus:outline-none focus:ring-2 focus:ring-panel-black/10"
-          placeholder="Ví dụ: Tôi cần tư vấn panel EPS cho kho mát khoảng 100 m²..."
+          placeholder="Ví dụ: Panel EPS khoảng 100 m², giao tại Bình Dương..."
           @input="clearFieldError('message')"
         />
         <p v-if="errors.message" id="quick-contact-message-error" class="mt-2 text-xs leading-5 text-red-700">{{ errors.message }}</p>
@@ -301,7 +306,7 @@ const submitContactForm = async () => {
       </div>
 
       <button type="submit" class="btn-primary w-full disabled:cursor-wait disabled:opacity-60" :disabled="isSubmitting">
-        {{ isSubmitting ? 'Đang gửi...' : 'Gửi yêu cầu nhanh' }}
+        {{ isSubmitting ? 'Đang gửi...' : 'Gửi yêu cầu gọi lại' }}
       </button>
 
       <p

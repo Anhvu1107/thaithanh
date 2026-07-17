@@ -24,9 +24,18 @@ const companyContact = computed(() => content.value.companyContact)
           <p class="mt-5 max-w-2xl text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">{{ description }}</p>
         </div>
 
-        <div class="grid gap-3 sm:grid-cols-2 lg:min-w-[24rem]">
+        <div class="grid gap-2.5 sm:grid-cols-3 lg:min-w-[30rem]">
           <a :href="companyContact.phoneHref" class="btn border border-panel-line bg-white text-panel-black hover:border-panel-black hover:bg-panel-black hover:text-white">
-            {{ companyContact.phoneDisplay }}
+            Gọi ngay
+          </a>
+          <a
+            v-if="companyContact.zaloHref"
+            :href="companyContact.zaloHref"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn border border-[#0876e8]/25 bg-[#eaf3ff] text-[#075dc7] hover:border-[#0876e8] hover:bg-[#0876e8] hover:text-white"
+          >
+            Nhắn Zalo
           </a>
           <NuxtLink to="/contact#quick-contact-form" class="btn gap-2 border border-panel-black bg-panel-black text-white shadow-soft hover:border-[#d79068] hover:bg-[#d79068]">
             Gửi yêu cầu

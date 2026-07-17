@@ -15,7 +15,7 @@
     @apply bg-panel-ivory font-sans text-neutral-800 antialiased;
     min-width: 320px;
     overflow-x: clip;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(181, 107, 72, 0.18);
     text-rendering: optimizeLegibility;
   }
 
@@ -93,7 +93,7 @@
   }
 
   .section {
-    @apply py-16 md:py-20 lg:py-28;
+    @apply py-12 sm:py-16 md:py-20 lg:py-28;
   }
 
   .product-contact-cta h2 {
@@ -396,6 +396,40 @@
 
   .technical-grid {
     background-size: 36px 36px;
+  }
+
+  .section-kicker {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+  }
+
+  .text-\[9px\],
+  .text-\[10px\] {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+  }
+
+  .home-hero-slide {
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .media-showcase-asset,
+  .editorial-product [data-card-media] img,
+  .interactive-card [data-card-media] img {
+    will-change: auto;
+  }
+
+  [data-reveal][data-reveal-state='waiting'] {
+    transform: translate3d(0, 12px, 0);
+  }
+}
+
+@media (hover: none) {
+  a:active,
+  button:active {
+    opacity: 0.9;
   }
 }
 

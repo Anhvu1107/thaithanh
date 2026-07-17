@@ -1,4 +1,10 @@
 <script setup lang="ts">
+withDefaults(defineProps<{
+  reserveMobileDock?: boolean
+}>(), {
+  reserveMobileDock: false,
+})
+
 const { content } = useSiteContent()
 const publicNavigation = computed(() => content.value.publicNavigation)
 const companyContact = computed(() => content.value.companyContact)
@@ -15,11 +21,11 @@ const companyContact = computed(() => content.value.companyContact)
             aria-label="Thái Thanh Panel - Trang chủ"
           >
             <img
-              src="/images/brand/thai-thanh-logo-transparent-480.png"
-              srcset="/images/brand/thai-thanh-logo-transparent-480.png 479w, /images/brand/thai-thanh-logo-transparent.png 898w"
+              src="/images/brand/thai-thanh-logo-transparent-240.png"
+              srcset="/images/brand/thai-thanh-logo-transparent-240.png 240w, /images/brand/thai-thanh-logo-transparent-480.png 479w, /images/brand/thai-thanh-logo-transparent.png 898w"
               sizes="144px"
-              width="479"
-              height="325"
+              width="240"
+              height="163"
               alt="Logo Thái Thanh Panel"
               class="h-auto w-36 object-contain transition duration-300 group-hover:scale-[1.02]"
               loading="lazy"
@@ -39,6 +45,15 @@ const companyContact = computed(() => content.value.companyContact)
               class="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-bold text-[#20231f] transition hover:bg-[#c28464] hover:text-white"
             >
               {{ companyContact.phoneDisplay }}
+            </a>
+            <a
+              v-if="companyContact.zaloHref"
+              :href="companyContact.zaloHref"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0876e8] px-6 text-sm font-bold text-white transition hover:bg-[#0561c2]"
+            >
+              Nhắn Zalo
             </a>
             <NuxtLink
               to="/contact"
@@ -73,6 +88,17 @@ const companyContact = computed(() => content.value.companyContact)
             </a>
 
             <a
+              v-if="companyContact.zaloHref"
+              :href="companyContact.zaloHref"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group mt-6 block"
+            >
+              <span class="block text-xs text-[#8f928b]">Zalo</span>
+              <span class="mt-2 block text-sm font-semibold text-[#d8dad4] transition-colors group-hover:text-[#5ca4ff]">Nhắn qua số {{ companyContact.phoneDisplay }}</span>
+            </a>
+
+            <a
               v-if="companyContact.emailHref && companyContact.emailDisplay"
               :href="companyContact.emailHref"
               class="group mt-6 block"
@@ -104,6 +130,7 @@ const companyContact = computed(() => content.value.companyContact)
           <p>Uy tín, chất lượng tạo nên sự thành công</p>
         </div>
       </div>
+      <div v-if="reserveMobileDock" class="h-20 sm:hidden" aria-hidden="true" />
     </div>
   </footer>
 </template>

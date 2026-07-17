@@ -19,6 +19,7 @@ usePageSeo({
       title="Gợi ý cấu hình cho một số nhóm ứng dụng phổ biến."
       description="Các tình huống dưới đây mang tính minh họa, giúp tham khảo cách phối hợp panel, cửa và phụ kiện. Cấu hình thực tế cần được xác nhận theo từng công trình."
       image="/images/insulation/cold-door-editorial.jpg"
+      image-srcset="/images/insulation/cold-door-editorial-640.webp 640w, /images/insulation/cold-door-editorial-960.webp 960w, /images/insulation/cold-door-editorial.jpg 1254w"
       image-alt="Cửa kho lạnh và hệ panel cách nhiệt"
     />
 

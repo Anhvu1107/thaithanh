@@ -2,26 +2,28 @@
 withDefaults(defineProps<{
   videoSrc?: string
   poster: string
+  posterSrcset?: string
   posterAlt: string
 }>(), {
   videoSrc: '',
+  posterSrcset: '',
 })
 </script>
 
 <template>
   <section id="media-showcase" class="section scroll-mt-24 overflow-hidden bg-white">
     <div class="container-site">
-      <div class="grid gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+      <div class="grid gap-5 sm:gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
         <div data-reveal="left">
           <p class="section-kicker">Không gian ứng dụng</p>
-          <p class="mt-5 text-sm leading-7 text-neutral-500">Hình ảnh minh họa hệ panel và cửa Inox trong môi trường vận hành hoàn thiện.</p>
+          <p class="mt-3 text-sm leading-6 text-neutral-500 sm:mt-5 sm:leading-7">Hình ảnh minh họa hệ panel và cửa Inox trong môi trường vận hành hoàn thiện.</p>
         </div>
-        <h2 data-reveal class="max-w-4xl text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.045em] text-panel-black sm:text-5xl lg:text-6xl">
-          Không chỉ là từng tấm panel. Đó là một không gian vận hành hoàn chỉnh.
+        <h2 data-reveal class="max-w-4xl text-balance text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.04em] text-panel-black sm:text-5xl lg:text-6xl">
+          Panel, cửa và phụ kiện cần phối hợp thành một hệ hoàn chỉnh.
         </h2>
       </div>
 
-      <figure data-reveal="media" class="media-showcase group mt-12 overflow-hidden rounded-[2rem] bg-[#ece8e1] shadow-[0_28px_80px_rgba(28,33,30,0.12)]">
+      <figure data-reveal="media" class="media-showcase group mt-7 overflow-hidden rounded-3xl bg-[#ece8e1] shadow-[0_20px_55px_rgba(28,33,30,0.1)] sm:mt-12 sm:rounded-[2rem] sm:shadow-[0_28px_80px_rgba(28,33,30,0.12)]">
         <div class="relative aspect-[16/10] overflow-hidden sm:aspect-[16/8]">
           <video
             v-if="videoSrc"
@@ -39,6 +41,8 @@ withDefaults(defineProps<{
           <img
             v-else
             :src="poster"
+            :srcset="posterSrcset || undefined"
+            sizes="100vw"
             :alt="posterAlt"
             width="1672"
             height="941"
@@ -53,10 +57,10 @@ withDefaults(defineProps<{
           </div>
         </div>
 
-        <figcaption class="grid gap-7 bg-[#17201c] p-6 text-white sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:px-10">
+        <figcaption class="grid gap-5 bg-[#17201c] p-5 text-white sm:gap-7 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:px-10">
           <div>
             <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#d79068]">Hệ thống đồng bộ</p>
-            <p class="mt-3 max-w-2xl text-base leading-8 text-white/75">Panel, cửa, nẹp và chi tiết hoàn thiện cần được phối hợp theo cùng một mặt bằng và điều kiện sử dụng.</p>
+            <p class="mt-3 max-w-2xl text-sm leading-6 text-white/75 sm:text-base sm:leading-8">Panel, cửa, nẹp và chi tiết hoàn thiện cần được phối hợp theo cùng một mặt bằng và điều kiện sử dụng.</p>
           </div>
           <div class="flex flex-wrap gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white/70">
             <span class="rounded-full border border-white/18 px-4 py-2.5">Bề mặt liền mạch</span>
